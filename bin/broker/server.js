@@ -6,6 +6,8 @@ const path = require('path');
 // port for the dashboard
 const PORT = 5001;
 
+// TODO: Get port number from metadata file
+
 // initialize express app
 const app = express();
 
@@ -13,7 +15,7 @@ const app = express();
 const server = app.listen(PORT, () => {
     if (process.hasOwnProperty('send')) {
         // launched as a daemon: emit success message to parent process
-        process?.send({
+        process.send({
             status: 'success',
             message: `\nSUCCESS: Dashboard is up at port ${PORT}.`,
         });
@@ -37,7 +39,7 @@ server.on('error', (err) => {
 
     if (process.hasOwnProperty('send')) {
         // launched as a daemon: emit failure message to parent process
-        process?.send({
+        process.send({
             status: 'fail',
             message: serverError,
         });

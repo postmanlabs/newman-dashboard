@@ -1,5 +1,5 @@
 module.exports = {
-    validatePortNumber: (portNo) => {
-        return !isNaN(portNo) && portNo >= 1 && portNo <= 65535;
+    validPortNumber: (portNo) => {
+        return !isNaN(portNo) && Number(portNo) >= 1 && Number(portNo) <= 65535;
     },
 };
