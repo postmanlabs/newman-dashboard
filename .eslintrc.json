@@ -13,10 +13,12 @@
     "prettier/prettier": [
       "error",
       {
-        "endOfLine": "lf",
+        "endOfLine": "auto",
         "singleQuote": true,
-        "tabWidth": 4
+        "tabWidth": 4,
+        "printWidth": 80
       }
-    ]
+    ],
+    "max-len": [1, 80, 4]
   }
 }
