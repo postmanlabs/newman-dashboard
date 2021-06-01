@@ -1,0 +1,36 @@
+{
+  "name": "newman-dashboard",
+  "version": "0.0.1",
+  "description": "A WebUI companion for Newman to control, view and debug runs.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "newman",
+    "postman",
+    "api",
+    "testing",
+    "ci",
+    "rest-client",
+    "rest",
+    "webui",
+    "dashboard",
+    "debug"
+  ],
+  "author": "elit-altum",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">= 10"
+  },
+  "devDependencies": {
+    "editorconfig": "^0.15.3",
+    "eslint": "^7.27.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-promise": "^5.1.0",
+    "prettier": "^2.3.0"
+  }
+}
