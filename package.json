@@ -4,7 +4,7 @@
   "description": "A WebUI companion for Newman to control, view and debug runs.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha",
     "dashboard:dev": "node ./bin/broker/server.js"
   },
   "keywords": [
@@ -25,6 +25,7 @@
     "node": ">= 10"
   },
   "devDependencies": {
+    "chai": "^4.3.4",
     "editorconfig": "^0.15.3",
     "eslint": "^7.27.0",
     "eslint-config-prettier": "^8.3.0",
@@ -32,6 +33,7 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-promise": "^5.1.0",
+    "mocha": "^8.4.0",
     "prettier": "^2.3.0"
   },
   "dependencies": {

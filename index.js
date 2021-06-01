@@ -10,9 +10,16 @@ program
     .version(version, '-v, --version');
 
 program
-    .option('-p, --port <port>', 'Specify the port to launch the dashboard')
+    .option(
+        '-p, --port <port>',
+        'Specify the port to launch the dashboard',
+        '3000'
+    )
+    .action(() => {
+        // launch the broker as a daemon
+        const port = program.opts().port;
+        launchBroker(port);
+    })
     .parse(process.argv);
 
-// launch the broker as a daemon
-const port = program.opts().port || 3000;
-launchBroker(port);
+module.exports = program;
