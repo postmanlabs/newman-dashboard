@@ -19,7 +19,7 @@ const server = app.listen(PORT, () => {
             status: 'success',
             message: `\nSUCCESS: Dashboard is up at port ${PORT}.`,
         });
-    } else {
+    } else if (process.env.NODE_ENV !== 'test') {
         // launched for dev: log success to console
         console.log(`Dashboard is running at port: ${PORT}`);
     }
@@ -43,7 +43,7 @@ server.on('error', (err) => {
             status: 'fail',
             message: serverError,
         });
-    } else {
+    } else if (process.env.NODE_ENV !== 'test') {
         // launched for dev: log error to console
         console.log(serverError);
     }
@@ -57,5 +57,15 @@ const io = socket(server);
 
 // event listener for a new connection
 io.on('connection', (client) => {
-    console.log(client);
+    client.on('test-conn', (cb) => {
+        cb('hello world');
+    });
 });
+
+// terminate the express and socket.io server
+const terminateBroker = () => {
+    io.close();
+    server.close();
+};
+
+module.exports = terminateBroker;

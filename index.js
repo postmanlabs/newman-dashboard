@@ -16,9 +16,11 @@ program
         '3000'
     )
     .action(() => {
-        // launch the broker as a daemon
-        const port = program.opts().port;
-        launchBroker(port);
+        if (process.env.NODE_ENV !== 'test') {
+            // launch the broker as a daemon
+            const port = program.opts().port;
+            launchBroker(port);
+        }
     })
     .parse(process.argv);
 

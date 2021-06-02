@@ -1,4 +1,6 @@
 const expect = require('chai').expect;
+process.env.NODE_ENV = 'test';
+
 let cli;
 
 const version = require('../package.json').version;
