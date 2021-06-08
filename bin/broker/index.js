@@ -14,8 +14,10 @@ const launchBroker = (port) => {
         process.execPath,
         ['./bin/broker/server.js'],
         {
-            detached: true,
+            detached: true, // runs the child process independently of parent
             stdio: ['ignore', 'ignore', 'ignore', 'ipc'],
+            // disconnect all pipes except for ipc
+            // ['stdin', 'stdout', 'stderr', 'ipc']
         }
     );
 

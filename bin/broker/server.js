@@ -19,7 +19,7 @@ const server = app.listen(PORT, () => {
             status: 'success',
             message: `\nSUCCESS: Dashboard is up at port ${PORT}.`,
         });
-    } else if (process.env.NODE_ENV !== 'test') {
+    } else {
         // launched for dev: log success to console
         console.log(`Dashboard is running at port: ${PORT}`);
     }
@@ -43,7 +43,7 @@ server.on('error', (err) => {
             status: 'fail',
             message: serverError,
         });
-    } else if (process.env.NODE_ENV !== 'test') {
+    } else {
         // launched for dev: log error to console
         console.log(serverError);
     }

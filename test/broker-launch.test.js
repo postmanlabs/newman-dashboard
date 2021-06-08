@@ -1,6 +1,5 @@
 const expect = require('chai').expect;
 const io = require('socket.io-client');
-process.env.NODE_ENV = 'test';
 
 describe('Broker connection handling', () => {
     let client, terminateBroker;

@@ -1,7 +1,9 @@
 const program = require('../../index');
 
 const cli = (args, callback) => {
-    const argv = args.split(' ');
+    let argv = args.split(' ');
+    argv.push('--test');
+
     try {
         program.parse(argv);
         return callback(null, program.opts());
