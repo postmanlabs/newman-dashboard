@@ -4,7 +4,8 @@
   "description": "A WebUI companion for Newman to control, view and debug runs.",
   "main": "index.js",
   "scripts": {
-    "test": "mocha",
+    "test": "npm run test:lint && mocha",
+    "test:lint": "eslint *.js",
     "dashboard:dev": "node ./bin/broker/server.js"
   },
   "keywords": [
