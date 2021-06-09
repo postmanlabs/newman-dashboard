@@ -2,7 +2,7 @@ const { Command } = require('commander');
 const program = new Command();
 const version = require('./package.json').version;
 
-const launchBroker = require('./bin/broker/index');
+const launchBroker = require('../dashboard/index');
 
 program
     .name('newman-dashboard')
@@ -29,7 +29,7 @@ program
             return;
         }
 
-        require('./bin/broker/server');
+        require('../dashboard/server/index');
     })
     .parse(process.argv);
 

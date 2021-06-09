@@ -1,6 +1,6 @@
 // launch the dashboard broker as a daemon
 const cp = require('child_process');
-const utils = require('../utils');
+const utils = require('./lib/utils/index');
 
 const launchBroker = (port) => {
     if (!utils.validPortNumber(port)) {
