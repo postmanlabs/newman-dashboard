@@ -7,8 +7,6 @@ const launchBroker = (port) => {
         throw new Error('Invalid port number.');
     }
 
-    // TODO: Write port number to metadata file
-
     // spawn the broker as a child process
     const brokerProcess = cp.spawn(
         process.execPath,

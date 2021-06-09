@@ -8,7 +8,6 @@ const cli = (args, callback) => {
         program.parse(argv);
         return callback(null, program.opts());
     } catch (err) {
-        console.log(err);
         return callback(err);
     }
 };
