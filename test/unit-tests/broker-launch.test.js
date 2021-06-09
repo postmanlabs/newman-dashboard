@@ -5,12 +5,13 @@ describe('Broker connection handling', () => {
     let client, dashboardServer;
 
     before((done) => {
-        dashboardServer = require('../dashboard/server/index');
+        dashboardServer = require('../../dashboard/server/index');
         client = io('http://localhost:5001/');
         client.on('connect', done);
     });
 
     after(() => {
+        // close client and server to exit the CLI
         client.close();
         dashboardServer.io.close();
         dashboardServer.server.close();

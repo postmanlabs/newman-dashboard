@@ -1,5 +1,5 @@
 const expect = require('chai').expect;
-const cli = require('./utils/mockCLI');
+const cli = require('../utils/mockCLI');
 
 describe('CLI port number parsing', () => {
     it('should use the default port number of 3000', (done) => {
