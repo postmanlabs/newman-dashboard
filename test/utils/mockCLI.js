@@ -1,4 +1,4 @@
-const program = require('../../index');
+const program = require('../../bin/index');
 
 const cli = (args, callback) => {
     let argv = args.split(' ');

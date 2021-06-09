@@ -5,7 +5,7 @@ describe('Broker connection handling', () => {
     let client, terminateBroker;
 
     before((done) => {
-        terminateBroker = require('../bin/broker/server.js');
+        terminateBroker = require('../dashboard/server/index');
         client = io('http://localhost:5001/');
         client.on('connect', done);
     });

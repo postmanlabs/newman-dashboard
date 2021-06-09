@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "npm run test:lint && mocha",
-    "test:lint": "eslint *.js",
+    "test:lint": "eslint .",
     "dashboard:dev": "node ./bin/broker/server.js"
   },
   "keywords": [

@@ -12,7 +12,7 @@ const launchBroker = (port) => {
     // spawn the broker as a child process
     const brokerProcess = cp.spawn(
         process.execPath,
-        ['./bin/broker/server.js'],
+        ['./dashboard/server/index.js'],
         {
             detached: true, // runs the child process independently of parent
             stdio: ['ignore', 'ignore', 'ignore', 'ipc'],

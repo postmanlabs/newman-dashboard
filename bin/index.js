@@ -1,6 +1,6 @@
 const { Command } = require('commander');
 const program = new Command();
-const version = require('./package.json').version;
+const version = require('../package.json').version;
 
 const launchBroker = require('../dashboard/index');
 
