@@ -2,17 +2,19 @@ const expect = require('chai').expect;
 const io = require('socket.io-client');
 
 describe('Broker connection handling', () => {
-    let client, terminateBroker;
+    let client, dashboardServer;
 
     before((done) => {
-        terminateBroker = require('../bin/broker/server.js');
+        dashboardServer = require('../../dashboard/server/index');
         client = io('http://localhost:5001/');
         client.on('connect', done);
     });
 
     after(() => {
+        // close client and server to exit the CLI
         client.close();
-        terminateBroker();
+        dashboardServer.io.close();
+        dashboardServer.server.close();
     });
 
     it('should emit events', (done) => {

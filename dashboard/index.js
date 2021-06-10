@@ -1,18 +1,16 @@
 // launch the dashboard broker as a daemon
 const cp = require('child_process');
-const utils = require('../utils');
+const utils = require('./lib/utils/index');
 
 const launchBroker = (port) => {
     if (!utils.validPortNumber(port)) {
         throw new Error('Invalid port number.');
     }
 
-    // TODO: Write port number to metadata file
-
     // spawn the broker as a child process
     const brokerProcess = cp.spawn(
         process.execPath,
-        ['./bin/broker/server.js'],
+        ['./dashboard/server/index.js'],
         {
             detached: true, // runs the child process independently of parent
             stdio: ['ignore', 'ignore', 'ignore', 'ipc'],

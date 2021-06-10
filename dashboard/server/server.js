@@ -1,12 +1,9 @@
-// establish express + socket.io server
+// establish express server
 const express = require('express');
-const socket = require('socket.io');
 const path = require('path');
 
 // port for the dashboard
 const PORT = 5001;
-
-// TODO: Get port number from metadata file
 
 // initialize express app
 const app = express();
@@ -52,20 +49,4 @@ server.on('error', (err) => {
 // serve static files - for the frontend
 app.use(express.static(path.join(__dirname, '..', 'frontend')));
 
-// setup socket.io server
-const io = socket(server);
-
-// event listener for a new connection
-io.on('connection', (client) => {
-    client.on('test-conn', (cb) => {
-        cb('hello world');
-    });
-});
-
-// terminate the express and socket.io server
-const terminateBroker = () => {
-    io.close();
-    server.close();
-};
-
-module.exports = terminateBroker;
+module.exports = server;
