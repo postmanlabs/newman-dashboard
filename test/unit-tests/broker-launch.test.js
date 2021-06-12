@@ -1,26 +1,27 @@
-const expect = require('chai').expect;
-const io = require('socket.io-client');
+const { expect } = require('chai');
+const launchBroker = require('../../dashboard/index');
 
-describe('Broker connection handling', () => {
-    let client, dashboardServer;
+describe('Launching broker', () => {
+    let launchParams;
 
-    before((done) => {
-        dashboardServer = require('../../dashboard/server/index');
-        client = io('http://localhost:5001/');
-        client.on('connect', done);
+    before(() => {
+        launchParams = launchBroker(3001, true);
     });
 
-    after(() => {
-        // close client and server to exit the CLI
-        client.close();
-        dashboardServer.io.close();
-        dashboardServer.server.close();
+    it('should send the right spawn arguments', () => {
+        expect(launchParams.args.execPath).to.eql(process.execPath);
+        expect(launchParams.args.pathName).to.eql([
+            './dashboard/server/index.js',
+        ]);
     });
 
-    it('should emit events', (done) => {
-        client.emit('test-conn', (arg) => {
-            expect(arg).to.equal('hello world');
-            done();
-        });
+    it('should send the right spawn options', () => {
+        expect(launchParams.args.options.detached).to.be.true;
+        expect(launchParams.args.options.stdio).to.eql([
+            'ignore',
+            'ignore',
+            'ignore',
+            'ipc',
+        ]);
     });
 });
