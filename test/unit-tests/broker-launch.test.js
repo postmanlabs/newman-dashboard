@@ -1,26 +1,36 @@
+const sinon = require('sinon');
+const cp = require('child_process');
+const { EventEmitter } = require('events');
 const expect = require('chai').expect;
-const io = require('socket.io-client');
 
-describe('Broker connection handling', () => {
-    let client, dashboardServer;
+const launchBroker = require('../../dashboard/index');
 
-    before((done) => {
-        dashboardServer = require('../../dashboard/server/index');
-        client = io('http://localhost:5001/');
-        client.on('connect', done);
+const mockChildProcess = new EventEmitter();
+
+let fake = sinon.fake();
+
+describe('Broker daemonized launching', () => {
+    before(() => {
+        sinon.stub(cp, 'spawn').callsFake(() => {
+            mockChildProcess.unref = fake;
+            mockChildProcess.disconnect = fake;
+            return mockChildProcess;
+        });
+
+        sinon.stub(process, 'exit');
+        sinon.stub(console, 'log');
+
+        launchBroker(3000);
     });
 
     after(() => {
-        // close client and server to exit the CLI
-        client.close();
-        dashboardServer.io.close();
-        dashboardServer.server.close();
+        cp.spawn.restore();
+        process.exit.restore();
+        console.log.restore();
     });
 
-    it('should emit events', (done) => {
-        client.emit('test-conn', (arg) => {
-            expect(arg).to.equal('hello world');
-            done();
-        });
+    it('should launch broker correctly', () => {
+        mockChildProcess.emit('message', (cb) => cb());
+        expect(fake.callCount).to.equal(2);
     });
 });
