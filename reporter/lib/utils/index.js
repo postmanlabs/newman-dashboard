@@ -2,6 +2,7 @@ const io = require('socket.io-client');
 const { nanoid } = require('nanoid');
 
 const socket = io('http://localhost:5001/');
+const processId = nanoid(16);
 
 module.exports = {
     handleStart: (err, args) => {
@@ -10,8 +11,15 @@ module.exports = {
             return;
         }
 
-        const processId = nanoid(16);
         socket.emit('control:new-run', {
+            processId,
+        });
+    },
+
+    handleDone: (err, args) => {
+        if (err) return;
+
+        socket.emit('control:end-run', {
             processId,
         });
     },
