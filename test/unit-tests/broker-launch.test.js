@@ -12,24 +12,18 @@ const mockChildProcess = new EventEmitter();
 let unrefSpy = sinon.spy();
 let disconnectSpy = sinon.spy();
 
-// storing stubbed methods arguments for verification
-let spawnArgs, processArgs;
-
 describe('Broker daemonized launching', () => {
     before(() => {
         // stub cp.spawn, to avoid actual daemon launch
-        sinon.stub(cp, 'spawn').callsFake((...args) => {
-            spawnArgs = args;
-
+        sinon.stub(cp, 'spawn').callsFake(() => {
             mockChildProcess['unref'] = unrefSpy;
             mockChildProcess['disconnect'] = disconnectSpy;
+
             return mockChildProcess;
         });
 
         // stub process.exit to avoid exiting
-        sinon.stub(process, 'exit').callsFake((...args) => {
-            processArgs = args;
-        });
+        sinon.stub(process, 'exit');
 
         // stub console.log for daemon status output
         sinon.stub(console, 'log');
@@ -44,9 +38,9 @@ describe('Broker daemonized launching', () => {
     });
 
     it('should provide correct spawn arguments', () => {
-        expect(spawnArgs[0]).to.equal(process.execPath);
-        expect(spawnArgs[1]).to.eql(['./dashboard/server/index.js']);
-        expect(spawnArgs[2]).to.eql({
+        expect(cp.spawn.args[0][0]).to.equal(process.execPath);
+        expect(cp.spawn.args[0][1]).to.eql(['./dashboard/server/index.js']);
+        expect(cp.spawn.args[0][2]).to.eql({
             detached: true,
             stdio: ['ignore', 'ignore', 'ignore', 'ipc'],
         });
@@ -61,7 +55,8 @@ describe('Broker daemonized launching', () => {
         expect(disconnectSpy.callCount).to.equal(1);
         expect(unrefSpy.calledWith()).to.be.true;
 
-        expect(processArgs[0]).to.equal(0);
+        expect(process.exit.args[0][0]).to.equal(0);
+        expect(process.exit.args).to.have.lengthOf(1);
     });
 
     it('should not accept invalid port numbers', () => {
