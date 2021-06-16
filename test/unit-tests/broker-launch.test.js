@@ -8,9 +8,12 @@ const launchBroker = require('../../dashboard/index');
 // mock event emitter to simulate ChildProcess object
 const mockChildProcess = new EventEmitter();
 
-// sinon fakes for behaviour verification
-let fake = sinon.fake();
-let spawnArgs;
+// sinon spies for behaviour verification
+let unrefSpy = sinon.spy();
+let disconnectSpy = sinon.spy();
+
+// storing stubbed methods arguments for verification
+let spawnArgs, processArgs;
 
 describe('Broker daemonized launching', () => {
     before(() => {
@@ -18,13 +21,15 @@ describe('Broker daemonized launching', () => {
         sinon.stub(cp, 'spawn').callsFake((...args) => {
             spawnArgs = args;
 
-            mockChildProcess['unref'] = fake;
-            mockChildProcess['disconnect'] = fake;
+            mockChildProcess['unref'] = unrefSpy;
+            mockChildProcess['disconnect'] = disconnectSpy;
             return mockChildProcess;
         });
 
         // stub process.exit to avoid exiting
-        sinon.stub(process, 'exit');
+        sinon.stub(process, 'exit').callsFake((...args) => {
+            processArgs = args;
+        });
 
         // stub console.log for daemon status output
         sinon.stub(console, 'log');
@@ -50,8 +55,13 @@ describe('Broker daemonized launching', () => {
     it('should launch broker correctly', () => {
         mockChildProcess.emit('message', (cb) => cb());
 
-        // 2 calls to unref() and disconnect()
-        expect(fake.callCount).to.equal(2);
+        expect(unrefSpy.callCount).to.equal(1);
+        expect(unrefSpy.calledWith()).to.be.true;
+
+        expect(disconnectSpy.callCount).to.equal(1);
+        expect(unrefSpy.calledWith()).to.be.true;
+
+        expect(processArgs[0]).to.equal(0);
     });
 
     it('should not accept invalid port numbers', () => {

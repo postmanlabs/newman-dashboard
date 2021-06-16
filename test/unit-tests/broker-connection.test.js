@@ -1,11 +1,11 @@
 const expect = require('chai').expect;
 const io = require('socket.io-client');
+const dashboardServer = require('../../dashboard/server/index');
 
-describe('Broker connection handling', () => {
-    let client, dashboardServer;
+describe('Broker socket connections', () => {
+    let client;
 
     before((done) => {
-        dashboardServer = require('../../dashboard/server/index');
         client = io('http://localhost:5001/');
         client.on('connect', done);
     });
