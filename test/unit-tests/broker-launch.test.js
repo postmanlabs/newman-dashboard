@@ -12,7 +12,7 @@ const mockChildProcess = new EventEmitter();
 let unrefSpy = sinon.spy();
 let disconnectSpy = sinon.spy();
 
-describe('Broker daemonized launching', () => {
+describe('Broker daemon', () => {
     before(() => {
         // stub cp.spawn, to avoid actual daemon launch
         sinon.stub(cp, 'spawn').callsFake(() => {
@@ -50,13 +50,13 @@ describe('Broker daemonized launching', () => {
         mockChildProcess.emit('message', (cb) => cb());
 
         expect(unrefSpy.callCount).to.equal(1);
-        expect(unrefSpy.calledWith()).to.be.true;
+        expect(unrefSpy.firstCall.args).to.have.lengthOf(0);
 
         expect(disconnectSpy.callCount).to.equal(1);
-        expect(unrefSpy.calledWith()).to.be.true;
+        expect(disconnectSpy.firstCall.args).to.have.lengthOf(0);
 
-        expect(process.exit.args[0][0]).to.equal(0);
         expect(process.exit.args).to.have.lengthOf(1);
+        expect(process.exit.args[0][0]).to.equal(0);
     });
 
     it('should not accept invalid port numbers', () => {
