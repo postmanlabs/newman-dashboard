@@ -47,4 +47,31 @@ describe('Reporter event handlers', () => {
         });
         mockNewman.emit('done');
     });
+
+    it('should handle the pause event correctly', (done) => {
+        mockSocket.on('control:pause-run', (args) => {
+            expect(args).to.haveOwnProperty('processId');
+            expect(args.processId).to.have.lengthOf(16);
+            done();
+        });
+        mockNewman.emit('pause');
+    });
+
+    it('should handle the resume event correctly', (done) => {
+        mockSocket.on('control:resume-run', (args) => {
+            expect(args).to.haveOwnProperty('processId');
+            expect(args.processId).to.have.lengthOf(16);
+            done();
+        });
+        mockNewman.emit('resume');
+    });
+
+    it('should handle the abort event correctly', (done) => {
+        mockSocket.on('control:abort-run', (args) => {
+            expect(args).to.haveOwnProperty('processId');
+            expect(args.processId).to.have.lengthOf(16);
+            done();
+        });
+        mockNewman.emit('abort');
+    });
 });

@@ -23,4 +23,28 @@ module.exports = {
             processId,
         });
     },
+
+    handlePause: (err, args) => {
+        if (err) return;
+
+        socket.emit('control:pause-run', {
+            processId,
+        });
+    },
+
+    handleResume: (err, args) => {
+        if (err) return;
+
+        socket.emit('control:resume-run', {
+            processId,
+        });
+    },
+
+    handleAbort: (err, args) => {
+        if (err) return;
+
+        socket.emit('control:abort-run', {
+            processId,
+        });
+    },
 };
