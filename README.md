@@ -4,14 +4,11 @@
 
 <h4 align="center"><i>A real-time reporter for newman to control, view and debug runs on a WebUI dashboard.</i></h4>
 
-<br>
 <p align="center">
     <img src="https://img.shields.io/badge/built%20with-JavaScript-green?style=flat-square&logo=node.js">
     <img src="https://img.shields.io/badge/built%20for-newman-orange?style=flat-square&logo=postman">
     <img src="https://img.shields.io/badge/version-0.0.1-blue?style=flat-square">
 </p>
-
-<br>
 
 ## About
 
@@ -42,7 +39,7 @@ The dashboard frontend would now be visible on `http://localhost:5001/`
 C. Connect a newman run to the dashboard
 
 ```
-newman run collection.json --r dashboard
+newman run collection.json -r dashboard
 ```
 
 This will connect the run to the dashboard and you would be able to view its status on the frontend.
