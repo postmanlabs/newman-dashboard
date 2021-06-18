@@ -32,7 +32,7 @@ B. Launch the dashboard on `localhost:5001`
 newman-dashboard
 ```
 
-You can also choose to daemonize the dashboard using the `--daemonize` command.
+You can also choose to daemonize the dashboard using the `--daemonize` flag.
 
 The dashboard frontend would now be visible on `http://localhost:5001/`
 
@@ -58,8 +58,15 @@ B. Run the CLI for launching the dashboard
 node ./bin/index <args>
 ```
 
-C. Running the test suite along with linting
+C. Running the tests
 
 ```
+// The complete test suite along with linting
 npm test
+
+// Only linting
+npm run test:lint
+
+// Only the test suite
+npm run test:suite
 ```
