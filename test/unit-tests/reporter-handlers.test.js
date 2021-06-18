@@ -6,12 +6,14 @@ const { EventEmitter } = require('events');
 const mockNewman = new EventEmitter();
 const mockSocket = new EventEmitter();
 
+const ioStub = sinon.stub().callsFake(() => {
+    return mockSocket;
+});
+
 // io() is a default export of socket.io-client; resolve it to export
 // a sinon stub instead
 require.cache[require.resolve('socket.io-client')] = {
-    exports: sinon.stub().callsFake(() => {
-        return mockSocket;
-    }),
+    exports: ioStub,
 };
 
 // require the reporter only after io() has been stubbed
@@ -20,6 +22,12 @@ const reporter = require('../../reporter/index');
 describe('Reporter event handlers', () => {
     before(() => {
         reporter(mockNewman);
+    });
+
+    it('should connect to the broker', () => {
+        expect(ioStub.callCount).to.equal(1);
+        expect(ioStub.firstCall.args).to.have.lengthOf(1);
+        expect(ioStub.firstCall.args[0]).to.equal('http://localhost:5001/');
     });
 
     it('should handle the start event correctly', (done) => {
