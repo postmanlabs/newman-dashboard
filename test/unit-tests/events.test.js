@@ -32,8 +32,8 @@ describe('Reporter event handlers', () => {
 
     it('should handle the start event correctly', (done) => {
         mockSocket.on('control:new-run', (args) => {
-            expect(args).to.haveOwnProperty('processId');
-            expect(args.processId).to.have.lengthOf(16);
+            expect(args).to.haveOwnProperty('id');
+            expect(args.id).to.have.lengthOf(16);
             done();
         });
         mockNewman.emit('start');
@@ -41,8 +41,8 @@ describe('Reporter event handlers', () => {
 
     it('should handle the done event correctly', (done) => {
         mockSocket.on('control:end-run', (args) => {
-            expect(args).to.haveOwnProperty('processId');
-            expect(args.processId).to.have.lengthOf(16);
+            expect(args).to.haveOwnProperty('id');
+            expect(args.id).to.have.lengthOf(16);
             done();
         });
         mockNewman.emit('done');
@@ -50,8 +50,8 @@ describe('Reporter event handlers', () => {
 
     it('should handle the pause event correctly', (done) => {
         mockSocket.on('control:pause-run', (args) => {
-            expect(args).to.haveOwnProperty('processId');
-            expect(args.processId).to.have.lengthOf(16);
+            expect(args).to.haveOwnProperty('id');
+            expect(args.id).to.have.lengthOf(16);
             done();
         });
         mockNewman.emit('pause');
@@ -59,8 +59,8 @@ describe('Reporter event handlers', () => {
 
     it('should handle the resume event correctly', (done) => {
         mockSocket.on('control:resume-run', (args) => {
-            expect(args).to.haveOwnProperty('processId');
-            expect(args.processId).to.have.lengthOf(16);
+            expect(args).to.haveOwnProperty('id');
+            expect(args.id).to.have.lengthOf(16);
             done();
         });
         mockNewman.emit('resume');
@@ -68,8 +68,8 @@ describe('Reporter event handlers', () => {
 
     it('should handle the abort event correctly', (done) => {
         mockSocket.on('control:abort-run', (args) => {
-            expect(args).to.haveOwnProperty('processId');
-            expect(args.processId).to.have.lengthOf(16);
+            expect(args).to.haveOwnProperty('id');
+            expect(args.id).to.have.lengthOf(16);
             done();
         });
         mockNewman.emit('abort');

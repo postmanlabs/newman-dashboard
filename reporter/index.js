@@ -1,4 +1,4 @@
-const events = require('./lib/events.js');
+const events = require('./lib/events');
 
 module.exports = function (newman, options, collectionOptions) {
     newman.on('start', events.handleStart);

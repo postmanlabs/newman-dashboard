@@ -1,3 +1,3 @@
-const reporter = require('./reporter/index');
+const reporter = require('./reporter');
 
 module.exports = reporter;
