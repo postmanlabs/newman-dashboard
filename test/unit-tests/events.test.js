@@ -1,6 +1,7 @@
 const sinon = require('sinon');
 const expect = require('chai').expect;
 const { EventEmitter } = require('events');
+const mock = require('mock-require');
 
 // mock event emitter to simulate newman and socket-client
 const mockNewman = new EventEmitter();
@@ -10,11 +11,8 @@ const ioStub = sinon.stub().callsFake(() => {
     return mockSocket;
 });
 
-// io() is a default export of socket.io-client; resolve it to export
-// a sinon stub instead
-require.cache[require.resolve('socket.io-client')] = {
-    exports: ioStub,
-};
+// mock the socket.io-client library to return a sinon stub instead
+mock('socket.io-client', ioStub);
 
 // require the reporter only after io() has been stubbed
 const reporter = require('../../reporter/index');
@@ -22,6 +20,11 @@ const reporter = require('../../reporter/index');
 describe('Reporter event handlers', () => {
     before(() => {
         reporter(mockNewman);
+    });
+
+    after(() => {
+        // remove the mock on the socket.io-client library
+        mock.stop('socket.io-client');
     });
 
     it('should connect to the broker', () => {
