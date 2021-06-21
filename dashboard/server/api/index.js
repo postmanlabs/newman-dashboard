@@ -1,7 +1,10 @@
 module.exports = {
-    testSocketConnection: (client) => {
-        client.on('test-conn', (cb) => {
-            cb('hello world');
-        });
+    handleNewRun: (socket) =>
+        function (data) {
+            socket.to('frontend').emit('process:start', data);
+        },
+
+    handleTestConnection: (cb) => {
+        cb('dashboard:ping');
     },
 };

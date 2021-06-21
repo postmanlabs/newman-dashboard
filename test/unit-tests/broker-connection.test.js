@@ -6,7 +6,12 @@ describe('Broker socket connections', () => {
     let client;
 
     before((done) => {
-        client = io('http://localhost:5001/');
+        client = io('http://localhost:5001/', {
+            auth: {
+                id: 'gxwYN8wa0kerK20D',
+                type: 'newman-run',
+            },
+        });
         client.on('connect', done);
     });
 
@@ -18,8 +23,8 @@ describe('Broker socket connections', () => {
     });
 
     it('should emit events', (done) => {
-        client.emit('test-conn', (arg) => {
-            expect(arg).to.equal('hello world');
+        client.emit('test:connection', (arg) => {
+            expect(arg).to.equal('dashboard:ping');
             done();
         });
     });
