@@ -28,4 +28,21 @@ describe('Broker socket connections', () => {
             done();
         });
     });
+
+    it('should emit start of new run to dashboard', (done) => {
+        client.emit(
+            'control:new-run',
+            {
+                id: 'gxwYN8wa0kerK20D',
+                command: 'test:newman-command',
+                startTime: Date.now(),
+            },
+            (type, arg) => {
+                expect(type).to.equal('new-run');
+                expect(arg).to.haveOwnProperty('id');
+                expect(arg.id).to.have.lengthOf(16);
+                done();
+            }
+        );
+    });
 });
