@@ -8,7 +8,7 @@
     "test:suite": "nyc mocha \"test/**/*.test.js\"",
     "coverage": "codecov",
     "test:lint": "eslint .",
-    "dashboard:dev": "nodemon ./bin/broker/server.js"
+    "dev:dashboard": "nodemon ./dashboard/server/index.js"
   },
   "keywords": [
     "newman",
