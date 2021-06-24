@@ -1,50 +1,46 @@
-const io = require('socket.io-client');
-const { nanoid } = require('nanoid');
+module.exports = (socket, id) => {
+    return {
+        handleStart: (err, args) => {
+            if (err) {
+                // return if any error on starting the run
+                return;
+            }
 
-const socket = io('http://localhost:5001/');
-const id = nanoid(16);
+            socket.emit('control:new-run', {
+                id,
+            });
+        },
 
-module.exports = {
-    handleStart: (err, args) => {
-        if (err) {
-            // return if any error on starting the run
-            return;
-        }
+        handleDone: (err, args) => {
+            if (err) return;
 
-        socket.emit('control:new-run', {
-            id,
-        });
-    },
+            socket.emit('control:end-run', {
+                id,
+            });
+        },
 
-    handleDone: (err, args) => {
-        if (err) return;
+        handlePause: (err, args) => {
+            if (err) return;
 
-        socket.emit('control:end-run', {
-            id,
-        });
-    },
+            socket.emit('control:pause-run', {
+                id,
+            });
+        },
 
-    handlePause: (err, args) => {
-        if (err) return;
+        handleResume: (err, args) => {
+            if (err) return;
 
-        socket.emit('control:pause-run', {
-            id,
-        });
-    },
+            socket.emit('control:resume-run', {
+                id,
+            });
+        },
 
-    handleResume: (err, args) => {
-        if (err) return;
+        handleAbort: (err, args) => {
+            if (err) return;
 
-        socket.emit('control:resume-run', {
-            id,
-        });
-    },
-
-    handleAbort: (err, args) => {
-        if (err) return;
-
-        socket.emit('control:abort-run', {
-            id,
-        });
-    },
+            socket.emit('control:abort-run', {
+                id,
+            });
+        },
+    };
 };
