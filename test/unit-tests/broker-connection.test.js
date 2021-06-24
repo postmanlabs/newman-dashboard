@@ -2,13 +2,16 @@ const expect = require('chai').expect;
 const io = require('socket.io-client');
 const dashboardServer = require('../../dashboard/server/index');
 
+const { nanoid } = require('nanoid');
+const id = nanoid(16);
+
 describe('Broker socket connections', () => {
     let client;
 
     before((done) => {
         client = io('http://localhost:5001/', {
             auth: {
-                id: 'gxwYN8wa0kerK20D',
+                id,
                 type: 'newman-run',
             },
         });
@@ -33,16 +36,43 @@ describe('Broker socket connections', () => {
         client.emit(
             'control:new-run',
             {
-                id: 'gxwYN8wa0kerK20D',
+                id,
                 command: 'test:newman-command',
                 startTime: Date.now(),
             },
             (type, arg) => {
                 expect(type).to.equal('new-run');
                 expect(arg).to.haveOwnProperty('id');
-                expect(arg.id).to.have.lengthOf(16);
+                expect(arg.id).to.equal(id);
                 done();
             }
         );
+    });
+
+    it('should emit pausing of a run to dashboard', (done) => {
+        client.emit('control:pause-run', { id }, (type, arg) => {
+            expect(type).to.equal('pause-run');
+            expect(arg).to.haveOwnProperty('id');
+            expect(arg.id).to.equal(id);
+            done();
+        });
+    });
+
+    it('should emit aborting of a run to dashboard', (done) => {
+        client.emit('control:abort-run', { id }, (type, arg) => {
+            expect(type).to.equal('abort-run');
+            expect(arg).to.haveOwnProperty('id');
+            expect(arg.id).to.equal(id);
+            done();
+        });
+    });
+
+    it('should emit resuming of a run to dashboard', (done) => {
+        client.emit('control:resume-run', { id }, (type, arg) => {
+            expect(type).to.equal('resume-run');
+            expect(arg).to.haveOwnProperty('id');
+            expect(arg.id).to.equal(id);
+            done();
+        });
     });
 });
