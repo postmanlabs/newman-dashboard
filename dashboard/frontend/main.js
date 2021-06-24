@@ -1,9 +1,8 @@
-/* eslint-disable*/
-const socket = io('http://localhost:5001/', {
+const socket = io(undefined, {
     auth: {
         id: 'gxwYN8wa0kerK20F',
-        type: 'frontend'
-    }
+        type: 'frontend',
+    },
 });
 
 const execRuns = document.getElementById('exec-runs');
@@ -26,7 +25,7 @@ const clickPauseButton = (value) => {
         if (currVal == 'Pause') {
             // emit to server to pause this process
             socket.emit('onPauseProcess', {
-                processId
+                processId,
             });
             // change button text from pause -> resume
             document.getElementById(`pauseButton-${processId}`).innerText =
@@ -34,7 +33,7 @@ const clickPauseButton = (value) => {
         } else {
             // emit to server to pause this process
             socket.emit('onResumeProcess', {
-                processId
+                processId,
             });
             // change button text from resume -> pause
             document.getElementById(`pauseButton-${processId}`).innerText =
@@ -50,7 +49,7 @@ const clickAbortButton = (value) => {
     // if the run has not ended
     if (expiredRuns.indexOf(processId) === -1) {
         socket.emit('onAbortProcess', {
-            processId
+            processId,
         });
     }
 };
@@ -58,12 +57,16 @@ const clickAbortButton = (value) => {
 // HTML for adding a new element to the runs
 const newProcessHTML = (data) => {
     return `<div class="exec-run" data-process-id=${data.processId} >
-        <button class="pause-button" onclick="clickPauseButton(this)" id="pauseButton-${data.processId}">Pause</button>
+        <button class="pause-button" 
+            onclick="clickPauseButton(this)" 
+            id="pause-${data.processId}"
+        >
+            Pause
+        </button>
         <div>
             <p class="exec-run-command">${data.command}</p>
             <p class="exec-run-date">${data.startTime}</p>
         </div>
-        <button class="abort-button" onclick="clickAbortButton(this)">Abort</button>
       </div>`;
 };
 
