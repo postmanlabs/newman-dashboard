@@ -8,7 +8,7 @@ module.exports = {
 
         if (id.length === 16 && type) {
             socket.meta = { id, type };
-            next();
+            return next();
         }
 
         next(new Error('Unauthorized access.'));

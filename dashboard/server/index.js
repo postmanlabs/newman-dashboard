@@ -13,7 +13,7 @@ io.use(utils.socketAuth);
 
 // event listener for a new connection
 io.on('connection', (socket) => {
-    const api = handlers(socket);
+    const api = handlers(socket.to('frontend'));
 
     if (socket.meta.type === 'newman-run') {
         // push socket to a unique room
