@@ -2,11 +2,19 @@ const expect = require('chai').expect;
 const io = require('socket.io-client');
 const dashboardServer = require('../../dashboard/server/index');
 
+const { nanoid } = require('nanoid');
+const id = nanoid(16);
+
 describe('Broker socket connections', () => {
     let client;
 
     before((done) => {
-        client = io('http://localhost:5001/');
+        client = io('http://localhost:5001/', {
+            auth: {
+                id,
+                type: 'newman-run',
+            },
+        });
         client.on('connect', done);
     });
 
@@ -18,8 +26,52 @@ describe('Broker socket connections', () => {
     });
 
     it('should emit events', (done) => {
-        client.emit('test-conn', (arg) => {
-            expect(arg).to.equal('hello world');
+        client.emit('test', (arg) => {
+            expect(arg).to.equal('dashboard:ping');
+            done();
+        });
+    });
+
+    it('should emit start of new run to dashboard', (done) => {
+        client.emit(
+            'start',
+            {
+                id,
+                command: 'test:newman-command',
+                startTime: Date.now(),
+            },
+            (type, arg) => {
+                expect(type).to.equal('new-run');
+                expect(arg).to.haveOwnProperty('id');
+                expect(arg.id).to.equal(id);
+                done();
+            }
+        );
+    });
+
+    it('should emit pausing of a run to dashboard', (done) => {
+        client.emit('pause', { id }, (type, arg) => {
+            expect(type).to.equal('pause-run');
+            expect(arg).to.haveOwnProperty('id');
+            expect(arg.id).to.equal(id);
+            done();
+        });
+    });
+
+    it('should emit aborting of a run to dashboard', (done) => {
+        client.emit('abort', { id }, (type, arg) => {
+            expect(type).to.equal('abort-run');
+            expect(arg).to.haveOwnProperty('id');
+            expect(arg.id).to.equal(id);
+            done();
+        });
+    });
+
+    it('should emit resuming of a run to dashboard', (done) => {
+        client.emit('resume', { id }, (type, arg) => {
+            expect(type).to.equal('resume-run');
+            expect(arg).to.haveOwnProperty('id');
+            expect(arg.id).to.equal(id);
             done();
         });
     });
