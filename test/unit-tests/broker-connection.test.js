@@ -1,7 +1,6 @@
 const expect = require('chai').expect;
 const io = require('socket.io-client');
 const dashboardServer = require('../../dashboard/server/index');
-const constants = require('../../dashboard/constants');
 
 const { nanoid } = require('nanoid');
 const id = nanoid(16);
@@ -13,7 +12,7 @@ describe('Broker socket connections', () => {
         client = io('http://localhost:5001/', {
             auth: {
                 id,
-                type: constants.NEWMAN_RUN,
+                type: 'newman-run',
             },
         });
         client.on('connect', done);
@@ -27,7 +26,7 @@ describe('Broker socket connections', () => {
     });
 
     it('should emit events', (done) => {
-        client.emit(constants.TEST_CONN, (arg) => {
+        client.emit('test', (arg) => {
             expect(arg).to.equal('dashboard:ping');
             done();
         });
@@ -35,7 +34,7 @@ describe('Broker socket connections', () => {
 
     it('should emit start of new run to dashboard', (done) => {
         client.emit(
-            constants.START_RUN,
+            'start',
             {
                 id,
                 command: 'test:newman-command',
@@ -51,7 +50,7 @@ describe('Broker socket connections', () => {
     });
 
     it('should emit pausing of a run to dashboard', (done) => {
-        client.emit(constants.PAUSE_RUN, { id }, (type, arg) => {
+        client.emit('pause', { id }, (type, arg) => {
             expect(type).to.equal('pause-run');
             expect(arg).to.haveOwnProperty('id');
             expect(arg.id).to.equal(id);
@@ -60,7 +59,7 @@ describe('Broker socket connections', () => {
     });
 
     it('should emit aborting of a run to dashboard', (done) => {
-        client.emit(constants.ABORT_RUN, { id }, (type, arg) => {
+        client.emit('abort', { id }, (type, arg) => {
             expect(type).to.equal('abort-run');
             expect(arg).to.haveOwnProperty('id');
             expect(arg.id).to.equal(id);
@@ -69,7 +68,7 @@ describe('Broker socket connections', () => {
     });
 
     it('should emit resuming of a run to dashboard', (done) => {
-        client.emit(constants.RESUME_RUN, { id }, (type, arg) => {
+        client.emit('resume', { id }, (type, arg) => {
             expect(type).to.equal('resume-run');
             expect(arg).to.haveOwnProperty('id');
             expect(arg.id).to.equal(id);
