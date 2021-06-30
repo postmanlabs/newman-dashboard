@@ -1,11 +1,11 @@
-const program = require('../../bin/index');
+const program = require('../../../bin');
 
 const cli = (args, callback) => {
-    let argv = args.split(' ');
-    argv.push('--test');
+    const argv = args.split(' ');
 
     try {
         program.parse(argv);
+
         return callback(null, program.opts());
     } catch (err) {
         return callback(err);
