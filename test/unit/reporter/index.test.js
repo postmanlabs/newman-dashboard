@@ -15,9 +15,9 @@ const ioStub = sinon.stub().callsFake(() => {
 mock('socket.io-client', ioStub);
 
 // require the reporter only after io() has been stubbed
-const reporter = require('../../reporter/index');
+const reporter = require('../../../reporter');
 
-describe('Reporter event handlers', () => {
+describe('Reporter', () => {
     before(() => {
         reporter(mockNewman);
     });
