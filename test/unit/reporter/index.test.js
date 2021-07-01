@@ -34,7 +34,7 @@ describe('Reporter', () => {
     });
 
     it('should handle the start event correctly', (done) => {
-        mockSocket.on('control:new-run', (args) => {
+        mockSocket.on('start', (args) => {
             expect(args).to.haveOwnProperty('id');
             expect(args.id).to.have.lengthOf(16);
             done();
@@ -43,7 +43,7 @@ describe('Reporter', () => {
     });
 
     it('should handle the done event correctly', (done) => {
-        mockSocket.on('control:end-run', (args) => {
+        mockSocket.on('done', (args) => {
             expect(args).to.haveOwnProperty('id');
             expect(args.id).to.have.lengthOf(16);
             done();
@@ -52,7 +52,7 @@ describe('Reporter', () => {
     });
 
     it('should handle the pause event correctly', (done) => {
-        mockSocket.on('control:pause-run', (args) => {
+        mockSocket.on('pause', (args) => {
             expect(args).to.haveOwnProperty('id');
             expect(args.id).to.have.lengthOf(16);
             done();
@@ -61,7 +61,7 @@ describe('Reporter', () => {
     });
 
     it('should handle the resume event correctly', (done) => {
-        mockSocket.on('control:resume-run', (args) => {
+        mockSocket.on('resume', (args) => {
             expect(args).to.haveOwnProperty('id');
             expect(args.id).to.have.lengthOf(16);
             done();
@@ -70,7 +70,7 @@ describe('Reporter', () => {
     });
 
     it('should handle the abort event correctly', (done) => {
-        mockSocket.on('control:abort-run', (args) => {
+        mockSocket.on('abort', (args) => {
             expect(args).to.haveOwnProperty('id');
             expect(args.id).to.have.lengthOf(16);
             done();

@@ -19,9 +19,7 @@ const clickPauseButton = (value) => {
 
     // if the run has not ended
     if (status === 'active') {
-        const currVal = document.getElementById(
-            `pauseButton-${processId}`
-        ).innerText;
+        const currVal = document.getElementById(`pause-${id}`).innerText;
 
         if (currVal === 'Pause') {
             socket.emit('pause', {
@@ -39,12 +37,12 @@ const clickPauseButton = (value) => {
 const newProcessHTML = (data) => {
     return `<div 
             class="exec-run" 
-            data-process-id=${data.processId} 
+            data-process-id=${data.id} 
             data-process-status="active"
         >
         <button class="pause-button" 
             onclick="clickPauseButton(this)" 
-            id="pause-${data.processId}"
+            id="pause-${data.id}"
         >
             Pause
         </button>
@@ -56,6 +54,6 @@ const newProcessHTML = (data) => {
 };
 
 // for adding a new process to the frontend
-socket.on('process:start', (data) => {
+socket.on('start', (data) => {
     execRuns.innerHTML = execRuns.innerHTML + newProcessHTML(data);
 });
