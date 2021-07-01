@@ -2,7 +2,8 @@
 const socket = require('socket.io');
 const server = require('./server');
 
-const handlers = require('./api/index');
+const runHandlers = require('./api/runApi');
+const frontendHandlers = require('./api/frontendApi');
 const utils = require('../lib/utils');
 
 const {
@@ -14,6 +15,12 @@ const {
 } = require('../lib/constants/socket-events');
 const { NEWMAN_RUN, FRONTEND } = require('../lib/constants/socket-rooms');
 
+const {
+    FRONTEND_REQUEST_ABORT,
+    FRONTEND_REQUEST_RESUME,
+    FRONTEND_REQUEST_PAUSE,
+} = require('../lib/constants/frontend-events');
+
 // setup socket.io server
 const io = socket(server);
 
@@ -22,9 +29,9 @@ io.use(utils.socketAuth);
 
 // event listener for a new connection
 io.on('connection', (socket) => {
-    const api = handlers(socket.to(FRONTEND));
-
     if (socket.meta.type === NEWMAN_RUN) {
+        const api = runHandlers(socket.to(FRONTEND));
+
         // push socket to a unique room
         socket.join(`events:${socket.meta.id}`);
 
@@ -37,8 +44,15 @@ io.on('connection', (socket) => {
         // test socket connection
         socket.on(TEST_CONN, api.handleTestConnection);
     } else if (socket.meta.type === FRONTEND) {
+        const api = frontendHandlers(socket);
+
         // push socket to a frontend room
         socket.join(FRONTEND);
+
+        // attach listeners on the socket for frontend requests
+        socket.on(FRONTEND_REQUEST_PAUSE, api.handlePauseRequest);
+        socket.on(FRONTEND_REQUEST_ABORT, api.handleAbortRequest);
+        socket.on(FRONTEND_REQUEST_RESUME, api.handleResumeRequest);
     }
 });
 

@@ -6,7 +6,7 @@ module.exports = (socket, id) => {
                 return;
             }
 
-            socket.emit('control:new-run', {
+            socket.emit('start', {
                 id,
             });
         },
@@ -14,7 +14,7 @@ module.exports = (socket, id) => {
         handleDone: (err, args) => {
             if (err) return;
 
-            socket.emit('control:end-run', {
+            socket.emit('done', {
                 id,
             });
         },
@@ -22,7 +22,7 @@ module.exports = (socket, id) => {
         handlePause: (err, args) => {
             if (err) return;
 
-            socket.emit('control:pause-run', {
+            socket.emit('pause', {
                 id,
             });
         },
@@ -30,7 +30,7 @@ module.exports = (socket, id) => {
         handleResume: (err, args) => {
             if (err) return;
 
-            socket.emit('control:resume-run', {
+            socket.emit('resume', {
                 id,
             });
         },
@@ -38,7 +38,7 @@ module.exports = (socket, id) => {
         handleAbort: (err, args) => {
             if (err) return;
 
-            socket.emit('control:abort-run', {
+            socket.emit('abort', {
                 id,
             });
         },

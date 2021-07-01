@@ -39,7 +39,7 @@ describe('Reporter events', () => {
 
             expect(socket.emit.calledOnce).to.be.true;
             expect(socket.emit.firstCall.args).to.have.lengthOf(2);
-            expect(socket.emit.firstCall.args[0]).to.equal('control:new-run');
+            expect(socket.emit.firstCall.args[0]).to.equal('start');
             expect(socket.emit.firstCall.args[1]).to.eql({ id: 'abc' });
         });
 
