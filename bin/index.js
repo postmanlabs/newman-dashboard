@@ -18,7 +18,7 @@ program
     .option('-d, --daemonize', 'Run the server as a daemon.')
     .option('-t, --test', 'Run the CLI without any actions for unit tests.')
     .action(() => {
-        if (program.opts().test) {
+        if (process.argv.slice(-1)[0].includes('test') || program.opts().test) {
             return;
         }
 
