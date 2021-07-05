@@ -51,22 +51,110 @@ describe('Reporter events', () => {
     });
 
     describe('handleDone', () => {
-        it('should call the socket');
-        it('should handle error');
+        let handleDone;
+
+        beforeEach(() => {
+            handleDone = events(socket, 'abc').handleDone;
+        });
+
+        afterEach(() => {
+            handleDone = null;
+        });
+
+        it('should call the socket', () => {
+            handleDone();
+
+            expect(socket.emit.calledOnce).to.be.true;
+            expect(socket.emit.firstCall.args).to.have.lengthOf(2);
+            expect(socket.emit.firstCall.args[0]).to.equal('done');
+            expect(socket.emit.firstCall.args[1]).to.eql({ id: 'abc' });
+        });
+
+        it('should handle error', () => {
+            handleDone(new Error('error in done'));
+
+            expect(socket.emit.called).to.be.false;
+        });
     });
 
     describe('handlePause', () => {
-        it('should call the socket');
-        it('should handle error');
+        let handlePause;
+
+        beforeEach(() => {
+            handlePause = events(socket, 'abc').handlePause;
+        });
+
+        afterEach(() => {
+            handlePause = null;
+        });
+
+        it('should call the socket', () => {
+            handlePause();
+
+            expect(socket.emit.calledOnce).to.be.true;
+            expect(socket.emit.firstCall.args).to.have.lengthOf(2);
+            expect(socket.emit.firstCall.args[0]).to.equal('pause');
+            expect(socket.emit.firstCall.args[1]).to.eql({ id: 'abc' });
+        });
+
+        it('should handle error', () => {
+            handlePause(new Error('error in pause'));
+
+            expect(socket.emit.called).to.be.false;
+        });
     });
 
     describe('handleResume', () => {
-        it('should call the socket');
-        it('should handle error');
+        let handleResume;
+
+        beforeEach(() => {
+            handleResume = events(socket, 'abc').handleResume;
+        });
+
+        afterEach(() => {
+            handleResume = null;
+        });
+
+        it('should call the socket', () => {
+            handleResume();
+
+            expect(socket.emit.calledOnce).to.be.true;
+            expect(socket.emit.firstCall.args).to.have.lengthOf(2);
+            expect(socket.emit.firstCall.args[0]).to.equal('resume');
+            expect(socket.emit.firstCall.args[1]).to.eql({ id: 'abc' });
+        });
+
+        it('should handle error', () => {
+            handleResume(new Error('error in resume'));
+
+            expect(socket.emit.called).to.be.false;
+        });
     });
 
     describe('handleAbort', () => {
-        it('should call the socket');
-        it('should handle error');
+        let handleAbort;
+
+        beforeEach(() => {
+            handleAbort = events(socket, 'abc').handleAbort;
+        });
+
+        afterEach(() => {
+            handleAbort = null;
+        });
+
+        it('should call the socket', () => {
+            handleAbort();
+
+            expect(socket.emit.calledOnce).to.be.true;
+            expect(socket.emit.firstCall.args).to.have.lengthOf(2);
+            expect(socket.emit.firstCall.args[0]).to.equal('abort');
+            expect(socket.emit.firstCall.args[1]).to.eql({ id: 'abc' });
+        });
+
+        it('should handle error', () => {
+            handleAbort(new Error('error in abort'));
+
+            expect(socket.emit.called).to.be.false;
+        });
     });
 });
