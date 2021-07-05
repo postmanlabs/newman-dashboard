@@ -3,7 +3,7 @@ const cp = require('child_process');
 const { EventEmitter } = require('events');
 const expect = require('chai').expect;
 
-const launchBroker = require('../../dashboard/index');
+const launchBroker = require('../../../dashboard/index');
 
 // mock event emitter to simulate ChildProcess object
 const mockChildProcess = new EventEmitter();
