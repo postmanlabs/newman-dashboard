@@ -1,6 +1,7 @@
 const { Command } = require('commander');
 const program = new Command();
 const version = require('../package.json').version;
+const Server = require('../dashboard/server/index');
 
 const launchBroker = require('../dashboard');
 
@@ -18,7 +19,7 @@ program
     .option('-d, --daemonize', 'Run the server as a daemon.')
     .option('-t, --test', 'Run the CLI without any actions for unit tests.')
     .action(() => {
-        if (process.argv.slice(-1)[0].includes('test') || program.opts().test) {
+        if (program.opts().test) {
             return;
         }
 
@@ -29,8 +30,11 @@ program
             return;
         }
 
-        require('../dashboard/server/index');
-    })
-    .parse(process.argv);
+        Server();
+    });
 
+// Run this script if this is a direct stdin.
+!module.parent && program.parse(process.argv);
+
+// Export to allow debugging and testing.
 module.exports = program;
