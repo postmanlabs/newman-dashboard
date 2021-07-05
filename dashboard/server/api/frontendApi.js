@@ -28,4 +28,8 @@ module.exports = (socket) => ({
         socket.to(`events:${data.id}`).emit(ABORT_REQUEST, data);
         callback && callback(undefined, data);
     },
+
+    handleTestConnection: (callback) => {
+        callback && callback('dashboard:ping');
+    },
 });
