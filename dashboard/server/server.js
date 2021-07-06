@@ -54,4 +54,4 @@ const init = () => {
     return server;
 };
 
-module.exports = init;
+module.exports = { init };
