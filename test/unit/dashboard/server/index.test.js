@@ -5,13 +5,13 @@ const { nanoid } = require('nanoid');
 const id = nanoid(16);
 
 // unit under test
-const Server = require('../../../dashboard/server');
+const Server = require('../../../../dashboard/server');
 
-describe('Launch broker', () => {
+describe('Server', () => {
     let launchedServer;
 
     before(() => {
-        launchedServer = Server();
+        launchedServer = Server.init();
     });
 
     after(() => {
@@ -19,7 +19,7 @@ describe('Launch broker', () => {
         launchedServer.server.close();
     });
 
-    describe('Run event emits', () => {
+    describe('Run events', () => {
         let runClient;
 
         before(() => {
@@ -35,7 +35,7 @@ describe('Launch broker', () => {
             runClient.close();
         });
 
-        it('should start the server on port 5001', (done) => {
+        it('should receive run events', (done) => {
             runClient.emit('test', (msg) => {
                 expect(msg).to.equal('dashboard:ping');
                 done();
@@ -43,7 +43,7 @@ describe('Launch broker', () => {
         });
     });
 
-    describe('Frontend event emits', () => {
+    describe('Frontend events', () => {
         let frontendClient;
 
         before(() => {
@@ -59,7 +59,7 @@ describe('Launch broker', () => {
             frontendClient.close();
         });
 
-        it('should start the server on port 5001', (done) => {
+        it('should receive frontend events', (done) => {
             frontendClient.emit('test', (msg) => {
                 expect(msg).to.equal('dashboard:ping');
                 done();

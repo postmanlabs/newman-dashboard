@@ -3,7 +3,7 @@ const cp = require('child_process');
 const { EventEmitter } = require('events');
 const expect = require('chai').expect;
 
-const launchBroker = require('../../../dashboard/index');
+const dashboard = require('../../../dashboard');
 
 // mock event emitter to simulate ChildProcess object
 const mockChildProcess = new EventEmitter();
@@ -28,7 +28,7 @@ describe('Broker daemon', () => {
         // stub console.log for daemon status output
         sinon.stub(console, 'log');
 
-        launchBroker(5001);
+        dashboard(5001);
     });
 
     after(() => {
@@ -60,7 +60,7 @@ describe('Broker daemon', () => {
     });
 
     it('should not accept invalid port numbers', () => {
-        expect(() => launchBroker(99999)).to.throw('Invalid port number.');
-        expect(() => launchBroker(0)).to.throw('Invalid port number.');
+        expect(() => dashboard(99999)).to.throw('Invalid port number.');
+        expect(() => dashboard(0)).to.throw('Invalid port number.');
     });
 });

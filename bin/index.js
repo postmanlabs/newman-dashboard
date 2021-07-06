@@ -1,7 +1,7 @@
 const { Command } = require('commander');
 const program = new Command();
 const version = require('../package.json').version;
-const Server = require('../dashboard/server/index');
+const Server = require('../dashboard/server');
 
 const launchBroker = require('../dashboard');
 
@@ -30,7 +30,7 @@ program
             return;
         }
 
-        Server();
+        Server.init();
     });
 
 // Run this script if this is a direct stdin.

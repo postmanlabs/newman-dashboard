@@ -19,12 +19,12 @@ const {
     FRONTEND_REQUEST_ABORT,
     FRONTEND_REQUEST_RESUME,
     FRONTEND_REQUEST_PAUSE,
-    FRONTEND_TEST_CONN,
+    FRONTEND_REQUEST_TEST_CONN,
 } = require('../lib/constants/frontend-events');
 
 const init = () => {
     // setup socket.io server
-    const server = Server();
+    const server = Server.init();
     const io = socket(server);
 
     // middleware to extract id from the newman run
@@ -58,7 +58,7 @@ const init = () => {
             socket.on(FRONTEND_REQUEST_RESUME, api.handleResumeRequest);
 
             // test socket connection
-            socket.on(FRONTEND_TEST_CONN, api.handleTestConnection);
+            socket.on(FRONTEND_REQUEST_TEST_CONN, api.handleTestConnection);
         }
     });
 
@@ -69,4 +69,4 @@ const init = () => {
 !module.parent && init();
 
 // Export to allow debugging and testing.
-module.exports = init;
+module.exports = { init };

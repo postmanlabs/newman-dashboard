@@ -7,5 +7,5 @@ module.exports = {
     FRONTEND_REQUEST_PAUSE: 'pause',
     FRONTEND_REQUEST_ABORT: 'abort',
     FRONTEND_REQUEST_RESUME: 'resume',
-    FRONTEND_TEST_CONN: 'test',
+    FRONTEND_REQUEST_TEST_CONN: 'test',
 };

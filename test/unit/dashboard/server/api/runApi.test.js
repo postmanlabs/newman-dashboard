@@ -2,9 +2,9 @@ const expect = require('chai').expect;
 const sinon = require('sinon');
 
 // unit to test
-const handlers = require('../../../dashboard/server/api/runApi');
+const handlers = require('../../../../../dashboard/server/api/runApi');
 
-describe('Broker run event handlers', () => {
+describe('Run event handlers', () => {
     let socket;
     beforeEach('setup mocks and spies', () => {
         socket = {
