@@ -22,12 +22,9 @@ newman run <collection> -r dashboard
 ```
 
 1. When this Newman run will execute, the reporter will try to connect to the broker at `http://localhost:5001/`.
-2. For this connection to be authenticated, it would need to provide 2 things during the socket handshake:
-    - A unique id to solely identify this run.
-    - The type of this client, in this case `newman-run`
-3. Upon authentication, the broker will push this client to a specific room where it can receive events related to its underlying run.
-4. Newman emits a `start` event on the actual start of the Newman run, this would be sent by the reporter to the broker. The broker would publish this to the frontend.
-5. The frontend would then store this run's status and corresponding `id` in its local store and it would then be visible to the users.
+2. Upon authentication, the broker will push this client to a specific room where it can receive events related to its underlying run.
+3. Newman emits a `start` event on the actual start of the Newman run, this would be sent by the reporter to the broker. The broker would publish this to the frontend.
+4. The frontend would then store this run's status and corresponding `id` in its local store and it would then be visible to the users.
 
 ### From Newman to WebUI
 
