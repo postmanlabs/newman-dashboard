@@ -9,7 +9,7 @@
     "coverage": "codecov",
     "test:lint": "eslint .",
     "dev:dashboard": "nodemon ./dashboard/server/index.js",
-    "dev:client": "next ./dashboard/frontend/src",
+    "dev:client": "next ./dashboard/frontend",
     "build:client": "next build ./dashboard/frontend && next export ./dashboard/frontend"
   },
   "keywords": [
@@ -30,6 +30,7 @@
     "node": ">= 10"
   },
   "devDependencies": {
+    "autoprefixer": "^10.3.1",
     "chai": "^4.3.4",
     "codecov": "^3.8.2",
     "editorconfig": "^0.15.3",
@@ -47,8 +48,10 @@
     "mock-require": "^3.0.3",
     "nodemon": "^2.0.7",
     "nyc": "^15.1.0",
+    "postcss": "^8.3.5",
     "prettier": "^2.3.0",
-    "sinon": "^11.1.1"
+    "sinon": "^11.1.1",
+    "tailwindcss": "^2.2.4"
   },
   "dependencies": {
     "commander": "^7.2.0",
