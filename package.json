@@ -30,6 +30,8 @@
     "node": ">= 10"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.14.5",
+    "@babel/plugin-proposal-decorators": "^7.14.5",
     "autoprefixer": "^10.3.1",
     "chai": "^4.3.4",
     "codecov": "^3.8.2",
@@ -56,6 +58,8 @@
   "dependencies": {
     "commander": "^7.2.0",
     "express": "^4.17.1",
+    "mobx": "^6.3.2",
+    "mobx-react": "^7.2.0",
     "nanoid": "^3.1.20",
     "next": "^11.0.1",
     "prop-types": "^15.7.2",
