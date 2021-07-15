@@ -12,7 +12,7 @@ const mountSockets = (store) => {
         }
     });
     
-    socket.on('process:start', (data) => {
+    socket.on('start', (data) => {
         store.newRun(data);
     });
 
