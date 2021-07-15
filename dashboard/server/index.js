@@ -25,7 +25,11 @@ const {
 const init = () => {
     // setup socket.io server
     const server = Server.init();
-    const io = socket(server);
+    const io = socket(server, {
+        cors: {
+            origin: '*',
+        },
+    });
 
     // middleware to extract id from the newman run
     io.use(utils.socketAuth);
