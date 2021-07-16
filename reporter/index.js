@@ -1,8 +1,13 @@
 const io = require('socket.io-client');
 const { nanoid } = require('nanoid');
 
-const socket = io('http://localhost:5001/');
 const id = nanoid(16);
+const socket = io('http://localhost:5001/', {
+    auth: {
+        id,
+        type: 'newman-run',
+    },
+});
 
 const events = require('./lib/events')(socket, id);
 
