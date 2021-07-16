@@ -29,7 +29,7 @@ describe('Reporter', () => {
 
     it('should connect to the broker', () => {
         expect(ioStub.callCount).to.equal(1);
-        expect(ioStub.firstCall.args).to.have.lengthOf(1);
+        expect(ioStub.firstCall.args).to.have.lengthOf(2);
         expect(ioStub.firstCall.args[0]).to.equal('http://localhost:5001/');
     });
 
