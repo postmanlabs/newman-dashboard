@@ -1,26 +1,26 @@
+const utils = require('./utils');
+
 module.exports = (socket, id) => {
     return {
         handleStart: (err, args) => {
-            if (err) {
-                // return if any error on starting the run
-                return;
-            }
+            if (err) return socket.close();
 
-            socket.emit('start', {
-                id,
-            });
+            socket.emit('start', utils.generateStartData(process.argv, id));
         },
 
         handleDone: (err, args) => {
-            if (err) return;
+            if (err) return socket.close();
 
             socket.emit('done', {
                 id,
             });
+
+            // close the client
+            socket.close();
         },
 
         handlePause: (err, args) => {
-            if (err) return;
+            if (err) return socket.close();
 
             socket.emit('pause', {
                 id,
@@ -28,7 +28,7 @@ module.exports = (socket, id) => {
         },
 
         handleResume: (err, args) => {
-            if (err) return;
+            if (err) return socket.close();
 
             socket.emit('resume', {
                 id,
@@ -36,7 +36,7 @@ module.exports = (socket, id) => {
         },
 
         handleAbort: (err, args) => {
-            if (err) return;
+            if (err) return socket.close();
 
             socket.emit('abort', {
                 id,
