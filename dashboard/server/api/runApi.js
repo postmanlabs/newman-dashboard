@@ -5,9 +5,14 @@ const {
     FRONTEND_RESUME_RUN,
 } = require('../../lib/constants/frontend-events');
 
+const dbApi = require('../../store/controllers');
+
 module.exports = (socket) => ({
-    handleNewRun: (data, callback) => {
+    handleNewRun: async (data, callback) => {
         socket.emit(FRONTEND_NEW_RUN, data);
+
+        await dbApi.addNewRun(data);
+
         // acknowledge the received data to client
         callback && callback('new-run', data);
     },
