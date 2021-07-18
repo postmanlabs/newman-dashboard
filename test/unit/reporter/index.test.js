@@ -1,5 +1,6 @@
 const sinon = require('sinon');
 const expect = require('chai').expect;
+
 const { EventEmitter } = require('events');
 const mock = require('mock-require');
 
@@ -11,15 +12,21 @@ const ioStub = sinon.stub().callsFake(() => {
     return mockSocket;
 });
 
+const commands = {
+    pause: sinon.spy(),
+    resume: sinon.spy(),
+    abort: sinon.spy(),
+};
+
 // mock the socket.io-client library to return a sinon stub instead
 mock('socket.io-client', ioStub);
 
-// require the reporter only after io() has been stubbed
+// unit under test
 const reporter = require('../../../reporter');
 
 describe('Reporter', () => {
     before(() => {
-        reporter(mockNewman);
+        reporter(mockNewman, undefined, undefined, commands);
     });
 
     after(() => {
@@ -31,50 +38,25 @@ describe('Reporter', () => {
         expect(ioStub.callCount).to.equal(1);
         expect(ioStub.firstCall.args).to.have.lengthOf(2);
         expect(ioStub.firstCall.args[0]).to.equal('http://localhost:5001/');
+        expect(ioStub.firstCall.args[1]).to.haveOwnProperty('auth');
+
+        expect(ioStub.firstCall.args[1].auth).to.haveOwnProperty('id');
+        expect(ioStub.firstCall.args[1].auth).to.haveOwnProperty('type');
+        expect(ioStub.firstCall.args[1].auth.type).to.equal('newman-run');
     });
 
-    it('should handle the start event correctly', (done) => {
-        mockSocket.on('start', (args) => {
-            expect(args).to.haveOwnProperty('id');
-            expect(args.id).to.have.lengthOf(16);
-            done();
-        });
-        mockNewman.emit('start');
+    it('should handle the pause request correctly', () => {
+        mockSocket.emit('pause');
+        expect(commands.pause.callCount).to.equal(1);
     });
 
-    it('should handle the done event correctly', (done) => {
-        mockSocket.on('done', (args) => {
-            expect(args).to.haveOwnProperty('id');
-            expect(args.id).to.have.lengthOf(16);
-            done();
-        });
-        mockNewman.emit('done');
+    it('should handle the resume request correctly', () => {
+        mockSocket.emit('resume');
+        expect(commands.resume.callCount).to.equal(1);
     });
 
-    it('should handle the pause event correctly', (done) => {
-        mockSocket.on('pause', (args) => {
-            expect(args).to.haveOwnProperty('id');
-            expect(args.id).to.have.lengthOf(16);
-            done();
-        });
-        mockNewman.emit('pause');
-    });
-
-    it('should handle the resume event correctly', (done) => {
-        mockSocket.on('resume', (args) => {
-            expect(args).to.haveOwnProperty('id');
-            expect(args.id).to.have.lengthOf(16);
-            done();
-        });
-        mockNewman.emit('resume');
-    });
-
-    it('should handle the abort event correctly', (done) => {
-        mockSocket.on('abort', (args) => {
-            expect(args).to.haveOwnProperty('id');
-            expect(args.id).to.have.lengthOf(16);
-            done();
-        });
-        mockNewman.emit('abort');
+    it('should handle the abort request correctly', () => {
+        mockSocket.emit('abort');
+        expect(commands.abort.callCount).to.equal(1);
     });
 });

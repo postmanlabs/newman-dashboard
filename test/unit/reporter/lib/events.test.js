@@ -10,6 +10,7 @@ describe('Reporter events', () => {
     beforeEach('setup mocks and spies', () => {
         socket = {
             emit: sinon.spy(),
+            close: sinon.spy(),
         };
     });
 
@@ -40,13 +41,18 @@ describe('Reporter events', () => {
             expect(socket.emit.calledOnce).to.be.true;
             expect(socket.emit.firstCall.args).to.have.lengthOf(2);
             expect(socket.emit.firstCall.args[0]).to.equal('start');
-            expect(socket.emit.firstCall.args[1]).to.eql({ id: 'abc' });
+            expect(socket.emit.firstCall.args[1]).to.haveOwnProperty('id');
+            expect(socket.emit.firstCall.args[1]).to.haveOwnProperty('command');
+            expect(socket.emit.firstCall.args[1]).to.haveOwnProperty(
+                'startTime'
+            );
         });
 
         it('should handle error', () => {
             handleStart(new Error('error in start'));
 
             expect(socket.emit.called).to.be.false;
+            expect(socket.close.called).to.be.true;
         });
     });
 
@@ -74,6 +80,7 @@ describe('Reporter events', () => {
             handleDone(new Error('error in done'));
 
             expect(socket.emit.called).to.be.false;
+            expect(socket.close.called).to.be.true;
         });
     });
 
@@ -101,6 +108,7 @@ describe('Reporter events', () => {
             handlePause(new Error('error in pause'));
 
             expect(socket.emit.called).to.be.false;
+            expect(socket.close.called).to.be.true;
         });
     });
 
@@ -128,6 +136,7 @@ describe('Reporter events', () => {
             handleResume(new Error('error in resume'));
 
             expect(socket.emit.called).to.be.false;
+            expect(socket.close.called).to.be.true;
         });
     });
 
@@ -155,6 +164,7 @@ describe('Reporter events', () => {
             handleAbort(new Error('error in abort'));
 
             expect(socket.emit.called).to.be.false;
+            expect(socket.close.called).to.be.true;
         });
     });
 });

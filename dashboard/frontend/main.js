@@ -33,6 +33,15 @@ const clickPauseButton = (value) => {
     }
 };
 
+const clickAbortButton = (value) => {
+    // get process id of the process on which pause button has been clicked
+    const id = value.parentElement.getAttribute('data-process-id');
+
+    socket.emit('abort', {
+        id,
+    });
+};
+
 // HTML for adding a new element to the runs
 const newProcessHTML = (data) => {
     return `<div 
@@ -46,6 +55,13 @@ const newProcessHTML = (data) => {
         >
             Pause
         </button>
+        <button
+            class="abort-button"
+            onclick="clickAbortButton(this)"
+            id="abort-${data.id}"
+        >
+            Abort
+        </button>
         <div>
             <p class="exec-run-command">${data.command}</p>
             <p class="exec-run-date">${data.startTime}</p>
@@ -56,4 +72,12 @@ const newProcessHTML = (data) => {
 // for adding a new process to the frontend
 socket.on('start', (data) => {
     execRuns.innerHTML = execRuns.innerHTML + newProcessHTML(data);
+});
+
+socket.on('pause', (data) => {
+    document.getElementById(`pause-${data.id}`).innerText = 'Resume';
+});
+
+socket.on('resume', (data) => {
+    document.getElementById(`pause-${data.id}`).innerText = 'Pause';
 });
