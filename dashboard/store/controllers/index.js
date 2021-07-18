@@ -2,6 +2,7 @@ const DB = require('..');
 
 module.exports = {
     addNewRun: async (run) => {
+        console.log('in the run');
         const runs = await DB.init();
         runs.insert({
             id: run.id,
@@ -18,6 +19,8 @@ module.exports = {
     },
 
     setRunStatus: async (run, status) => {
+        console.log('in done');
+
         const runs = await DB.init();
 
         const storedRun = runs.findOne({ id: run.id });

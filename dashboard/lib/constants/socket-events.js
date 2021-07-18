@@ -3,6 +3,7 @@ module.exports = {
     PAUSE_RUN: 'pause',
     ABORT_RUN: 'abort',
     RESUME_RUN: 'resume',
+    DONE_RUN: 'done',
     TEST_CONN: 'test',
 
     PAUSE_REQUEST: 'pause',

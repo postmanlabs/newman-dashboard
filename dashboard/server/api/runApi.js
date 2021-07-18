@@ -3,6 +3,7 @@ const {
     FRONTEND_NEW_RUN,
     FRONTEND_PAUSE_RUN,
     FRONTEND_RESUME_RUN,
+    FRONTEND_DONE_RUN,
 } = require('../../lib/constants/frontend-events');
 
 const dbApi = require('../../store/controllers');
@@ -30,6 +31,14 @@ module.exports = (socket) => ({
     handleAbortRun: (data, callback) => {
         socket.emit(FRONTEND_ABORT_RUN, data);
         callback && callback('abort-run', data);
+    },
+
+    handleDoneRun: async (data, callback) => {
+        socket.emit(FRONTEND_DONE_RUN, data);
+
+        await dbApi.setRunStatus(data, 'done');
+
+        callback && callback('done-run', data);
     },
 
     handleTestConnection: (callback) => {
