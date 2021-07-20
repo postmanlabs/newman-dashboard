@@ -28,7 +28,7 @@ class RunStore {
     @action setRunFinished(data) {
         this.runs.filter((run) => {
             if(run.id === data.id) {
-                run.finished = true;
+                run.status = 'done';
             }
         })
     }

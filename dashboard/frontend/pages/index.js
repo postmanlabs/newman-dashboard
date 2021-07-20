@@ -1,3 +1,3 @@
-import HelloWorld from '../components/HelloWorld';
+import RunList from '../components/RunList';
 
-export default HelloWorld;
+export default RunList;

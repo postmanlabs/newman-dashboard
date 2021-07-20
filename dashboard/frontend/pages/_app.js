@@ -11,7 +11,7 @@ export default function App({ Component, pageProps }) {
     socket = mountSockets(store);
 
     return (
-        <Provider store={store} socket={socket}>
+        <Provider store={store}>
             <Component {...pageProps} />
         </Provider>
     )

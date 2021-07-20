@@ -17,7 +17,6 @@
         "react/react-in-jsx-scope": [0],
         "react/jsx-filename-extension": [0],
         "react/jsx-props-no-spreading": [0],
-        "quotes": ["error", "single"],
         "indent": ["error", 4],
         "linebreak-style": ["off", "auto"]
     }

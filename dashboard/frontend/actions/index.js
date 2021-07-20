@@ -25,7 +25,7 @@ const mountSockets = (store) => {
     });
 
     socket.on('resume', (data) => {
-        store.updateRunStatus(data, 'resume');
+        store.updateRunStatus(data, 'active');
     });
 
     socket.on('done', (data) => {
