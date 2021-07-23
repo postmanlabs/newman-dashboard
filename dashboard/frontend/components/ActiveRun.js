@@ -1,5 +1,6 @@
 import StatusRibbon from "./StatusRibbon";
 import { observer } from 'mobx-react';
+import Link from 'next/link';
 
 const ActiveRun = observer(({ run }) => {
     const parsedTime = new Date(run.startTime).toLocaleTimeString();
@@ -17,13 +18,14 @@ const ActiveRun = observer(({ run }) => {
     };
 
     return (
-        <div className="active-run container w-full font-mono shadow rounded p-2 m-2">
-            <p className="text-xl">{run.command}</p>
+        <div className="active-run w-full font-mono shadow rounded p-2 m-2">
             <div className="active-run__details flex flex-1 justify-between mt-4">
-                <StatusRibbon status={run.status} />
-                <div className="active-run__cta flex w-2/4 justify-evenly">
+                <Link href={`/run/${run.id}`}  passHref>
+                    <p className="text-lg cursor-pointer">{run.command}</p>
+                </Link>
+                <div className="active-run__cta flex h-2/4 items-center justify-evenly">
                     <button
-                        className="bg-gray-200 hover:bg-gray-400 text-gray-800 font-bold py-1 px-2 rounded"
+                        className="bg-gray-200 hover:bg-gray-400 text-gray-800 font-bold py-1 px-2 rounded mr-4"
                         onClick={handlePauseButton}
                     >
                         {run.status === 'pause' ? 'Resume' : 'Pause'}
@@ -36,8 +38,9 @@ const ActiveRun = observer(({ run }) => {
                     </button>
                 </div>
             </div>
-            <div className="active-run__timestamp">
-                <p className="text-sm mt-4 border-t pt-1">{parsedTime}</p>
+            <div className="active-run__footer flex justify-between items-center mt-6 border-t pt-1">
+                <StatusRibbon status={run.status} />
+                <p className="text-sm ">{parsedTime}</p>
             </div>
         </div>
     );

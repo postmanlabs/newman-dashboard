@@ -8,10 +8,10 @@ const actionType = {
 const StatusRibbon = (props) => {
     const status = actionType[props.status] || ["", "transparent"];
     return (
-        <div className="status-ribbon flex items-center bg-gray-200 px-2 py-1 rounded-l rounded-r">
+        <div className="status-ribbon flex items-center bg-gray-200 px-2 py-1 rounded-full">
             <div
                 className={
-                    "status-ribbon__dot mr-2 w-3 h-3 rounded-full bg-" +
+                    "status-ribbon__dot mr-1 w-3 h-3 rounded-full bg-" +
                     status[1]
                 }
             ></div>

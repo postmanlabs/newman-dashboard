@@ -4,8 +4,8 @@ import ActiveRun from "./ActiveRun";
 const RunList = inject("store")(
     observer((props) => {
         return (
-            <div className="container w-full active-runs-list">
-                {props.store.runs.length &&
+            <div className="w-full active-runs-list">
+                {!!props.store.runs.length &&
                     props.store.runs
                         .slice(0)
                         .reverse()
