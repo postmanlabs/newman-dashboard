@@ -12,7 +12,6 @@ const fetchCollection = async () => {
 };
 
 const init = async () => {
-    console.log('called');
     if (!fs.existsSync(tempDir)) {
         fs.mkdirSync(tempDir);
         fs.mkdirSync(dataPath);
