@@ -7,9 +7,9 @@ const socket = io(undefined, {
 
 const execRuns = document.getElementById('exec-runs');
 
-socket.on('connect', () => {
-    console.log('connected to broker.');
-});
+// socket.on('connect', () => {
+//     console.log('connected to broker.');
+// });
 
 // on clicking the pause button
 const clickPauseButton = (value) => {

@@ -34,6 +34,7 @@ describe('Broker daemon', () => {
     after(() => {
         cp.spawn.restore();
         process.exit.restore();
+        // eslint-disable-next-line no-console
         console.log.restore();
     });
 

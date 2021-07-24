@@ -11,6 +11,7 @@ const {
     PAUSE_RUN,
     ABORT_RUN,
     RESUME_RUN,
+    DONE_RUN,
     TEST_CONN,
 } = require('../lib/constants/socket-events');
 const { NEWMAN_RUN, FRONTEND } = require('../lib/constants/socket-rooms');
@@ -43,6 +44,7 @@ const init = () => {
             socket.on(PAUSE_RUN, api.handlePauseRun);
             socket.on(ABORT_RUN, api.handleAbortRun);
             socket.on(RESUME_RUN, api.handleResumeRun);
+            socket.on(DONE_RUN, api.handleDoneRun);
 
             // test socket connection
             socket.on(TEST_CONN, api.handleTestConnection);

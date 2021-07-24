@@ -23,6 +23,7 @@ const init = () => {
             });
         } else {
             // launched for dev: log success to console
+            // eslint-disable-next-line no-console
             console.log(`Dashboard is running at port: ${PORT}`);
         }
     });
@@ -47,6 +48,7 @@ const init = () => {
             });
         } else {
             // launched for dev: log error to console
+            // eslint-disable-next-line no-console
             console.log(serverError);
         }
     });

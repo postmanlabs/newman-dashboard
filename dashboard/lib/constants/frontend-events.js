@@ -3,6 +3,7 @@ module.exports = {
     FRONTEND_PAUSE_RUN: 'pause',
     FRONTEND_ABORT_RUN: 'abort',
     FRONTEND_RESUME_RUN: 'resume',
+    FRONTEND_DONE_RUN: 'done',
 
     FRONTEND_REQUEST_PAUSE: 'pause',
     FRONTEND_REQUEST_ABORT: 'abort',
