@@ -22,6 +22,7 @@ const launchBroker = (port) => {
     // listen to emits by the broker regarding launch of server
     brokerProcess.on('message', (data) => {
         // log the message to the console
+        // eslint-disable-next-line no-console
         console.log(data.message);
 
         // disconnect the IPC channel
