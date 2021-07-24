@@ -1,6 +1,7 @@
 const sinon = require('sinon');
 const expect = require('chai').expect;
 const mock = require('mock-require');
+const fs = require('fs');
 
 const path = require('path');
 
@@ -8,6 +9,7 @@ const sandbox = sinon.createSandbox();
 
 const envPaths = require('env-paths');
 const dataPath = envPaths('newman-reporter-dashboard').data;
+const tempDir = path.join(dataPath, '..');
 
 const initDbSpy = sandbox.spy();
 const getCollectionSpy = sandbox.spy();
@@ -20,6 +22,9 @@ mock('lokijs-promise', {
     getCollection: getCollectionSpy,
 });
 
+fs.existsSync = sinon.spy();
+fs.mkdirSync = sinon.spy();
+
 // unit under test
 const DB = require('../../../../dashboard/store');
 
@@ -31,6 +36,18 @@ describe('DB', () => {
 
     it('should connect to the database correctly', async () => {
         await DB.init();
+
+        expect(fs.existsSync.callCount).to.equal(1);
+        expect(fs.existsSync.firstCall.args.length).to.equal(1);
+        expect(fs.existsSync.firstCall.args[0]).to.equal(tempDir);
+
+        expect(fs.mkdirSync.callCount).to.equal(2);
+
+        expect(fs.mkdirSync.firstCall.args.length).to.equal(1);
+        expect(fs.mkdirSync.firstCall.args[0]).to.equal(tempDir);
+
+        expect(fs.mkdirSync.secondCall.args.length).to.equal(1);
+        expect(fs.mkdirSync.secondCall.args[0]).to.equal(dataPath);
 
         expect(initDbSpy.callCount).to.equal(1);
         expect(initDbSpy.firstCall.args.length).to.equal(2);
