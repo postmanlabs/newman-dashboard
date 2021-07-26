@@ -32,6 +32,10 @@ const mountSockets = (store) => {
         store.setRunFinished(data);
     });
 
+    socket.on('run-event', (data) => {
+        console.log(data.name);
+    });
+
     return socket;
 };
 

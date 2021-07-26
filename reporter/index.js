@@ -9,7 +9,8 @@ const socket = io('http://localhost:5001/', {
     },
 });
 
-const events = require('./lib/events')(socket, id);
+const events = require('./lib/handlers')(socket, id);
+const runtimeEvents = require('./lib/runtimeEvents');
 
 module.exports = function (newman, options, collectionOptions, commands) {
     newman.on('start', events.handleStart);
@@ -18,6 +19,10 @@ module.exports = function (newman, options, collectionOptions, commands) {
     newman.on('resume', events.handleResume);
     newman.on('pause', events.handlePause);
     newman.on('abort', events.handleAbort);
+
+    runtimeEvents.forEach((runEvent) => {
+        newman.on(runEvent, events.handleRunEvent(runEvent));
+    });
 
     socket.on('pause', (data) => {
         commands.pause();

@@ -2,7 +2,7 @@ const expect = require('chai').expect;
 const sinon = require('sinon');
 
 // unit under test
-const events = require('../../../../reporter/lib/events');
+const events = require('../../../../../reporter/lib/handlers');
 
 describe('Reporter events', () => {
     let socket;
@@ -162,6 +162,37 @@ describe('Reporter events', () => {
 
         it('should handle error', () => {
             handleAbort(new Error('error in abort'));
+
+            expect(socket.emit.called).to.be.false;
+            expect(socket.close.called).to.be.true;
+        });
+    });
+
+    describe('handleRunEvent', () => {
+        let handleRunEvent;
+
+        beforeEach(() => {
+            handleRunEvent = events(socket, 'abc').handleRunEvent('event');
+        });
+
+        afterEach(() => {
+            handleRunEvent = null;
+        });
+
+        it('should call the socket', () => {
+            handleRunEvent();
+
+            expect(socket.emit.calledOnce).to.be.true;
+            expect(socket.emit.firstCall.args).to.have.lengthOf(2);
+            expect(socket.emit.firstCall.args[0]).to.equal('run-event');
+            expect(socket.emit.firstCall.args[1]).to.haveOwnProperty('id');
+            expect(socket.emit.firstCall.args[1].id).to.equal('abc');
+            expect(socket.emit.firstCall.args[1]).to.haveOwnProperty('name');
+            expect(socket.emit.firstCall.args[1].name).to.equal('event');
+        });
+
+        it('should handle error', () => {
+            handleRunEvent(new Error('error in abort'));
 
             expect(socket.emit.called).to.be.false;
             expect(socket.close.called).to.be.true;
