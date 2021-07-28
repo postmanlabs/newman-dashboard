@@ -11,25 +11,49 @@ const mountSockets = (store) => {
             type: 'frontend'
         }
     });
-    
+
     socket.on('start', (data) => {
-        store.newRun(data);
+        store.add(data);
     });
 
     socket.on('abort', (data) => {
-        store.updateRunStatus(data, 'abort');
+        if (!data || !data.id) {
+          return;
+        }
+
+        const run = store.find(data.id);
+
+        run.setAborted();
     });
 
     socket.on('pause', (data) => {
-        store.updateRunStatus(data, 'pause');
+        if (!data || !data.id) {
+          return;
+        }
+
+        const run = store.find(data.id);
+
+        run.setPaused();
     });
 
     socket.on('resume', (data) => {
-        store.updateRunStatus(data, 'active');
+        if (!data || !data.id) {
+          return;
+        }
+
+        const run = store.find(data.id);
+
+        run.setActive();
     });
 
     socket.on('done', (data) => {
-        store.setRunFinished(data);
+        if (!data || !data.id) {
+          return;
+        }
+
+        const run = store.find(data.id);
+
+        run.setFinished();
     });
 
     socket.on('run-event', (data) => {
@@ -40,8 +64,3 @@ const mountSockets = (store) => {
 };
 
 module.exports = { mountSockets };
-
-
-
-
-
