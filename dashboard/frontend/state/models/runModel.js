@@ -1,14 +1,14 @@
 import {
-  action,
-  observable,
-  computed
+    action,
+    observable,
+    computed
 } from 'mobx';
 
 export const RUN_STATUS = {
-  ACTIVE: 'active',
-  PAUSED: 'paused',
-  FINISHED: 'finished',
-  ABORTED: 'aborted'
+    ACTIVE: 'active',
+    PAUSED: 'paused',
+    FINISHED: 'finished',
+    ABORTED: 'aborted'
 };
 
 export default class RunModel {
@@ -21,12 +21,12 @@ export default class RunModel {
 
     @computed
     isPaused() {
-      return this.status === RUN_STATUS.PAUSED;
+        return this.status === RUN_STATUS.PAUSED;
     }
 
     @computed
     isFinished() {
-      return this.status === RUN_STATUS.FINISHED;
+        return this.status === RUN_STATUS.FINISHED;
     }
 
     @action
@@ -56,21 +56,21 @@ export default class RunModel {
 
     @action
     setPaused() {
-      this.status = RUN_STATUS.PAUSED;
+        this.status = RUN_STATUS.PAUSED;
     }
 
     @action
     setFinished() {
-      this.status = RUN_STATUS.FINISHED;
+        this.status = RUN_STATUS.FINISHED;
     }
 
     @action
     setActive() {
-      this.status = RUN_STATUS.ACTIVE;
+        this.status = RUN_STATUS.ACTIVE;
     }
 
     @action
     setAborted() {
-      this.status = RUN_STATUS.ABORTED;
+        this.status = RUN_STATUS.ABORTED;
     }
 }

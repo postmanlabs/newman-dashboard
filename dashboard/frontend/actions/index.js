@@ -18,7 +18,7 @@ const mountSockets = (store) => {
 
     socket.on('abort', (data) => {
         if (!data || !data.id) {
-          return;
+            return;
         }
 
         const run = store.find(data.id);
@@ -28,7 +28,7 @@ const mountSockets = (store) => {
 
     socket.on('pause', (data) => {
         if (!data || !data.id) {
-          return;
+            return;
         }
 
         const run = store.find(data.id);
@@ -38,7 +38,7 @@ const mountSockets = (store) => {
 
     socket.on('resume', (data) => {
         if (!data || !data.id) {
-          return;
+            return;
         }
 
         const run = store.find(data.id);
@@ -48,7 +48,7 @@ const mountSockets = (store) => {
 
     socket.on('done', (data) => {
         if (!data || !data.id) {
-          return;
+            return;
         }
 
         const run = store.find(data.id);
