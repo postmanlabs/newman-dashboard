@@ -1,36 +1,34 @@
-import { action, makeObservable, observable } from 'mobx';
+import { action, observable } from 'mobx';
+import { socket } from '../../pages/_app';
 import Run from '../models/runModel';
 
 class RunStore {
     @observable runs = [];
 
     constructor(initialData = []) {
-        makeObservable(this);
-        this.runs = initialData;
+        this.hydrate(initialData);
     }
 
-    @action newRun(run) {
-        this.runs.push(new Run(run));
+    @action
+    hydrate(runs) {
+        this.clear();
+
+        Array.isArray(runs) && runs.forEach((run) => this.add(run));
     }
 
-    @action setRuns(runs) {
-        this.runs = runs;
+    @action
+    clear() {
+        this.run = [];
     }
 
-    @action updateRunStatus(data, status) {
-        this.runs.filter((run) => {
-            if(run.id === data.id) {
-                run.status = status;
-            }
-        })
+    @action
+    add(run) {
+        this.runs.push(new Run(run, socket));
     }
 
-    @action setRunFinished(data) {
-        this.runs.filter((run) => {
-            if(run.id === data.id) {
-                run.status = 'done';
-            }
-        })
+    @action
+    find(id) {
+        return this.runs.find((run) => run.id === id);
     }
 };
 

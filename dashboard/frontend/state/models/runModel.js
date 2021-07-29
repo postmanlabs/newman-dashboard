@@ -1,32 +1,76 @@
-import { action, observable, makeObservable } from 'mobx';
-import { socket } from '../../pages/_app';
+import {
+  action,
+  observable,
+  computed
+} from 'mobx';
+
+export const RUN_STATUS = {
+  ACTIVE: 'active',
+  PAUSED: 'paused',
+  FINISHED: 'finished',
+  ABORTED: 'aborted'
+};
 
 export default class RunModel {
     @observable status;
+    @observable command;
+    @observable id;
+    @observable startTime;
+    @observable status = RUN_STATUS.ACTIVE;
+    socket = null;
 
-    constructor(runData) {
-        makeObservable(this);
-        this.command = runData.command;
-        this.id = runData.id;
-        this.startTime = runData.startTime;
-        this.status = 'active';
+    @computed
+    isPaused() {
+      return this.status === RUN_STATUS.PAUSED;
     }
 
-    @action emitPause() {
-        socket.emit('pause', {
-            id: this.id
-        });
+    @computed
+    isFinished() {
+      return this.status === RUN_STATUS.FINISHED;
     }
 
-    @action emitResume() {
-        socket.emit('resume', {
-            id: this.id
-        });
+    @action
+    _init(data) {
+        this.command = data.command;
+        this.id = data.id;
+        this.startTime = data.startTime;
     }
 
-    @action emitAbort() {
-        socket.emit('abort', {
-            id: this.id
-        });
+    _emit(eventName) {
+        const payload = { id: this.id };
+
+        // TODO: socket should not be coupled with model. Currently we're
+        // mixing data and transport layers
+        this.socket && this.socket.emit(eventName, payload);
     }
-} 
+
+    constructor(data, socket) {
+        this._init(data);
+
+        this.socket = socket;
+
+        this.pause = this._emit.bind(this, 'pause');
+        this.resume = this._emit.bind(this, 'resume');
+        this.abort = this._emit.bind(this, 'abort');
+    }
+
+    @action
+    setPaused() {
+      this.status = RUN_STATUS.PAUSED;
+    }
+
+    @action
+    setFinished() {
+      this.status = RUN_STATUS.FINISHED;
+    }
+
+    @action
+    setActive() {
+      this.status = RUN_STATUS.ACTIVE;
+    }
+
+    @action
+    setAborted() {
+      this.status = RUN_STATUS.ABORTED;
+    }
+}

@@ -1,22 +1,35 @@
-const actionType = {
-    active: ["Running", "green-400"],
-    pause: ["Paused", "yellow-300"],
-    abort: ["Aborted", "red-500"],
-    done: ["Done", "gray-500"],
+import { RUN_STATUS } from '../state/models/runModel';
+
+const statusMap = {
+    [RUN_STATUS.ACTIVE]: {
+        userFriendlyStatus: "Running",
+        bgColorClassName: "bg-green-400"
+    },
+    [RUN_STATUS.PAUSED]: {
+        userFriendlyStatus: "Paused",
+        bgColorClassName: "bg-yellow-300"
+    },
+    [RUN_STATUS.ABORTED]: {
+        userFriendlyStatus: "Aborted",
+        bgColorClassName: "bg-red-500"
+    },
+    [RUN_STATUS.FINISHED]: {
+        userFriendlyStatus: "Done",
+        bgColorClassName: "bg-gray-500"
+    },
 };
 
-const StatusRibbon = (props) => {
-    const status = actionType[props.status] || ["", "transparent"];
+const StatusRibbon = ({ run }) => {
+    const {
+        userFriendlyStatus,
+        bgColorClassName
+    } = statusMap[run.status] || {};
+
     return (
         <div className="status-ribbon flex items-center bg-gray-200 px-2 py-1 rounded-full">
-            <div
-                className={
-                    "status-ribbon__dot mr-1 w-3 h-3 rounded-full bg-" +
-                    status[1]
-                }
-            ></div>
+            <div className={`status-ribbon__dot mr-1 w-3 h-3 rounded-full ${bgColorClassName}`} />
             <div className="status-ribbon__status text-sm font-bold">
-                {status[0]}
+                {userFriendlyStatus}
             </div>
         </div>
     );
