@@ -12,6 +12,7 @@ const {
     ABORT_RUN,
     RESUME_RUN,
     TEST_CONN,
+    RUN_EVENT,
 } = require('../lib/constants/socket-events');
 const { NEWMAN_RUN, FRONTEND } = require('../lib/constants/socket-rooms');
 
@@ -25,7 +26,11 @@ const {
 const init = () => {
     // setup socket.io server
     const server = Server.init();
-    const io = socket(server);
+    const io = socket(server, {
+        cors: {
+            origin: '*',
+        },
+    });
 
     // middleware to extract id from the newman run
     io.use(utils.socketAuth);
@@ -43,6 +48,7 @@ const init = () => {
             socket.on(PAUSE_RUN, api.handlePauseRun);
             socket.on(ABORT_RUN, api.handleAbortRun);
             socket.on(RESUME_RUN, api.handleResumeRun);
+            socket.on(RUN_EVENT, api.handleRunEvent);
 
             // test socket connection
             socket.on(TEST_CONN, api.handleTestConnection);

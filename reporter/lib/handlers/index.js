@@ -1,4 +1,4 @@
-const utils = require('./utils');
+const utils = require('../utils');
 
 module.exports = (socket, id) => {
     return {
@@ -41,6 +41,18 @@ module.exports = (socket, id) => {
             socket.emit('abort', {
                 id,
             });
+        },
+
+        handleRunEvent: (event) => {
+            return (err, args) => {
+                if (err) return socket.close();
+
+                socket.emit('run-event', {
+                    name: event,
+                    id,
+                    args,
+                });
+            };
         },
     };
 };
