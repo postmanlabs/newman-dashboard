@@ -6,3 +6,4 @@ node_modules/
 
 # Prevent intermediate files from next build
 /dashboard/frontend/.next/
+/dashboard/frontend/out/
