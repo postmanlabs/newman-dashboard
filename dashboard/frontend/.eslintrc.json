@@ -18,6 +18,7 @@
         "react/jsx-filename-extension": [0],
         "react/jsx-props-no-spreading": [0],
         "indent": ["error", 4],
-        "linebreak-style": ["off", "auto"]
+        "linebreak-style": ["off", "auto"],
+        "no-console": "error"
     }
 }

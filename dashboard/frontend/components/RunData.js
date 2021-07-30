@@ -3,7 +3,6 @@ import StatusRibbon from './StatusRibbon';
 
 const RunData = observer(({ run }) => {
     const parsedTime = new Date(run.startTime).toLocaleTimeString();
-    console.log(run);
     return (
         <div className="run-data w-screen">
             <div className="run-data__meta mx-4 my-2">

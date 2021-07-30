@@ -1,7 +1,8 @@
 import {
     action,
     observable,
-    computed
+    computed,
+    makeAutoObservable
 } from 'mobx';
 
 export const RUN_STATUS = {
@@ -12,12 +13,23 @@ export const RUN_STATUS = {
 };
 
 export default class RunModel {
-    @observable status;
     @observable command;
     @observable id;
     @observable startTime;
     @observable status = RUN_STATUS.ACTIVE;
     socket = null;
+
+    constructor(data, socket) {
+        makeAutoObservable(this);
+
+        this._init(data);
+
+        this.socket = socket;
+
+        this.pause = this._emit.bind(this, 'pause');
+        this.resume = this._emit.bind(this, 'resume');
+        this.abort = this._emit.bind(this, 'abort');
+    }
 
     @computed
     isPaused() {
@@ -42,16 +54,6 @@ export default class RunModel {
         // TODO: socket should not be coupled with model. Currently we're
         // mixing data and transport layers
         this.socket && this.socket.emit(eventName, payload);
-    }
-
-    constructor(data, socket) {
-        this._init(data);
-
-        this.socket = socket;
-
-        this.pause = this._emit.bind(this, 'pause');
-        this.resume = this._emit.bind(this, 'resume');
-        this.abort = this._emit.bind(this, 'abort');
     }
 
     @action

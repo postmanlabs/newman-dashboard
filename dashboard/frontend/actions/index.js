@@ -57,7 +57,6 @@ const mountSockets = (store) => {
     });
 
     socket.on('run-event', (data) => {
-        console.log(data.name);
     });
 
     return socket;

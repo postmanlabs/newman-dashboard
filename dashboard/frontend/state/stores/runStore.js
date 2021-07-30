@@ -1,4 +1,4 @@
-import { action, observable } from 'mobx';
+import { action, observable, makeObservable } from 'mobx';
 import { socket } from '../../pages/_app';
 import Run from '../models/runModel';
 
@@ -6,6 +6,7 @@ class RunStore {
     @observable runs = [];
 
     constructor(initialData = []) {
+        makeObservable(this);
         this.hydrate(initialData);
     }
 

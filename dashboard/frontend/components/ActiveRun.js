@@ -6,7 +6,7 @@ const ActiveRun = observer(({ run }) => {
     const parsedTime = new Date(run.startTime).toLocaleTimeString();
 
     const handlePauseButton = () => {
-        run.isActive ? run.pause() : run.resume();
+        run.isPaused() ? run.resume() : run.pause();
     };
 
     const handleAbortButton = () => {
@@ -24,7 +24,7 @@ const ActiveRun = observer(({ run }) => {
                         className="bg-gray-200 hover:bg-gray-400 text-gray-800 font-bold py-1 px-2 rounded mr-4"
                         onClick={handlePauseButton}
                     >
-                        {run.isPaused ? 'Resume' : 'Pause'}
+                        {run.isPaused() ? 'Resume' : 'Pause'}
                     </button>
                     <button
                         className="bg-gray-200 hover:bg-gray-400 text-gray-800 font-bold py-1 px-2 rounded"
