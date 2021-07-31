@@ -4,8 +4,8 @@ import StatusRibbon from './StatusRibbon';
 const RunData = observer(({ run }) => {
     const parsedTime = new Date(run.startTime).toLocaleTimeString();
     return (
-        <div className="run-data w-screen">
-            <div className="run-data__meta mx-4 my-2">
+        <div className="run-data p-4">
+            <div className="run-data__meta">
                 <p className="font-mono text-xl">{run.command}</p>
                 <div className="flex justify-between my-5">
                     <StatusRibbon run={run} />

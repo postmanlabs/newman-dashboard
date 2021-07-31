@@ -1,6 +1,7 @@
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
 import { inject, observer } from "mobx-react";
-import RunData from '../../components/RunData';
+import RunData from "../../components/RunData";
+import Header from "../../components/Header";
 
 const RunDetails = inject("store")(
     observer((props) => {
@@ -10,7 +11,10 @@ const RunDetails = inject("store")(
         const run = props.store.runs.filter((runData) => runData.id === id);
 
         return (
-            !!run.length > 0 ? <RunData run={run[0]} /> : <p>Invalid Run</p>
+            <>
+                <Header />
+                {!!run.length > 0 ? <RunData run={run[0]} /> : <p>Invalid Run</p>}
+            </>
         );
     })
 );
