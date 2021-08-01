@@ -22,6 +22,7 @@ const {
     FRONTEND_REQUEST_RESUME,
     FRONTEND_REQUEST_PAUSE,
     FRONTEND_REQUEST_TEST_CONN,
+    FRONTEND_REQUEST_TERMINATE,
 } = require('../lib/constants/frontend-events');
 
 const init = () => {
@@ -64,6 +65,7 @@ const init = () => {
             socket.on(FRONTEND_REQUEST_PAUSE, api.handlePauseRequest);
             socket.on(FRONTEND_REQUEST_ABORT, api.handleAbortRequest);
             socket.on(FRONTEND_REQUEST_RESUME, api.handleResumeRequest);
+            socket.on(FRONTEND_REQUEST_TERMINATE, api.handleTerminateRequest);
 
             // test socket connection
             socket.on(FRONTEND_REQUEST_TEST_CONN, api.handleTestConnection);
