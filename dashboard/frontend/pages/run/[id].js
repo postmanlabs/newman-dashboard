@@ -1,22 +1,23 @@
 import { useRouter } from "next/router";
-import { inject, observer } from "mobx-react";
+import { observer } from "mobx-react";
+
+import runStore from '../../state/stores';
+
 import RunData from "../../components/RunData";
 import Header from "../../components/Header";
 
-const RunDetails = inject("store")(
-    observer((props) => {
-        const router = useRouter();
-        const { id } = router.query;
+const RunDetails = observer((props) => {
+    const router = useRouter();
+    const { id } = router.query;
 
-        const run = props.store.runs.filter((runData) => runData.id === id);
+    const run = runStore.find(id);
 
-        return (
-            <>
-                <Header />
-                {!!run.length > 0 ? <RunData run={run[0]} /> : <p>Invalid Run</p>}
-            </>
-        );
-    })
-);
+    return (
+        <>
+            <Header />
+            {!!run ? <RunData run={run} /> : <p>Invalid Run</p>}
+        </>
+    );
+});
 
 export default RunDetails;

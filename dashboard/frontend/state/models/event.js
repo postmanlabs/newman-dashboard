@@ -16,7 +16,8 @@ export default class EventModel {
     @action
     _init(data) {
         this.type = data.type;
-        this.time = data.time;
+        this.parentId = data.id;
+        this.time = Date.now();
         this.args = data.args;
     }
 }

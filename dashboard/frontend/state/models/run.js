@@ -84,7 +84,7 @@ export default class RunModel {
     }
 
     @action
-    newEvent(data) {
+    addEvent(data) {
         this.events.push(new Event(data));
     }
 }

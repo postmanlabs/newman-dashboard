@@ -57,6 +57,8 @@ const mountSockets = (store) => {
     });
 
     socket.on('run-event', (data) => {
+        const run = store.find(data.id);
+        run.addEvent(data);
     });
 
     return socket;
