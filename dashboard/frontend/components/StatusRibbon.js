@@ -1,4 +1,4 @@
-import { RUN_STATUS } from '../state/models/runModel';
+import { RUN_STATUS } from '../state/models/run';
 
 const statusMap = {
     [RUN_STATUS.ACTIVE]: {

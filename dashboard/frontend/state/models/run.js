@@ -5,11 +5,13 @@ import {
     makeAutoObservable
 } from 'mobx';
 
+import Event from './event';
+
 export const RUN_STATUS = {
     ACTIVE: 'active',
     PAUSED: 'paused',
     FINISHED: 'finished',
-    ABORTED: 'aborted'
+    ABORTED: 'aborted',
 };
 
 export default class RunModel {
@@ -17,6 +19,8 @@ export default class RunModel {
     @observable id;
     @observable startTime;
     @observable status = RUN_STATUS.ACTIVE;
+    @observable events = [];
+    @observable endTime;
     socket = null;
 
     constructor(data, socket) {
@@ -46,6 +50,7 @@ export default class RunModel {
         this.command = data.command;
         this.id = data.id;
         this.startTime = data.startTime;
+        this.endTime = 0;
     }
 
     _emit(eventName) {
@@ -64,6 +69,7 @@ export default class RunModel {
     @action
     setFinished() {
         this.status = RUN_STATUS.FINISHED;
+        this.endTime = Date.now();
     }
 
     @action
@@ -74,5 +80,11 @@ export default class RunModel {
     @action
     setAborted() {
         this.status = RUN_STATUS.ABORTED;
+        this.endTime = Date.now();
+    }
+
+    @action
+    newEvent(data) {
+        this.events.push(new Event(data));
     }
 }

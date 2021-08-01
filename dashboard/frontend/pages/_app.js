@@ -1,5 +1,4 @@
-import { Provider } from 'mobx-react';
-import { useStore } from '../state/stores';
+import runStore from '../state/stores';
 
 import '../styles/index.scss';
 import { mountSockets } from '../actions';
@@ -7,13 +6,10 @@ import { mountSockets } from '../actions';
 let socket;
 
 export default function App({ Component, pageProps }) {
-    const store = useStore(pageProps.initialState)
-    socket = mountSockets(store);
+    socket = mountSockets(runStore);
 
     return (
-        <Provider store={store}>
-            <Component {...pageProps} />
-        </Provider>
+        <Component {...pageProps} />
     )
 };
 

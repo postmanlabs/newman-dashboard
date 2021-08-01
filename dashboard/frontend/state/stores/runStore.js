@@ -1,12 +1,12 @@
-import { action, observable, makeObservable } from 'mobx';
+import { action, observable, makeAutoObservable } from 'mobx';
 import { socket } from '../../pages/_app';
-import Run from '../models/runModel';
+import Run from '../models/run';
 
 class RunStore {
-    @observable runs = [];
+    @observable runs = {};
 
     constructor(initialData = []) {
-        makeObservable(this);
+        makeAutoObservable(this);
         this.hydrate(initialData);
     }
 
@@ -19,17 +19,26 @@ class RunStore {
 
     @action
     clear() {
-        this.run = [];
+        this.runs = {};
     }
 
     @action
     add(run) {
-        this.runs.push(new Run(run, socket));
+        if(!run.hasOwnProperty('id')) return;
+
+        this.runs[run.id] = new Run(run, socket);
     }
 
     @action
     find(id) {
-        return this.runs.find((run) => run.id === id);
+        return this.runs[id];
+    }
+
+    @action 
+    getSortedRuns() {
+        return Object.values(this.runs).sort((firstRun, secondRun) => {
+            firstRun.endTime < secondRun.endTime;
+        });
     }
 };
 

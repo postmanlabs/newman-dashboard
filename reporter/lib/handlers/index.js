@@ -48,7 +48,7 @@ module.exports = (socket, id) => {
                 if (err) return socket.close();
 
                 socket.emit('run-event', {
-                    name: event,
+                    type: event,
                     id,
                     args,
                 });
