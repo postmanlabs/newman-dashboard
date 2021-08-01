@@ -187,8 +187,8 @@ describe('Reporter events', () => {
             expect(socket.emit.firstCall.args[0]).to.equal('run-event');
             expect(socket.emit.firstCall.args[1]).to.haveOwnProperty('id');
             expect(socket.emit.firstCall.args[1].id).to.equal('abc');
-            expect(socket.emit.firstCall.args[1]).to.haveOwnProperty('name');
-            expect(socket.emit.firstCall.args[1].name).to.equal('event');
+            expect(socket.emit.firstCall.args[1]).to.haveOwnProperty('type');
+            expect(socket.emit.firstCall.args[1].type).to.equal('event');
         });
 
         it('should handle error', () => {

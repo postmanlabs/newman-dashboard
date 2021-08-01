@@ -11,6 +11,7 @@ const {
     PAUSE_RUN,
     ABORT_RUN,
     RESUME_RUN,
+    DONE_RUN,
     TEST_CONN,
     RUN_EVENT,
 } = require('../lib/constants/socket-events');
@@ -48,6 +49,7 @@ const init = () => {
             socket.on(PAUSE_RUN, api.handlePauseRun);
             socket.on(ABORT_RUN, api.handleAbortRun);
             socket.on(RESUME_RUN, api.handleResumeRun);
+            socket.on(DONE_RUN, api.handleDoneRun);
             socket.on(RUN_EVENT, api.handleRunEvent);
 
             // test socket connection

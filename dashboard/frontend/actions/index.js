@@ -49,8 +49,8 @@ const mountSockets = (store) => {
     socket.on('done', (data) => {
         if (!data || !data.id) {
             return;
-        }
-
+        } 
+          
         const run = store.find(data.id);
 
         run.setFinished();
