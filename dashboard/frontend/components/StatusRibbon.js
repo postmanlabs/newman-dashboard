@@ -17,6 +17,10 @@ const statusMap = {
         userFriendlyStatus: "Done",
         bgColorClassName: "bg-gray-500"
     },
+    [RUN_STATUS.INTERRUPTED]: {
+        userFriendlyStatus: "Error",
+        bgColorClassName: "bg-red-900"
+    },
 };
 
 const StatusRibbon = ({ run }) => {

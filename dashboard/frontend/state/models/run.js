@@ -12,6 +12,7 @@ export const RUN_STATUS = {
     PAUSED: 'paused',
     FINISHED: 'finished',
     ABORTED: 'aborted',
+    INTERRUPTED: 'interrupted'
 };
 
 export default class RunModel {
@@ -81,6 +82,11 @@ export default class RunModel {
     setAborted() {
         this.status = RUN_STATUS.ABORTED;
         this.endTime = Date.now();
+    }
+
+    @action
+    setInterrupted() {
+        this.status = RUN_STATUS.INTERRUPTED;
     }
 
     @action

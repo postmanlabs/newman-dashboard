@@ -20,6 +20,8 @@ module.exports = function (newman, options, collectionOptions, commands) {
     newman.on('pause', handlers.handlePause);
     newman.on('abort', handlers.handleAbort);
 
+    process.on('SIGINT', handlers.handleInterrupt);
+
     runtimeEvents.forEach((runEvent) => {
         newman.on(runEvent, handlers.handleRunEvent(runEvent));
     });

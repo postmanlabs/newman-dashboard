@@ -43,6 +43,13 @@ module.exports = (socket, id) => {
             });
         },
 
+        handleInterrupt: () => {
+            socket.emit('interrupt', {
+                id,
+            });
+            socket.close();
+        },
+
         handleRunEvent: (event) => {
             return (err, args) => {
                 if (err) return socket.close();

@@ -4,6 +4,7 @@ module.exports = {
     ABORT_RUN: 'abort',
     RESUME_RUN: 'resume',
     DONE_RUN: 'done',
+    INTERRUPT_RUN: 'interrupt',
     RUN_EVENT: 'run-event',
     TEST_CONN: 'test',
 
