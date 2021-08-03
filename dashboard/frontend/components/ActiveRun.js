@@ -23,12 +23,14 @@ const ActiveRun = observer(({ run }) => {
                     <button
                         className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-2 rounded mr-4"
                         onClick={handlePauseButton}
+                        disabled={run.isFinished()}
                     >
                         {run.isPaused() ? 'Resume' : 'Pause'}
                     </button>
                     <button
                         className="bg-yellow-400 hover:bg-yellow-500 text-white font-bold py-1 px-2 rounded"
                         onClick={handleAbortButton}
+                        disabled={run.isFinished()}
                     >
                         Abort
                     </button>

@@ -12,14 +12,14 @@ const Header = () => {
     return (
         <nav className="flex items-center justify-between flex-wrap shadow px-4 py-4">
             <Link href="/" passHref={true}>
-                <Image
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
                     className="opacity-60 cursor-pointer"
                     src="/logo.png"
                     alt="newman dashboard logo"
-                    width={300}
-                    height={30}
-                    quality={100}
-                ></Image>
+                    width="300"
+                    height="30"
+                ></img>
             </Link>
             <button
                 onClick={handleCloseButton}
