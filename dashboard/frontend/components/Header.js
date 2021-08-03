@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import { socket } from "../pages/_app";
 
 const Header = () => {
