@@ -1,8 +1,6 @@
-<h1 align="center">
-    Newman Dashboard
-</h1>
-
-<h4 align="center"><i>A real-time reporter for newman to control, view and debug runs on a WebUI dashboard.</i></h4>
+<p align="center">
+    <img src="https://socialify.git.ci/elit-altum/newman-dashboard/image?description=1&font=KoHo&forks=1&language=1&owner=1&pattern=Plus&pulls=1&stargazers=1&theme=Light">
+</p>
 
 <p align="center">
     <img src="https://img.shields.io/badge/built%20with-JavaScript-green?style=flat-square&logo=node.js">
