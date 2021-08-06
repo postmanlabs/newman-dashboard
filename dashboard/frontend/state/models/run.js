@@ -93,4 +93,9 @@ export default class RunModel {
     addEvent(data) {
         this.events.push(new Event(data));
     }
+
+    @computed
+    sortEvents() {
+        return this.events.sort((firstEvent, secondEvent) => firstEvent.time < secondEvent.time)
+    }
 }

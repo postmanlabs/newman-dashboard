@@ -7,7 +7,6 @@ class RunStore {
 
     constructor(initialData = []) {
         makeAutoObservable(this);
-        this.hydrate(initialData);
     }
 
     @action

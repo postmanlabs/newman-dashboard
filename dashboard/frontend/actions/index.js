@@ -62,6 +62,8 @@ const mountSockets = (store) => {
     });
 
     socket.on('run-event', (data) => {
+        // eslint-disable-next-line no-console
+        console.log(data.type);
         const run = store.find(data.id);
         run.addEvent(data);
     });

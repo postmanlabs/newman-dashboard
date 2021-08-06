@@ -8,10 +8,22 @@ const RunData = observer(({ run }) => {
         <div className="run-data p-6">
             <div className="run-data__meta">
                 <p className="font-mono text-xl">{run.command}</p>
-                <div className="flex justify-between my-5">
-                    <StatusRibbon run={run} />
-                    <p className="text-right">{parsedTime}</p>
+                <div className="flex justify-between my-5 mr-6">
+                    <div>
+                        <StatusRibbon run={run} />
+                    </div>
+                    <div className="flex">
+                        <div className="mr-6 text-center">
+                            <p className="font-mono text-3xl">96%</p>
+                            <p className="text-sm">CPU</p>
+                        </div>
+                        <div className="text-center">
+                            <p className="font-mono text-3xl">72MB</p>
+                            <p className="text-sm">Memory</p>
+                        </div>
+                    </div>
                 </div>
+                <p className="text-left">{parsedTime}</p>
             </div>
             <div className="run-data__details my-2">
                 <p className="font-bold text-xl">Run Details</p>
