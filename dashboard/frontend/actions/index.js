@@ -4,7 +4,15 @@ import { nanoid } from 'nanoid';
 
 const frontendId = nanoid(16);
 
+let isMounted = false;
+
 const mountSockets = (store) => {
+    if (isMounted) {
+        return;
+    }
+    
+    isMounted = true;
+
     const socket = io('http://localhost:5001/', {
         auth: {
             id: frontendId,
@@ -62,8 +70,6 @@ const mountSockets = (store) => {
     });
 
     socket.on('run-event', (data) => {
-        // eslint-disable-next-line no-console
-        console.log(data.type);
         const run = store.find(data.id);
         run.addEvent(data);
     });
