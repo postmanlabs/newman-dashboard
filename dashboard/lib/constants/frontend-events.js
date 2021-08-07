@@ -6,6 +6,7 @@ module.exports = {
     FRONTEND_DONE_RUN: 'done',
     FRONTEND_INTERRUPT_RUN: 'interrupt',
     FRONTEND_RUN_EVENT: 'run-event',
+    FRONTEND_RUN_STATS: 'run-stats',
 
     FRONTEND_REQUEST_PAUSE: 'pause',
     FRONTEND_REQUEST_ABORT: 'abort',

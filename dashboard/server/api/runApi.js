@@ -6,6 +6,7 @@ const {
     FRONTEND_RUN_EVENT,
     FRONTEND_DONE_RUN,
     FRONTEND_INTERRUPT_RUN,
+    FRONTEND_RUN_STATS,
 } = require('../../lib/constants/frontend-events');
 
 module.exports = (socket) => ({
@@ -43,6 +44,11 @@ module.exports = (socket) => ({
     handleRunEvent: (data, callback) => {
         socket.emit(FRONTEND_RUN_EVENT, data);
         callback && callback('run-event', data);
+    },
+
+    handleRunStats: (data, callback) => {
+        socket.emit(FRONTEND_RUN_STATS, data);
+        callback && callback('run-stats', data);
     },
 
     handleTestConnection: (callback) => {

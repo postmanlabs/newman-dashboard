@@ -50,6 +50,14 @@ module.exports = (socket, id) => {
             socket.close();
         },
 
+        handleRunStats: (stats) => {
+            socket.emit('run-stats', {
+                id,
+                cpu: stats.cpu,
+                memory: stats.memory,
+            });
+        },
+
         handleRunEvent: (event) => {
             return (err, args) => {
                 if (err) return socket.close();

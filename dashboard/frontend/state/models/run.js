@@ -22,6 +22,8 @@ export default class RunModel {
     @observable status = RUN_STATUS.ACTIVE;
     @observable events = [];
     @observable endTime;
+    @observable cpuUsage = [];
+    @observable memoryUsage = [];
     socket = null;
 
     constructor(data, socket) {
@@ -31,9 +33,9 @@ export default class RunModel {
 
         this.socket = socket;
 
-        this.pause = this._emit.bind(this, 'pause');
-        this.resume = this._emit.bind(this, 'resume');
-        this.abort = this._emit.bind(this, 'abort');
+        this.pause = this._emit.bind(this, "pause");
+        this.resume = this._emit.bind(this, "resume");
+        this.abort = this._emit.bind(this, "abort");
     }
 
     @computed
@@ -94,8 +96,47 @@ export default class RunModel {
         this.events.push(new Event(data));
     }
 
+    @action
+    addRunStats(data) {
+        data.cpu &&
+            data.memory &&
+            this.cpuUsage.push(data.cpu) &&
+            this.memoryUsage.push(data.memory);
+    }
+
     @computed
     sortEvents() {
-        return this.events.sort((firstEvent, secondEvent) => firstEvent.time < secondEvent.time)
+        return this.events.sort(
+            (firstEvent, secondEvent) => firstEvent.time < secondEvent.time
+        );
+    }
+
+    @computed
+    averageMemoryUsage() {
+        let totalMemory = 0;
+        this.memoryUsage.forEach((memory) => {
+            totalMemory += memory;
+        });
+
+        let avgMemoryB = totalMemory / this.memoryUsage.length;
+        let avgMemoryMB = avgMemoryB / 1e6;
+        let roundedMemory =
+            Math.round((avgMemoryMB + Number.EPSILON) * 100) / 100;
+
+        return roundedMemory;
+    }
+
+    @computed
+    averageCpuUsage() {
+        let totalCpu = 0;
+        this.cpuUsage.forEach((cpu) => {
+            totalCpu += cpu;
+        });
+
+        let avgCpu = totalCpu / this.cpuUsage.length;
+        let roundedCpu =
+            Math.round((avgCpu + Number.EPSILON) * 100) / 100;
+
+        return roundedCpu;
     }
 }

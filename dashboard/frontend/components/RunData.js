@@ -14,11 +14,11 @@ const RunData = observer(({ run }) => {
                     </div>
                     <div className="flex">
                         <div className="mr-6 text-center">
-                            <p className="font-mono text-3xl">96%</p>
+                            <p className="font-mono text-3xl">{run.averageCpuUsage() || 0}%</p>
                             <p className="text-sm">CPU</p>
                         </div>
                         <div className="text-center">
-                            <p className="font-mono text-3xl">72MB</p>
+                            <p className="font-mono text-3xl">{run.averageMemoryUsage() || 0}MB</p>
                             <p className="text-sm">Memory</p>
                         </div>
                     </div>
