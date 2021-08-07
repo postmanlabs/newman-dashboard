@@ -10,7 +10,7 @@ const RunData = observer(({ run }) => {
                 <p className="font-mono text-xl">{run.command}</p>
                 <div className="flex justify-between my-5 mr-6">
                     <div>
-                        <StatusRibbon run={run} />
+                        <StatusRibbon status={run.status} />
                     </div>
                     <div className="flex">
                         <div className="mr-6 text-center">

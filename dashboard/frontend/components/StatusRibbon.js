@@ -23,11 +23,11 @@ const statusMap = {
     },
 };
 
-const StatusRibbon = ({ run }) => {
+const StatusRibbon = ({ status }) => {
     const {
         userFriendlyStatus,
         bgColorClassName
-    } = statusMap[run.status] || {};
+    } = statusMap[status] || {};
 
     return (
         <div className="status-ribbon flex items-center bg-gray-200 px-2 py-1 rounded-full">

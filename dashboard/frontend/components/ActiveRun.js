@@ -37,7 +37,7 @@ const ActiveRun = observer(({ run }) => {
                 </div>
             </div>
             <div className="active-run__footer flex justify-between items-center mt-4 border-t pt-1">
-                <StatusRibbon run={run} />
+                <StatusRibbon status={run.status} />
                 <p className="text-sm ">{parsedTime}</p>
             </div>
         </div>
