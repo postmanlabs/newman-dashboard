@@ -1,0 +1,25 @@
+{
+  "root": true,
+  "env": {
+    "commonjs": true,
+    "es2021": true,
+    "node": true
+  },
+  "extends": ["prettier"],
+  "parserOptions": {
+    "ecmaVersion": 12
+  },
+  "plugins": ["prettier"],
+  "rules": {
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto",
+        "singleQuote": true,
+        "tabWidth": 4,
+        "printWidth": 80
+      }
+    ],
+    "max-len": [2, 80, 4]
+  }
+}

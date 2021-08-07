@@ -7,7 +7,13 @@
     "lib": "lib"
   },
   "scripts": {
-    "dev:dashboard": "nodemon ./server/index.js"
+    "test": "npm run test:lint && npm run test:suite",
+    "test:lint": "eslint .",
+    "test:suite": "npm run test:unit && npm run test:integration",
+    "test:unit": "nyc mocha \"test/unit/**/*.test.js\"",
+    "test:integration": "nyc mocha \"test/integration/**/*.test.js\"",
+    "coverage": "codecov",
+    "dev": "nodemon ./server/index.js"
   },
   "author": "elit-altum",
   "license": "Apache-2.0",
@@ -17,7 +23,8 @@
   "dependencies": {
     "commander": "7.2.0",
     "express": "4.17.1",
-    "socket.io": "4.1.2"
+    "socket.io": "4.1.2",
+    "socket.io-client": "4.1.2"
   },
   "devDependencies": {
     "chai": "^4.3.4",
