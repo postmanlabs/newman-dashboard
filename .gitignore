@@ -3,7 +3,3 @@ node_modules/
 # Prevent test coverage reports from being added
 .coverage
 .nyc_output
-
-# Prevent intermediate files from next build
-frontend/.next/
-frontend/out/

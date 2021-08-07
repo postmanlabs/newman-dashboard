@@ -3,8 +3,9 @@
   "version": "0.0.1",
   "description": "A WebUI companion for Newman to control, view and debug runs.",
   "scripts": {
-    "dev:client": "next .",
-    "build:client": "next build . && next export ."
+    "test:lint": "eslint .",
+    "dev": "next .",
+    "build": "next build . && next export ."
   },
   "author": "elit-altum",
   "license": "Apache-2.0",
