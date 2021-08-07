@@ -47,7 +47,7 @@ module.exports = (socket, id) => {
             socket.emit('interrupt', {
                 id,
             });
-            socket.close();
+            socket.hasOwnProperty('close') && socket.close();
         },
 
         handleRunStats: (stats) => {
