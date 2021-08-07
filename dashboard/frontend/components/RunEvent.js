@@ -18,6 +18,14 @@ const BeforeItem = ({ arg }) => {
     );
 };
 
+const Assertion = ({ arg }) => {
+    return (
+        <div className="ml-10 italic text-gray-400">
+            <p>{arg.assertion}</p>
+        </div>
+    );
+}
+
 const BeforeRequest = ({ arg }) => {
     const requestUrl = new sdk.Url(arg.request.url);
 
@@ -34,7 +42,7 @@ const Request = ({ arg }) => {
     const bgColor = arg.response.code === 200 ? 'text-green-500' : 'text-yellow-200';
 
     return (
-        <div className="flex ml-8 mt-2 text-sm">
+        <div className="flex ml-8 my-2 text-sm">
             <p
                 className={
                     "mr-2 bg-gray-100 px-2 rounded-l rounded-r " + bgColor
@@ -54,6 +62,7 @@ const Events = {
     beforeItem: BeforeItem,
     beforeRequest: BeforeRequest,
     request: Request,
+    assertion: Assertion
 };
 
 const RunEvent = ({ event }) => {
