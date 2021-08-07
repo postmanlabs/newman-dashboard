@@ -1,9 +1,10 @@
 const { Command } = require('commander');
-const program = new Command();
 const version = require('../package.json').version;
-const Server = require('../dashboard/server');
+const Server = require('../server');
 
-const launchBroker = require('../dashboard');
+const launchBroker = require('..');
+
+const program = new Command();
 
 program
     .name('newman-dashboard')
