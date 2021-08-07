@@ -5,5 +5,5 @@ node_modules/
 .nyc_output
 
 # Prevent intermediate files from next build
-/dashboard/frontend/.next/
-/dashboard/frontend/out/
+frontend/.next/
+frontend/out/
