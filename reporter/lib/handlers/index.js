@@ -43,14 +43,28 @@ module.exports = (socket, id) => {
             });
         },
 
+        handleInterrupt: () => {
+            socket.emit('interrupt', {
+                id,
+            });
+            socket.hasOwnProperty('close') && socket.close();
+        },
+
+        handleRunStats: (stats) => {
+            socket.emit('run-stats', {
+                id,
+                cpu: stats.cpu,
+                memory: stats.memory,
+            });
+        },
+
         handleRunEvent: (event) => {
             return (err, args) => {
-                if (err) return socket.close();
-
                 socket.emit('run-event', {
-                    name: event,
+                    type: event,
                     id,
                     args,
+                    err,
                 });
             };
         },

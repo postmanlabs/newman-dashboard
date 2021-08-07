@@ -6,6 +6,7 @@ module.exports = [
     'beforeRequest',
     'request',
     'beforeTest',
+    'assertion',
     'test',
     'item',
     'iteration',

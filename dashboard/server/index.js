@@ -11,8 +11,11 @@ const {
     PAUSE_RUN,
     ABORT_RUN,
     RESUME_RUN,
+    DONE_RUN,
+    INTERRUPT_RUN,
     TEST_CONN,
     RUN_EVENT,
+    RUN_STATS,
 } = require('../lib/constants/socket-events');
 const { NEWMAN_RUN, FRONTEND } = require('../lib/constants/socket-rooms');
 
@@ -21,6 +24,7 @@ const {
     FRONTEND_REQUEST_RESUME,
     FRONTEND_REQUEST_PAUSE,
     FRONTEND_REQUEST_TEST_CONN,
+    FRONTEND_REQUEST_TERMINATE,
 } = require('../lib/constants/frontend-events');
 
 const init = () => {
@@ -48,7 +52,10 @@ const init = () => {
             socket.on(PAUSE_RUN, api.handlePauseRun);
             socket.on(ABORT_RUN, api.handleAbortRun);
             socket.on(RESUME_RUN, api.handleResumeRun);
+            socket.on(DONE_RUN, api.handleDoneRun);
+            socket.on(INTERRUPT_RUN, api.handleInterruptRun);
             socket.on(RUN_EVENT, api.handleRunEvent);
+            socket.on(RUN_STATS, api.handleRunStats);
 
             // test socket connection
             socket.on(TEST_CONN, api.handleTestConnection);
@@ -62,6 +69,7 @@ const init = () => {
             socket.on(FRONTEND_REQUEST_PAUSE, api.handlePauseRequest);
             socket.on(FRONTEND_REQUEST_ABORT, api.handleAbortRequest);
             socket.on(FRONTEND_REQUEST_RESUME, api.handleResumeRequest);
+            socket.on(FRONTEND_REQUEST_TERMINATE, api.handleTerminateRequest);
 
             // test socket connection
             socket.on(FRONTEND_REQUEST_TEST_CONN, api.handleTestConnection);

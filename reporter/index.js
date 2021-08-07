@@ -9,16 +9,29 @@ const socket = io('http://localhost:5001/', {
     },
 });
 
+const utils = require('./lib/utils');
 const handlers = require('./lib/handlers')(socket, id);
 const runtimeEvents = require('./lib/runtimeEvents');
+let cleanupTimer = null;
 
 module.exports = function (newman, options, collectionOptions, commands) {
-    newman.on('start', handlers.handleStart);
-    newman.on('done', handlers.handleDone);
+    newman.on('start', (err, args) => {
+        if (err) return;
+
+        cleanupTimer = utils.getIntervalRunStats(500, handlers.handleRunStats);
+        handlers.handleStart(err, args);
+    });
+
+    newman.on('done', (err, args) => {
+        cleanupTimer && cleanupTimer();
+        handlers.handleDone(err, args);
+    });
 
     newman.on('resume', handlers.handleResume);
     newman.on('pause', handlers.handlePause);
     newman.on('abort', handlers.handleAbort);
+
+    process.on('SIGINT', handlers.handleInterrupt);
 
     runtimeEvents.forEach((runEvent) => {
         newman.on(runEvent, handlers.handleRunEvent(runEvent));

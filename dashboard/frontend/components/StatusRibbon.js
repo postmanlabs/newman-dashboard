@@ -1,4 +1,4 @@
-import { RUN_STATUS } from '../state/models/runModel';
+import { RUN_STATUS } from '../state/models/run';
 
 const statusMap = {
     [RUN_STATUS.ACTIVE]: {
@@ -17,13 +17,17 @@ const statusMap = {
         userFriendlyStatus: "Done",
         bgColorClassName: "bg-gray-500"
     },
+    [RUN_STATUS.INTERRUPTED]: {
+        userFriendlyStatus: "Error",
+        bgColorClassName: "bg-red-900"
+    },
 };
 
-const StatusRibbon = ({ run }) => {
+const StatusRibbon = ({ status }) => {
     const {
         userFriendlyStatus,
         bgColorClassName
-    } = statusMap[run.status] || {};
+    } = statusMap[status] || {};
 
     return (
         <div className="status-ribbon flex items-center bg-gray-200 px-2 py-1 rounded-full">

@@ -4,6 +4,9 @@ const {
     FRONTEND_PAUSE_RUN,
     FRONTEND_RESUME_RUN,
     FRONTEND_RUN_EVENT,
+    FRONTEND_DONE_RUN,
+    FRONTEND_INTERRUPT_RUN,
+    FRONTEND_RUN_STATS,
 } = require('../../lib/constants/frontend-events');
 
 module.exports = (socket) => ({
@@ -28,9 +31,24 @@ module.exports = (socket) => ({
         callback && callback('abort-run', data);
     },
 
+    handleDoneRun: (data, callback) => {
+        socket.emit(FRONTEND_DONE_RUN, data);
+        callback && callback('done-run', data);
+    },
+
+    handleInterruptRun: (data, callback) => {
+        socket.emit(FRONTEND_INTERRUPT_RUN, data);
+        callback && callback('interrupt-run', data);
+    },
+
     handleRunEvent: (data, callback) => {
         socket.emit(FRONTEND_RUN_EVENT, data);
         callback && callback('run-event', data);
+    },
+
+    handleRunStats: (data, callback) => {
+        socket.emit(FRONTEND_RUN_STATS, data);
+        callback && callback('run-stats', data);
     },
 
     handleTestConnection: (callback) => {

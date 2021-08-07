@@ -3,7 +3,10 @@ module.exports = {
     PAUSE_RUN: 'pause',
     ABORT_RUN: 'abort',
     RESUME_RUN: 'resume',
+    DONE_RUN: 'done',
+    INTERRUPT_RUN: 'interrupt',
     RUN_EVENT: 'run-event',
+    RUN_STATS: 'run-stats',
     TEST_CONN: 'test',
 
     PAUSE_REQUEST: 'pause',

@@ -29,6 +29,10 @@ module.exports = (socket) => ({
         callback && callback(undefined, data);
     },
 
+    handleTerminateRequest: () => {
+        process.exit(0);
+    },
+
     handleTestConnection: (callback) => {
         callback && callback('dashboard:ping');
     },
