@@ -1,0 +1,22 @@
+{
+  "name": "newman-reporter-dashboard",
+  "version": "0.0.1",
+  "description": "A WebUI companion for Newman to control, view and debug runs.",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "elit-altum",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">= 10"
+  },
+  "dependencies": {
+    "nanoid": "3.1.20",
+    "pidusage": "2.0.21",
+    "socket.io-client": "4.1.2"
+  }
+}
