@@ -74,7 +74,13 @@ jobs:
         run: npm ci
 
       - name: Run mocha test suite
-        run: npm run test:suite
+        run: npm run test:unit
+
+      - name: Upload code coverage
+        run: npm run coverage
+
+      - name: Run mocha test suite
+        run: npm run test:integration
 
       - name: Upload code coverage
         run: npm run coverage
