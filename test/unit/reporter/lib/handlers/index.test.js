@@ -190,12 +190,5 @@ describe('Reporter events', () => {
             expect(socket.emit.firstCall.args[1]).to.haveOwnProperty('type');
             expect(socket.emit.firstCall.args[1].type).to.equal('event');
         });
-
-        it('should handle error', () => {
-            handleRunEvent(new Error('error in abort'));
-
-            expect(socket.emit.called).to.be.false;
-            expect(socket.close.called).to.be.true;
-        });
     });
 });

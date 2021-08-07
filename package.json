@@ -4,8 +4,9 @@
   "description": "A WebUI companion for Newman to control, view and debug runs.",
   "main": "index.js",
   "scripts": {
-    "test": "npm run test:lint && nyc mocha \"test/**/*.test.js\"",
+    "test": "npm run test:lint && npm run test:suite ",
     "test:suite": "nyc mocha \"test/**/*.test.js\"",
+    "test:ci": "npm run test:suite && npm run build:client",
     "coverage": "codecov",
     "test:lint": "eslint .",
     "dev:dashboard": "nodemon ./dashboard/server/index.js",
