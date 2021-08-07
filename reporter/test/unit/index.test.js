@@ -22,7 +22,7 @@ const commands = {
 mock('socket.io-client', ioStub);
 
 // unit under test
-const reporter = require('../../../reporter');
+const reporter = require('../../');
 
 describe('Reporter', () => {
     before(() => {

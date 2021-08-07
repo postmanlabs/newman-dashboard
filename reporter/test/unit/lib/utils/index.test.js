@@ -1,7 +1,7 @@
 const expect = require('chai').expect;
 
 // unit under test
-const utils = require('../../../../../reporter/lib/utils');
+const utils = require('../../../../lib/utils');
 
 describe('Reporter Utils', () => {
     describe('generateStartData', () => {

@@ -2,7 +2,7 @@ const expect = require('chai').expect;
 const sinon = require('sinon');
 
 // unit under test
-const events = require('../../../../../reporter/lib/handlers');
+const events = require('../../../../lib/handlers');
 
 describe('Reporter events', () => {
     let socket;
