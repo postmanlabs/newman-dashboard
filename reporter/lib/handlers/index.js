@@ -60,12 +60,11 @@ module.exports = (socket, id) => {
 
         handleRunEvent: (event) => {
             return (err, args) => {
-                if (err) return socket.close();
-
                 socket.emit('run-event', {
                     type: event,
                     id,
                     args,
+                    err,
                 });
             };
         },

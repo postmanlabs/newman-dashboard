@@ -1,6 +1,6 @@
 import sdk from "postman-collection";
 
-const BeforeIteration = ({ arg }) => {
+const BeforeIteration = ({ arg, err }) => {
     return (
         <div className="before-iteration bg-gray-200 font-bold px-2 text-lg rounded-l rounded-r mt-4">
             <p>
@@ -10,7 +10,7 @@ const BeforeIteration = ({ arg }) => {
     );
 };
 
-const BeforeItem = ({ arg }) => {
+const BeforeItem = ({ arg, err }) => {
     return (
         <div className="ml-4 mt-4">
             <p>{arg.item.name}</p>
@@ -18,15 +18,16 @@ const BeforeItem = ({ arg }) => {
     );
 };
 
-const Assertion = ({ arg }) => {
+const Assertion = ({ arg, err }) => {
     return (
-        <div className="ml-10 italic text-gray-400">
-            <p>{arg.assertion}</p>
+        <div className="ml-10 flex text-gray-400">
+            {!!err ? <p>❌</p> : <p>✔️</p>}
+            <p className="ml-2 italic">{arg.assertion}</p>
         </div>
     );
 }
 
-const BeforeRequest = ({ arg }) => {
+const BeforeRequest = ({ arg, err }) => {
     const requestUrl = new sdk.Url(arg.request.url);
 
     return (
@@ -38,7 +39,7 @@ const BeforeRequest = ({ arg }) => {
     );
 };
 
-const Request = ({ arg }) => {
+const Request = ({ arg, err }) => {
     const bgColor = arg.response.code === 200 ? 'text-green-500' : 'text-yellow-200';
 
     return (
@@ -70,7 +71,7 @@ const RunEvent = ({ event }) => {
         <div className="event__item w-11/12 font-mono">
             {Events.hasOwnProperty(event.type) && (
                 <div className="event__meta flex justify-between">
-                    {Events[event.type]({ arg: event.args })}
+                    {Events[event.type]({ arg: event.args, err: event.err})}
                 </div>
             )}
 

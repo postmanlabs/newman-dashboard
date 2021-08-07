@@ -7,6 +7,7 @@ import {
 export default class EventModel {
     @observable type;
     @observable args;
+    @observable err;
 
     constructor(data) {
         makeObservable(this);
@@ -19,5 +20,6 @@ export default class EventModel {
         this.parentId = data.id;
         this.time = Date.now();
         this.args = data.args;
+        this.err = data.err;
     }
 }
