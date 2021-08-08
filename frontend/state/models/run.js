@@ -48,6 +48,11 @@ export default class RunModel {
         return this.status === RUN_STATUS.FINISHED;
     }
 
+    @computed
+    isAborted() {
+        return this.status === RUN_STATUS.ABORTED;
+    }
+
     @action
     _init(data) {
         this.command = data.command;

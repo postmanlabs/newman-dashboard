@@ -61,6 +61,9 @@ const mountSockets = (store) => {
           
         const run = store.find(data.id);
 
+        // keep status as aborted
+        if(run.isAborted()) return;
+
         run.setFinished();
     });
 
@@ -74,12 +77,15 @@ const mountSockets = (store) => {
         run.addEvent(data);
 
         if(data.err) {
+            // mark run as errored
             run.setInterrupted();
         }
     });
 
     socket.on('run-stats', (data) => {
         const run = store.find(data.id);
+
+        // ignore the run stats if it is paused
         if(run.isPaused()) return;
         
         run.addRunStats(data);
