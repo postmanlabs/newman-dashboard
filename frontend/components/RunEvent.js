@@ -40,7 +40,16 @@ const BeforeRequest = ({ arg, err }) => {
 };
 
 const Request = ({ arg, err }) => {
-    const bgColor = arg.response.code === 200 ? 'text-green-500' : 'text-yellow-200';
+    let code, responseTime;
+    if (arg.hasOwnProperty('response') && arg.response.hasOwnProperty('code')) {
+        code = arg.response.code;
+        responseTime = arg.response.responseTime;
+    } else {
+        code = 'ERR';
+        responseTime = 0;
+    }
+
+    const bgColor = code === 200 ? 'text-green-500' : 'text-red-500';
 
     return (
         <div className="flex ml-8 my-2 text-sm">
@@ -49,10 +58,10 @@ const Request = ({ arg, err }) => {
                     "mr-2 bg-gray-100 px-2 rounded-l rounded-r " + bgColor
                 }
             >
-                {arg.response.code}
+                {code}
             </p>
             <p className="text-gray-400 bg-gray-100 px-2 rounded-l rounded-r">
-                {arg.response.responseTime} ms
+                {responseTime} ms
             </p>
         </div>
     );

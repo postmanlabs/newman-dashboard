@@ -72,10 +72,16 @@ const mountSockets = (store) => {
     socket.on('run-event', (data) => {
         const run = store.find(data.id);
         run.addEvent(data);
+
+        if(data.err) {
+            run.setInterrupted();
+        }
     });
 
     socket.on('run-stats', (data) => {
         const run = store.find(data.id);
+        if(run.isPaused()) return;
+        
         run.addRunStats(data);
     });
 
