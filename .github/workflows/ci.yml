@@ -45,7 +45,7 @@ jobs:
         run: npm ci
 
       - name: Build
-        run: npm run build:client
+        run: npm run build
 
       - name: Run mocha test suite
         run: npm run test:suite

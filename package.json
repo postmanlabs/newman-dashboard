@@ -12,7 +12,7 @@
     "coverage": "codecov",
     "dev:dashboard": "nodemon ./dashboard/server/index.js",
     "dev:client": "next ./frontend",
-    "build:client": "next build ./frontend && next export ./frontend"
+    "build": "node npm/build.js"
   },
   "keywords": [
     "newman",
