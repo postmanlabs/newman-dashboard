@@ -9,8 +9,8 @@
     "coverage": "codecov",
     "test:lint": "eslint .",
     "dev:dashboard": "nodemon ./dashboard/server/index.js",
-    "dev:client": "next ./dashboard/frontend",
-    "build:client": "next build ./dashboard/frontend && next export ./dashboard/frontend"
+    "dev:client": "next ./frontend",
+    "build:client": "next build ./frontend && next export ./frontend"
   },
   "keywords": [
     "newman",

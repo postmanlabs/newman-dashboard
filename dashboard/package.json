@@ -1,0 +1,45 @@
+{
+  "name": "newman-dashboard",
+  "version": "0.0.1",
+  "description": "A WebUI companion for Newman to control, view and debug runs.",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "npm run test:lint && npm run test:suite",
+    "test:lint": "eslint .",
+    "test:suite": "npm run test:unit && npm run test:integration",
+    "test:unit": "nyc mocha \"test/unit/**/*.test.js\"",
+    "test:integration": "nyc mocha \"test/integration/**/*.test.js\"",
+    "coverage": "codecov",
+    "dev": "nodemon ./server/index.js"
+  },
+  "author": "elit-altum",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">= 10"
+  },
+  "dependencies": {
+    "commander": "7.2.0",
+    "express": "4.17.1",
+    "socket.io": "4.1.2",
+    "socket.io-client": "4.1.2"
+  },
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "codecov": "^3.8.2",
+    "eslint": "^7.30.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-promise": "^5.1.0",
+    "mocha": "^8.4.0",
+    "mock-require": "^3.0.3",
+    "nodemon": "^2.0.7",
+    "nyc": "^15.1.0",
+    "prettier": "^2.3.0",
+    "sinon": "^11.1.1"
+  }
+}
