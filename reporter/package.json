@@ -9,9 +9,12 @@
   "scripts": {
     "test": "npm run test:lint && npm run test:suite ",
     "test:lint": "eslint .",
-    "test:suite": "npm run test:unit",
+    "test:suite": "npm run test:unit && npm run test:integration",
     "test:unit": "nyc mocha \"test/unit/**/*.test.js\"",
-    "coverage": "codecov"
+    "test:integration": "exit 0",
+    "coverage": "npm run coverage:unit && npm run coverage:integration",
+    "coverage:unit": "npm run test:unit && codecov",
+    "coverage:integration": "exit 0"
   },
   "author": "elit-altum",
   "license": "Apache-2.0",

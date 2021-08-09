@@ -3,14 +3,16 @@
   "version": "0.0.1",
   "description": "A WebUI companion for Newman to control, view and debug runs.",
   "scripts": {
+    "postinstall": "node npm/post-install.js",
     "test": "npm run test:lint && npm run test:suite ",
-    "test:suite": "nyc mocha \"test/**/*.test.js\"",
-    "test:ci": "npm run test:suite && npm run build:client",
-    "coverage": "codecov",
-    "test:lint": "eslint .",
+    "test:lint": "eslint . && node npm/test-lint.js",
+    "test:suite": "npm run test:unit && npm run test:integration",
+    "test:unit": "node npm/test-unit.js",
+    "test:integration": "node npm/test-integration.js",
+    "coverage": "node npm/coverage.js",
     "dev:dashboard": "nodemon ./dashboard/server/index.js",
     "dev:client": "next ./frontend",
-    "build:client": "next build ./frontend && next export ./frontend"
+    "build": "node npm/build.js"
   },
   "keywords": [
     "newman",
@@ -30,44 +32,16 @@
     "node": ">= 10"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-class-properties": "^7.14.5",
-    "@babel/plugin-proposal-decorators": "^7.14.5",
-    "autoprefixer": "^10.3.1",
-    "chai": "^4.3.4",
-    "codecov": "^3.8.2",
     "editorconfig": "^0.15.3",
     "eslint": "^7.30.0",
-    "eslint-config-next": "^11.0.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.23.4",
-    "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-promise": "^5.1.0",
-    "eslint-plugin-react": "^7.24.0",
-    "eslint-plugin-react-hooks": "^4.2.0",
-    "mocha": "^8.4.0",
-    "mock-require": "^3.0.3",
-    "nodemon": "^2.0.7",
-    "nyc": "^15.1.0",
-    "postcss": "^8.3.5",
-    "prettier": "^2.3.0",
-    "sinon": "^11.1.1",
-    "tailwindcss": "^2.2.4"
+    "prettier": "^2.3.0"
   },
   "dependencies": {
-    "commander": "^7.2.0",
-    "express": "^4.17.1",
-    "mobx": "^6.3.2",
-    "mobx-react": "^7.2.0",
-    "nanoid": "^3.1.20",
-    "next": "^11.0.1",
-    "postman-collection": "^4.0.1",
-    "prop-types": "^15.7.2",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "sass": "^1.35.2",
-    "socket.io": "^4.1.2",
-    "socket.io-client": "^4.1.2"
+    "async": "^3.2.1"
   }
 }
