@@ -1,8 +1,7 @@
 {
-  "name": "newman-reporter-dashboard",
+  "name": "newman-dashboard",
   "version": "0.0.1",
   "description": "A WebUI companion for Newman to control, view and debug runs.",
-  "main": "index.js",
   "scripts": {
     "test": "npm run test:lint && npm run test:suite ",
     "test:suite": "nyc mocha \"test/**/*.test.js\"",
@@ -63,7 +62,6 @@
     "mobx-react": "^7.2.0",
     "nanoid": "^3.1.20",
     "next": "^11.0.1",
-    "pidusage": "^2.0.21",
     "postman-collection": "^4.0.1",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
