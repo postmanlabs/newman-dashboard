@@ -3,7 +3,14 @@
   "version": "0.0.1",
   "description": "A WebUI companion for Newman to control, view and debug runs.",
   "scripts": {
+    "test": "npm run test:lint && npm run test:suite",
     "test:lint": "eslint .",
+    "test:suite": "npm run test:unit && npm run test:integration",
+    "test:unit": "exit 0",
+    "test:integration": "exit 0",
+    "coverage": "npm run coverage:unit && npm run coverage:integration",
+    "coverage:unit": "exit 0",
+    "coverage:integration": "exit 0",
     "dev": "next .",
     "build": "next build . && next export ."
   },

@@ -9,7 +9,7 @@
     "test:suite": "npm run test:unit && npm run test:integration",
     "test:unit": "node npm/test-unit.js",
     "test:integration": "node npm/test-integration.js",
-    "coverage": "codecov",
+    "coverage": "node npm/coverage.js",
     "dev:dashboard": "nodemon ./dashboard/server/index.js",
     "dev:client": "next ./frontend",
     "build": "node npm/build.js"

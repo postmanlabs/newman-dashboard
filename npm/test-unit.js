@@ -4,7 +4,7 @@ const cp = require('child_process');
 const os = require('os');
 const async = require('async');
 
-const packageDirs = ['reporter', 'dashboard'];
+const packageDirs = ['reporter', 'dashboard', 'frontend'];
 
 function testUnit(modPath, done) {
     // ensure path has package.json
