@@ -68,8 +68,5 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run mocha test suite
-        run: npm run test:suite
-
-      - name: Upload code coverage
+      - name: Run tests and upload code coverage
         run: npm run coverage
