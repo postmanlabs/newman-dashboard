@@ -61,6 +61,9 @@ const mountSockets = (store) => {
           
         const run = store.find(data.id);
 
+        // keep status as aborted
+        if(run.isAborted()) return;
+
         run.setFinished();
     });
 
@@ -72,10 +75,16 @@ const mountSockets = (store) => {
     socket.on('run-event', (data) => {
         const run = store.find(data.id);
         run.addEvent(data);
+
+        if(data.err) {
+            // mark run as errored
+            run.setInterrupted();
+        }
     });
 
     socket.on('run-stats', (data) => {
         const run = store.find(data.id);
+        
         run.addRunStats(data);
     });
 

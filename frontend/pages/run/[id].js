@@ -5,6 +5,7 @@ import runStore from '../../state/stores';
 
 import RunData from "../../components/RunData";
 import Header from "../../components/Header";
+import EmptyRuns from '../../components/EmptyRuns';
 
 const RunDetails = observer((props) => {
     const router = useRouter();
@@ -15,7 +16,13 @@ const RunDetails = observer((props) => {
     return (
         <>
             <Header />
-            {!!run ? <RunData run={run} /> : <p>Invalid Run</p>}
+            {!!run ? (
+                <RunData run={run} />
+            ) : (
+                <div className="flex flex-col items-center">
+                    <EmptyRuns message="No run found." />
+                </div>
+            )}
         </>
     );
 });
