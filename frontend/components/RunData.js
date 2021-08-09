@@ -1,6 +1,6 @@
-import { observer } from 'mobx-react';
-import StatusRibbon from './StatusRibbon';
-import RunEvent from './RunEvent';
+import { observer } from "mobx-react";
+import StatusRibbon from "./StatusRibbon";
+import RunEvent from "./RunEvent";
 
 const RunData = observer(({ run }) => {
     const parsedTime = new Date(run.startTime).toLocaleTimeString();
@@ -24,15 +24,23 @@ const RunData = observer(({ run }) => {
                     <div className="flex">
                         <div className="mr-8 text-center">
                             <p className="font-mono text-3xl">
-                                {run.averageCpuUsage() || 0}%
+                                {run.getCpuUsage() || 0}%
                             </p>
-                            <p className="text-sm italic">CPU</p>
+                            <p className="text-sm italic">
+                                {run.isActive() || run.isPaused()
+                                    ? "CPU Usage"
+                                    : "Average CPU Usage"}
+                            </p>
                         </div>
                         <div className="text-center">
                             <p className="font-mono text-3xl">
-                                {run.averageMemoryUsage() || 0}MB
+                                {run.getMemoryUsage() || 0}MB
                             </p>
-                            <p className="text-sm italic">Memory</p>
+                            <p className="text-sm italic">
+                                {run.isActive() || run.isPaused()
+                                    ? "Memory Usage"
+                                    : "Average Memory Usage"}
+                            </p>
                         </div>
                     </div>
                 </div>

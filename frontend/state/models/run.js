@@ -49,6 +49,11 @@ export default class RunModel {
     }
 
     @computed
+    isActive() {
+        return this.status === RUN_STATUS.ACTIVE;
+    }
+
+    @computed
     isAborted() {
         return this.status === RUN_STATUS.ABORTED;
     }
@@ -117,7 +122,16 @@ export default class RunModel {
     }
 
     @computed
-    averageMemoryUsage() {
+    getMemoryUsage() {
+        // show live memory stats while run is active
+        if (this.isActive() || this.isPaused()) {
+            let currMemory = this.memoryUsage[this.memoryUsage.length - 1] / 1e6;
+            let roundedMemory = Math.round((currMemory + Number.EPSILON) * 100) / 100;
+
+            return roundedMemory;
+        }
+
+        // show average memory stats if run is complete
         let totalMemory = 0;
         this.memoryUsage.forEach((memory) => {
             totalMemory += memory;
@@ -132,7 +146,16 @@ export default class RunModel {
     }
 
     @computed
-    averageCpuUsage() {
+    getCpuUsage() {
+        // show live CPU stats while run is active
+        if(this.isActive() || this.isPaused()) {
+            let currCpu = this.cpuUsage[this.cpuUsage.length - 1];
+            let roundedCpu = Math.round((currCpu + Number.EPSILON) * 100) / 100;
+
+            return roundedCpu;
+        }
+
+        // show average CPU stats if run is complete
         let totalCpu = 0;
         this.cpuUsage.forEach((cpu) => {
             totalCpu += cpu;

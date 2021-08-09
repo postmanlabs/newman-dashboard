@@ -84,9 +84,6 @@ const mountSockets = (store) => {
 
     socket.on('run-stats', (data) => {
         const run = store.find(data.id);
-
-        // ignore the run stats if it is paused
-        if(run.isPaused()) return;
         
         run.addRunStats(data);
     });
