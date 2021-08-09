@@ -39,6 +39,7 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-promise": "^5.1.0",
+    "nodemon": "^2.0.12",
     "prettier": "^2.3.0"
   },
   "dependencies": {
