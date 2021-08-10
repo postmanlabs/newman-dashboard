@@ -20,6 +20,10 @@ const mountSockets = (store) => {
         }
     });
 
+    socket.on('initial-data', (data) => {
+        store.hydrate(data);
+    });
+
     socket.on('start', (data) => {
         store.add(data);
     });
