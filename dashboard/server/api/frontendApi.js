@@ -4,6 +4,10 @@ const {
     RESUME_REQUEST,
 } = require('../../lib/constants/socket-events');
 
+const { FRONTEND } = require('../../lib/constants/socket-rooms');
+
+const store = require('../../store');
+
 module.exports = (socket) => ({
     handlePauseRequest: (data, callback) => {
         if (!data.hasOwnProperty('id')) {
@@ -27,6 +31,10 @@ module.exports = (socket) => ({
         }
         socket.to(`events:${data.id}`).emit(ABORT_REQUEST, data);
         callback && callback(undefined, data);
+    },
+
+    handleOnConnection: () => {
+        socket.to(FRONTEND).emit('initial-data', JSON.stringify(store.get()));
     },
 
     handleTerminateRequest: () => {

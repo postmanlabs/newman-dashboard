@@ -16,8 +16,13 @@ class Run {
     _init(data) {
         this.command = data.command;
         this.id = data.id;
+        
         this.startTime = data.startTime;
         this.endTime = 0;
+
+        this.events = [];
+        this.cpuUsage = [];
+        this.memoryUsage = [];
     }
 
     // setters

@@ -60,11 +60,12 @@ const init = () => {
             // test socket connection
             socket.on(TEST_CONN, api.handleTestConnection);
         } else if (socket.meta.type === FRONTEND) {
-            const api = frontendHandlers(socket);
-
             // push socket to a frontend room
             socket.join(FRONTEND);
 
+            const api = frontendHandlers(socket);
+            api.handleOnConnection();
+            
             // attach listeners on the socket for frontend requests
             socket.on(FRONTEND_REQUEST_PAUSE, api.handlePauseRequest);
             socket.on(FRONTEND_REQUEST_ABORT, api.handleAbortRequest);
