@@ -13,12 +13,13 @@ const init = () => {
     const app = express();
 
     app.use(cors());
-    
-    app.get('/run', api.getAllRuns);
-    app.get('/run/:id', api.getAllRuns);
+
+    app.get('/api/run', api.getAllRuns);
+    app.get('/api/run/:id', api.getRun);
 
     // serve static files - for the frontend
-    app.use(express.static(path.join(__dirname, '../../frontend/out')));
+    app.use('/', express.static(path.join(__dirname, '../../frontend/out')));
+    app.use('/run/:id', express.static(path.join(__dirname, '../../frontend/out/run/[id].html')));
 
     // create express server
     const server = app.listen(PORT, () => {
