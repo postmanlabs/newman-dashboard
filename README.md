@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://socialify.git.ci/elit-altum/newman-dashboard/image?description=1&font=KoHo&forks=1&language=1&owner=1&pattern=Plus&pulls=1&stargazers=1&theme=Light">
+    <img src="./docs/img/header.png">
 </p>
 
 <p align="center">
