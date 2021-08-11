@@ -7,15 +7,6 @@ class RunStore {
 
     constructor(initialData = []) {
         makeAutoObservable(this);
-        this.fetchInitialData();
-    }
-
-    @action
-    fetchInitialData() {
-        fetch('http://localhost:5001/run')
-            .then(response => response.json())
-            .then(data => this.hydrate(data.store))
-            .catch((e) => { return; });
     }
 
     @action
