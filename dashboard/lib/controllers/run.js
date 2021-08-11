@@ -1,70 +1,66 @@
-const Run = require('./models/run');
-const Event = require('./models/event');
+const Run = require('../models/run');
+const db = require('../store');
 
-class Store {
-    constructor(initialRuns = {}) {
-        this.runs = initialRuns;
-    }
+const runs = db.getTable('runs');
 
-    add(data) {
-        if (!data.hasOwnProperty('id')) return;
+const api = {
+    insert: async (data) => {
+        runs.insert(new Run(data));
+    },
 
-        this.runs[data.id] = new Run(data);
-    }
+    findOne: async (id) => {
+        return id && runs.findOne(id);
+    },
 
-    find(id) {
-        return id && this.runs[id];
-    }
+    find: async () => {
+        return runs.find();
+    },
 
-    clear() {
-        this.runs = {};
-    }
+    clear: async () => {
+        return runs.clear();
+    },
 
-    get() {
-        return this.runs;
-    }
-
-    pauseRun(id) {
+    pauseRun: async (id) => {
         const run = id && this.find(id);
         if (!run) return;
         run.setPaused();
-    }
+    },
 
-    resumeRun(id) {
+    resumeRun: async (id) => {
         const run = id && this.find(id);
         if (!run) return;
         run.setActive();
-    }
+    },
 
-    abortRun(id) {
+    abortRun: async (id) => {
         const run = id && this.find(id);
         if (!run) return;
         run.setAborted();
-    }
+    },
 
-    doneRun(id) {
+    doneRun: async (id) => {
         const run = id && this.find(id);
         if (!run) return;
         run.setFinished();
-    }
+    },
 
-    interruptRun(id) {
+    interruptRun: async (id) => {
         const run = id && this.find(id);
         if (!run) return;
         run.setInterrupted();
-    }
+    },
 
-    addRunEvent(data) {
+    addRunEvent: async (data) => {
         const run = data.id && this.find(data.id);
         if (!run) return;
         run.addEvent(data);
-    }
+    },
 
-    addRunStats(data) {
+    addRunStats: async (data) => {
         const run = data.id && this.find(data.id);
         if (!run) return;
         run.addRunStats(data);
-    }
+    },
 }
 
-module.exports = new Store();
+module.exports = api;
