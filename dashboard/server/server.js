@@ -13,7 +13,7 @@ const init = () => {
     const app = express();
 
     app.use(cors());
-    app.get('/prevData', api.handleInitData); 
+    app.get('/prevData', api.handleInitData);
 
     // serve static files - for the frontend
     app.use(express.static(path.join(__dirname, '../../frontend/out')));
