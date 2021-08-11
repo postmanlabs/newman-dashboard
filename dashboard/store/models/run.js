@@ -31,6 +31,8 @@ class Run {
     }
 
     setFinished() {
+        if(this.isAborted()) return;
+
         this.status = RUN_STATUS.FINISHED;
         this.endTime = Date.now();
     }
@@ -49,6 +51,7 @@ class Run {
     }
 
     addEvent(data) {
+        if(data.err) this.setInterrupted();
         this.events.push(new Event(data));
     }
 
