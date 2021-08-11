@@ -12,7 +12,7 @@ class RunStore {
 
     @action
     fetchInitialData() {
-        fetch('http://localhost:5001/prevData')
+        fetch('http://localhost:5001/run')
             .then(response => response.json())
             .then(data => this.hydrate(data.store))
             .catch((e) => { return; });

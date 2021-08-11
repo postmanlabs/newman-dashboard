@@ -1,66 +1,67 @@
 const Run = require('../models/run');
 const db = require('../store');
+const { asyncWrapper } = require('../utils');
 
 const runs = db.getTable('runs');
 
 const api = {
-    insert: async (data) => {
-        runs.insert(new Run(data));
-    },
+    insert: asyncWrapper(async (data) => {
+        await runs.insert(data.id, new Run(data));
+    }),
 
-    findOne: async (id) => {
-        return id && runs.findOne(id);
-    },
+    findOne: asyncWrapper(async (id) => {
+        return id && await runs.findOne(id);
+    }),
 
-    find: async () => {
-        return runs.find();
-    },
+    find: asyncWrapper(async () => {
+        return await runs.find();
+    }),
 
-    clear: async () => {
-        return runs.clear();
-    },
+    clear: asyncWrapper(async () => {
+        return await runs.clear();
+    }),
 
-    pauseRun: async (id) => {
-        const run = id && this.find(id);
+    pauseRun: asyncWrapper(async (id) => {
+        const run = id && await api.findOne(id);
         if (!run) return;
         run.setPaused();
-    },
+    }),
 
-    resumeRun: async (id) => {
-        const run = id && this.find(id);
+    resumeRun: asyncWrapper(async (id) => {
+        const run = id && await api.findOne(id);
         if (!run) return;
         run.setActive();
-    },
+    }),
 
-    abortRun: async (id) => {
-        const run = id && this.find(id);
+    abortRun: asyncWrapper(async (id) => {
+        const run = id && await api.findOne(id);
         if (!run) return;
         run.setAborted();
-    },
+    }),
 
-    doneRun: async (id) => {
-        const run = id && this.find(id);
+    doneRun: asyncWrapper(async (id) => {
+        const run = id && await api.findOne(id);
         if (!run) return;
         run.setFinished();
-    },
+    }),
 
-    interruptRun: async (id) => {
-        const run = id && this.find(id);
+    interruptRun: asyncWrapper(async (id) => {
+        const run = id && await api.findOne(id);
         if (!run) return;
         run.setInterrupted();
-    },
+    }),
 
-    addRunEvent: async (data) => {
-        const run = data.id && this.find(data.id);
+    addRunEvent: asyncWrapper(async (data) => {
+        const run = data.id && await api.findOne(data.id);
         if (!run) return;
         run.addEvent(data);
-    },
+    }),
 
-    addRunStats: async (data) => {
-        const run = data.id && this.find(data.id);
+    addRunStats: asyncWrapper(async (data) => {
+        const run = data.id && await api.findOne(data.id);
         if (!run) return;
         run.addRunStats(data);
-    },
+    }),
 }
 
 module.exports = api;

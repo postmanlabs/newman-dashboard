@@ -9,65 +9,66 @@ const {
     FRONTEND_RUN_STATS,
 } = require('../../lib/constants/frontend-events');
 
+const { asyncWrapper } = require('../../lib/utils');
 const controllers = require('../../lib/controllers/run');
 
 module.exports = (socket) => ({
-    handleNewRun: (data, callback) => {
+    handleNewRun: asyncWrapper(async (data, callback) => {
         socket.emit(FRONTEND_NEW_RUN, data);
         await controllers.insert(data);
 
         // acknowledge the received data to client
         callback && callback('new-run', data);
-    },
+    }),
 
-    handlePauseRun: (data, callback) => {
+    handlePauseRun: asyncWrapper(async (data, callback) => {
         socket.emit(FRONTEND_PAUSE_RUN, data);
         await controllers.pauseRun(data.id);
 
         callback && callback('pause-run', data);
-    },
+    }),
 
-    handleResumeRun: (data, callback) => {
+    handleResumeRun: asyncWrapper(async (data, callback) => {
         socket.emit(FRONTEND_RESUME_RUN, data);
         await controllers.resumeRun(data.id);
 
         callback && callback('resume-run', data);
-    },
+    }),
 
-    handleAbortRun: (data, callback) => {
+    handleAbortRun: asyncWrapper(async (data, callback) => {
         socket.emit(FRONTEND_ABORT_RUN, data);
         await controllers.abortRun(data.id);
 
         callback && callback('abort-run', data);
-    },
+    }),
 
-    handleDoneRun: (data, callback) => {
+    handleDoneRun: asyncWrapper(async (data, callback) => {
         socket.emit(FRONTEND_DONE_RUN, data);
         await controllers.doneRun(data.id);
 
         callback && callback('done-run', data);
-    },
+    }),
 
-    handleInterruptRun: (data, callback) => {
+    handleInterruptRun: asyncWrapper(async (data, callback) => {
         socket.emit(FRONTEND_INTERRUPT_RUN, data);
         await controllers.interruptRun(data.id);
 
         callback && callback('interrupt-run', data);
-    },
+    }),
 
-    handleRunEvent: (data, callback) => {
+    handleRunEvent: asyncWrapper(async (data, callback) => {
         socket.emit(FRONTEND_RUN_EVENT, data);
         await controllers.addRunEvent(data);
 
         callback && callback('run-event', data);
-    },
+    }),
 
-    handleRunStats: (data, callback) => {
+    handleRunStats: asyncWrapper(async (data, callback) => {
         socket.emit(FRONTEND_RUN_STATS, data);
         await controllers.addRunStats(data);
 
         callback && callback('run-stats', data);
-    },
+    }),
 
     handleTestConnection: (callback) => {
         callback && callback('dashboard:ping');

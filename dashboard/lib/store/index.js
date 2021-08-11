@@ -3,13 +3,13 @@ const Table = require('./table');
 const cache = {};
 
 const api = {
-    createTable: async (tableName) => {
+    createTable: (tableName) => {
         cache[tableName] = new Table({});
         return;
     },
 
-    getTable: async (tableName) => {
-        if(!cache.hasOwnProperty(tableName)) this.createTable(tableName);
+    getTable: (tableName) => {
+        if(!cache.hasOwnProperty(tableName)) api.createTable(tableName);
         return cache[tableName];
     },
 };
