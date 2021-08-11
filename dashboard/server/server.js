@@ -13,7 +13,9 @@ const init = () => {
     const app = express();
 
     app.use(cors());
-    app.get('/prevData', api.handleInitData);
+    
+    app.get('/run', api.getAllRuns);
+    app.get('/run/:id', api.getAllRuns);
 
     // serve static files - for the frontend
     app.use(express.static(path.join(__dirname, '../../frontend/out')));
