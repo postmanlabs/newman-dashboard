@@ -78,6 +78,10 @@ class Run {
     isAborted() {
         return this.status === RUN_STATUS.ABORTED;
     }
+
+    isInterrupted() {
+        return this.status === RUN_STATUS.INTERRUPTED;
+    }
 }
 
 module.exports = Run;
