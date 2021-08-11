@@ -33,8 +33,9 @@ module.exports = (socket) => ({
         callback && callback(undefined, data);
     },
 
-    handleOnConnection: () => {
+    handleOnConnection: (cb) => {
         socket.to(FRONTEND).emit('initial-data', JSON.stringify(store.get()));
+        cb();
     },
 
     handleTerminateRequest: () => {

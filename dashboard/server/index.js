@@ -25,6 +25,7 @@ const {
     FRONTEND_REQUEST_PAUSE,
     FRONTEND_REQUEST_TEST_CONN,
     FRONTEND_REQUEST_TERMINATE,
+    FRONTEND_REQUEST_DATA,
 } = require('../lib/constants/frontend-events');
 
 const init = () => {
@@ -64,9 +65,10 @@ const init = () => {
             socket.join(FRONTEND);
 
             const api = frontendHandlers(socket);
-            api.handleOnConnection();
-            
+            // setInterval(api.handleOnConnection, 10000);
+
             // attach listeners on the socket for frontend requests
+            socket.on(FRONTEND_REQUEST_DATA, api.handleOnConnection);
             socket.on(FRONTEND_REQUEST_PAUSE, api.handlePauseRequest);
             socket.on(FRONTEND_REQUEST_ABORT, api.handleAbortRequest);
             socket.on(FRONTEND_REQUEST_RESUME, api.handleResumeRequest);

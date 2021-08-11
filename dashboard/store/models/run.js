@@ -5,7 +5,7 @@ const RUN_STATUS = {
     PAUSED: 'paused',
     FINISHED: 'finished',
     ABORTED: 'aborted',
-    INTERRUPTED: 'interrupted'
+    INTERRUPTED: 'interrupted',
 };
 
 class Run {
@@ -16,7 +16,7 @@ class Run {
     _init(data) {
         this.command = data.command;
         this.id = data.id;
-        
+
         this.startTime = data.startTime;
         this.endTime = 0;
 
