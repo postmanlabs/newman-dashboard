@@ -7,14 +7,22 @@ class RunStore {
 
     constructor(initialData = []) {
         makeAutoObservable(this);
+        this.fetchInitialData();
     }
 
     @action
-    hydrate(runData) {
+    fetchInitialData() {
+        fetch('http://localhost:5001/prevData')
+            .then(response => response.json())
+            .then(data => this.hydrate(data.store))
+            .catch((e) => { return; });
+    }
+
+    @action
+    hydrate(runs) {
         this.clear();
 
         try {
-            const runs = JSON.parse(runData);
             Object.values(runs).forEach(run => {
                 this.add(run);
             });
