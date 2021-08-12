@@ -1,67 +1,84 @@
 const Run = require('../models/run');
 const db = require('../store');
-const { asyncWrapper } = require('../utils');
-
-const runs = db.getTable('runs');
 
 const api = {
-    insert: asyncWrapper(async (data) => {
+    insert: async (data) => {
+        const runs = await db.getTable('runs');
         await runs.insert(data.id, new Run(data));
-    }),
+    },
 
-    findOne: asyncWrapper(async (id) => {
-        return id && (await runs.findOne(id));
-    }),
+    findOne: async (id) => {
+        const runs = await db.getTable('runs');
 
-    find: asyncWrapper(async () => {
-        return await runs.find();
-    }),
+        if (!id) throw new TypeError('Invalid id');
+        return runs.findOne(id);
+    },
 
-    clear: asyncWrapper(async () => {
-        return await runs.clear();
-    }),
+    find: async () => {
+        const runs = await db.getTable('runs');
+        return runs.find();
+    },
 
-    pauseRun: asyncWrapper(async (id) => {
-        const run = id && (await api.findOne(id));
-        if (!run) return;
+    clear: async () => {
+        const runs = await db.getTable('runs');
+        return runs.clear();
+    },
+
+    pause: async (id) => {
+        if (!id) throw new TypeError('Invalid id');
+        const run = await api.findOne(id);
+
+        if (!run) throw new Error('Run not found.');
         run.setPaused();
-    }),
+    },
 
-    resumeRun: asyncWrapper(async (id) => {
-        const run = id && (await api.findOne(id));
-        if (!run) return;
+    resume: async (id) => {
+        if (!id) throw new TypeError('Invalid id');
+        const run = await api.findOne(id);
+
+        if (!run) throw new Error('Run not found.');
         run.setActive();
-    }),
+    },
 
-    abortRun: asyncWrapper(async (id) => {
-        const run = id && (await api.findOne(id));
-        if (!run) return;
+    abort: async (id) => {
+        if (!id) throw new TypeError('Invalid id');
+        const run = await api.findOne(id);
+
+        if (!run) throw new Error('Run not found.');
         run.setAborted();
-    }),
+    },
 
-    doneRun: asyncWrapper(async (id) => {
-        const run = id && (await api.findOne(id));
-        if (!run) return;
+    done: async (id) => {
+        if (!id) throw new TypeError('Invalid id');
+        const run = await api.findOne(id);
+
+        if (!run) throw new Error('Run not found.');
         run.setFinished();
-    }),
+    },
 
-    interruptRun: asyncWrapper(async (id) => {
-        const run = id && (await api.findOne(id));
-        if (!run) return;
+    interrupt: async (id) => {
+        if (!id) throw new TypeError('Invalid id');
+        const run = await api.findOne(id);
+
+        if (!run) throw new Error('Run not found.');
         run.setInterrupted();
-    }),
+    },
 
-    addRunEvent: asyncWrapper(async (data) => {
-        const run = data.id && (await api.findOne(data.id));
-        if (!run) return;
+    addEvent: async (data) => {
+        if (!data.id) throw new TypeError('Invalid id');
+        const run = await api.findOne(data.id);
+
+        if (!run) throw new Error('Run not found.');
         run.addEvent(data);
-    }),
+    },
 
-    addRunStats: asyncWrapper(async (data) => {
-        const run = data.id && (await api.findOne(data.id));
-        if (!run) return;
+    addStats: async (data) => {
+        if (!data.id) throw new TypeError('Invalid id');
+        const run = await api.findOne(data.id);
+
+        if (!run) throw new Error('Run not found.');
         run.addRunStats(data);
-    }),
+    },
 };
 
 module.exports = api;

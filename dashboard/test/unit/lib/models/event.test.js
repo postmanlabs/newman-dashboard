@@ -3,7 +3,7 @@ const expect = require('chai').expect;
 // unit under test
 const Event = require('../../../../lib/models/event');
 
-describe('Event class', () => {
+describe('EventModel', () => {
     const mockEventData = {
         type: 'abc',
         id: 'id',

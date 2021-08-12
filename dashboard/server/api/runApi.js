@@ -23,49 +23,49 @@ module.exports = (socket) => ({
 
     handlePauseRun: asyncWrapper(async (data, callback) => {
         socket.emit(FRONTEND_PAUSE_RUN, data);
-        await controllers.pauseRun(data.id);
+        await controllers.pause(data.id);
 
         callback && callback('pause-run', data);
     }),
 
     handleResumeRun: asyncWrapper(async (data, callback) => {
         socket.emit(FRONTEND_RESUME_RUN, data);
-        await controllers.resumeRun(data.id);
+        await controllers.resume(data.id);
 
         callback && callback('resume-run', data);
     }),
 
     handleAbortRun: asyncWrapper(async (data, callback) => {
         socket.emit(FRONTEND_ABORT_RUN, data);
-        await controllers.abortRun(data.id);
+        await controllers.abort(data.id);
 
         callback && callback('abort-run', data);
     }),
 
     handleDoneRun: asyncWrapper(async (data, callback) => {
         socket.emit(FRONTEND_DONE_RUN, data);
-        await controllers.doneRun(data.id);
+        await controllers.done(data.id);
 
         callback && callback('done-run', data);
     }),
 
     handleInterruptRun: asyncWrapper(async (data, callback) => {
         socket.emit(FRONTEND_INTERRUPT_RUN, data);
-        await controllers.interruptRun(data.id);
+        await controllers.interrupt(data.id);
 
         callback && callback('interrupt-run', data);
     }),
 
     handleRunEvent: asyncWrapper(async (data, callback) => {
         socket.emit(FRONTEND_RUN_EVENT, data);
-        await controllers.addRunEvent(data);
+        await controllers.addEvent(data);
 
         callback && callback('run-event', data);
     }),
 
     handleRunStats: asyncWrapper(async (data, callback) => {
         socket.emit(FRONTEND_RUN_STATS, data);
-        await controllers.addRunStats(data);
+        await controllers.addStats(data);
 
         callback && callback('run-stats', data);
     }),

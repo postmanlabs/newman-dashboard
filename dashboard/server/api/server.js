@@ -1,9 +1,9 @@
-const controllers = require('../../lib/controllers/run');
+const runController = require('../../lib/controllers/run');
 const { asyncWrapper } = require('../../lib/utils');
 
 module.exports = {
     getAllRuns: asyncWrapper(async (req, res) => {
-        const runs = await controllers.find();
+        const runs = await runController.find();
 
         return res.status(200).json({
             store: runs,
@@ -12,7 +12,7 @@ module.exports = {
 
     getRun: asyncWrapper(async (req, res) => {
         const id = req.params.id;
-        const run = await controllers.findOne(id);
+        const run = await runController.findOne(id);
 
         return res.status(200).json({
             run,

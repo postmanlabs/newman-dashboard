@@ -3,7 +3,7 @@ const expect = require('chai').expect;
 // unit under test
 const Table = require('../../../../lib/store/table');
 
-describe('Table class', () => {
+describe('StoreTable', () => {
     let table, mockData;
 
     before('setup table mock', () => {

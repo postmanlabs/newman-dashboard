@@ -3,7 +3,7 @@ const expect = require('chai').expect;
 // unit under test
 const Run = require('../../../../lib/models/run');
 
-describe('Run class', () => {
+describe('RunModel', () => {
     let currTime = Date.now();
 
     const mockRunData = {
