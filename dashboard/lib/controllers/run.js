@@ -10,7 +10,7 @@ const api = {
     }),
 
     findOne: asyncWrapper(async (id) => {
-        return id && await runs.findOne(id);
+        return id && (await runs.findOne(id));
     }),
 
     find: asyncWrapper(async () => {
@@ -22,46 +22,46 @@ const api = {
     }),
 
     pauseRun: asyncWrapper(async (id) => {
-        const run = id && await api.findOne(id);
+        const run = id && (await api.findOne(id));
         if (!run) return;
         run.setPaused();
     }),
 
     resumeRun: asyncWrapper(async (id) => {
-        const run = id && await api.findOne(id);
+        const run = id && (await api.findOne(id));
         if (!run) return;
         run.setActive();
     }),
 
     abortRun: asyncWrapper(async (id) => {
-        const run = id && await api.findOne(id);
+        const run = id && (await api.findOne(id));
         if (!run) return;
         run.setAborted();
     }),
 
     doneRun: asyncWrapper(async (id) => {
-        const run = id && await api.findOne(id);
+        const run = id && (await api.findOne(id));
         if (!run) return;
         run.setFinished();
     }),
 
     interruptRun: asyncWrapper(async (id) => {
-        const run = id && await api.findOne(id);
+        const run = id && (await api.findOne(id));
         if (!run) return;
         run.setInterrupted();
     }),
 
     addRunEvent: asyncWrapper(async (data) => {
-        const run = data.id && await api.findOne(data.id);
+        const run = data.id && (await api.findOne(data.id));
         if (!run) return;
         run.addEvent(data);
     }),
 
     addRunStats: asyncWrapper(async (data) => {
-        const run = data.id && await api.findOne(data.id);
+        const run = data.id && (await api.findOne(data.id));
         if (!run) return;
         run.addRunStats(data);
     }),
-}
+};
 
 module.exports = api;

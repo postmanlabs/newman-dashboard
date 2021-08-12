@@ -1,7 +1,5 @@
 class Table {
-    cache = {};
-
-    constructor (initialData = {}) {
+    constructor(initialData = {}) {
         this.cache = initialData;
     }
 

@@ -15,12 +15,12 @@ module.exports = {
     },
 
     asyncWrapper: (f) => {
-        return async function() {
+        return async function () {
             try {
                 return await f.apply(this, arguments);
             } catch (e) {
                 e.message && console.log(e.message);
             }
-        }
-    }
+        };
+    },
 };

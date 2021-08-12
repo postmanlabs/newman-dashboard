@@ -19,7 +19,10 @@ const init = () => {
 
     // serve static files - for the frontend
     app.use('/', express.static(path.join(__dirname, '../../frontend/out')));
-    app.use('/run/:id', express.static(path.join(__dirname, '../../frontend/out/run/[id].html')));
+    app.use(
+        '/run/:id',
+        express.static(path.join(__dirname, '../../frontend/out/run/[id].html'))
+    );
 
     // create express server
     const server = app.listen(PORT, () => {

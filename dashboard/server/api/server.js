@@ -15,7 +15,7 @@ module.exports = {
         const run = await controllers.findOne(id);
 
         return res.status(200).json({
-            run
+            run,
         });
     }),
 };

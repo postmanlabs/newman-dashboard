@@ -9,7 +9,7 @@ const api = {
     },
 
     getTable: (tableName) => {
-        if(!cache.hasOwnProperty(tableName)) api.createTable(tableName);
+        if (!cache.hasOwnProperty(tableName)) api.createTable(tableName);
         return cache[tableName];
     },
 };

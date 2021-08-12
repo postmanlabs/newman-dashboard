@@ -10,7 +10,7 @@ describe('Table class', () => {
         table = new Table({});
         mockData = {
             id: 'abc',
-            arg: 'arg'
+            arg: 'arg',
         };
     });
 
@@ -44,5 +44,4 @@ describe('Table class', () => {
         expect(clear).to.be.undefined;
         expect(cache).to.deep.equal({});
     });
-
 });

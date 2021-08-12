@@ -31,7 +31,9 @@ describe('Server API Endpoints', () => {
             expect(res.status.firstCall.args[0]).to.equal(200);
 
             expect(res.status().json.firstCall.args).to.have.lengthOf(1);
-            expect(res.status().json.firstCall.args[0]).to.haveOwnProperty('store');
+            expect(res.status().json.firstCall.args[0]).to.haveOwnProperty(
+                'store'
+            );
         });
     });
 
@@ -42,7 +44,7 @@ describe('Server API Endpoints', () => {
             req = {
                 params: {
                     id: 1,
-                }
+                },
             };
 
             jsonSpy = sinon.spy();
@@ -64,7 +66,9 @@ describe('Server API Endpoints', () => {
             expect(res.status.firstCall.args[0]).to.equal(200);
 
             expect(res.status().json.firstCall.args).to.have.lengthOf(1);
-            expect(res.status().json.firstCall.args[0]).to.haveOwnProperty('run');
+            expect(res.status().json.firstCall.args[0]).to.haveOwnProperty(
+                'run'
+            );
         });
     });
 });
