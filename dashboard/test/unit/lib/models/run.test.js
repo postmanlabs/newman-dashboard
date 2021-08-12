@@ -1,7 +1,7 @@
 const expect = require('chai').expect;
 
 // unit under test
-const Run = require('../../../../store/models/run');
+const Run = require('../../../../lib/models/run');
 
 describe('Run class', () => {
     let currTime = Date.now();

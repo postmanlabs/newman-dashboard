@@ -33,8 +33,8 @@ describe('Run event handlers', () => {
             handleNewRun = null;
         });
 
-        it('should call the socket and callback', () => {
-            handleNewRun('abc', sampleCallback);
+        it('should call the socket and callback', async () => {
+            await handleNewRun('abc', sampleCallback);
 
             expect(socket.emit.calledOnce).to.be.true;
             expect(socket.emit.firstCall.args).to.have.lengthOf(2);
@@ -60,8 +60,8 @@ describe('Run event handlers', () => {
             handlePauseRun = null;
         });
 
-        it('should call the socket and callback', () => {
-            handlePauseRun('abc', sampleCallback);
+        it('should call the socket and callback', async () => {
+            await handlePauseRun('abc', sampleCallback);
 
             expect(socket.emit.calledOnce).to.be.true;
             expect(socket.emit.firstCall.args).to.have.lengthOf(2);
@@ -87,8 +87,8 @@ describe('Run event handlers', () => {
             handleResumeRun = null;
         });
 
-        it('should call the socket and callback', () => {
-            handleResumeRun('abc', sampleCallback);
+        it('should call the socket and callback', async () => {
+            await handleResumeRun('abc', sampleCallback);
 
             expect(socket.emit.calledOnce).to.be.true;
             expect(socket.emit.firstCall.args).to.have.lengthOf(2);
@@ -114,8 +114,8 @@ describe('Run event handlers', () => {
             handleAbortRun = null;
         });
 
-        it('should call the socket and callback', () => {
-            handleAbortRun('abc', sampleCallback);
+        it('should call the socket and callback', async () => {
+            await handleAbortRun('abc', sampleCallback);
 
             expect(socket.emit.calledOnce).to.be.true;
             expect(socket.emit.firstCall.args).to.have.lengthOf(2);
@@ -141,8 +141,8 @@ describe('Run event handlers', () => {
             handleDoneRun = null;
         });
 
-        it('should call the socket and callback', () => {
-            handleDoneRun('abc', sampleCallback);
+        it('should call the socket and callback', async () => {
+            await handleDoneRun('abc', sampleCallback);
 
             expect(socket.emit.calledOnce).to.be.true;
             expect(socket.emit.firstCall.args).to.have.lengthOf(2);
@@ -168,8 +168,8 @@ describe('Run event handlers', () => {
             handleInterruptRun = null;
         });
 
-        it('should call the socket and callback', () => {
-            handleInterruptRun('abc', sampleCallback);
+        it('should call the socket and callback', async () => {
+            await handleInterruptRun('abc', sampleCallback);
 
             expect(socket.emit.calledOnce).to.be.true;
             expect(socket.emit.firstCall.args).to.have.lengthOf(2);
@@ -195,8 +195,8 @@ describe('Run event handlers', () => {
             handleRunEvent = null;
         });
 
-        it('should call the socket and callback', () => {
-            handleRunEvent('abc', sampleCallback);
+        it('should call the socket and callback', async () => {
+            await handleRunEvent('abc', sampleCallback);
 
             expect(socket.emit.calledOnce).to.be.true;
             expect(socket.emit.firstCall.args).to.have.lengthOf(2);
@@ -222,8 +222,8 @@ describe('Run event handlers', () => {
             handleRunEvent = null;
         });
 
-        it('should call the socket and callback', () => {
-            handleRunEvent('abc', sampleCallback);
+        it('should call the socket and callback', async () => {
+            await handleRunEvent('abc', sampleCallback);
 
             expect(socket.emit.calledOnce).to.be.true;
             expect(socket.emit.firstCall.args).to.have.lengthOf(2);
@@ -249,8 +249,8 @@ describe('Run event handlers', () => {
             handleRunStats = null;
         });
 
-        it('should call the socket and callback', () => {
-            handleRunStats('abc', sampleCallback);
+        it('should call the socket and callback', async () => {
+            await handleRunStats('abc', sampleCallback);
 
             expect(socket.emit.calledOnce).to.be.true;
             expect(socket.emit.firstCall.args).to.have.lengthOf(2);

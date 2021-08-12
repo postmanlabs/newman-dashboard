@@ -5,31 +5,66 @@ const sinon = require('sinon');
 const handlers = require('../../../../../dashboard/server/api/server');
 
 describe('Server API Endpoints', () => {
-    let req, res, jsonSpy;
+    describe('getAllRuns', () => {
+        let req, res, jsonSpy;
 
-    beforeEach('setup mocks and spies', () => {
-        req = sinon.spy();
-        jsonSpy = sinon.spy();
+        beforeEach('setup mocks and spies', () => {
+            req = sinon.spy();
+            jsonSpy = sinon.spy();
 
-        res = {
-            status: sinon.spy(() => ({
-                json: jsonSpy,
-            })),
-        };
+            res = {
+                status: sinon.spy(() => ({
+                    json: jsonSpy,
+                })),
+            };
+        });
 
-        handlers.handleInitData(req, res);
+        it('should return the response correctly', async () => {
+            await handlers.getAllRuns(req, res);
+
+            expect(req.callCount).to.equal(0);
+
+            expect(res.status.callCount).to.equal(1);
+            expect(res.status().json.callCount).to.equal(1);
+
+            expect(res.status.firstCall.args).to.have.lengthOf(1);
+            expect(res.status.firstCall.args[0]).to.equal(200);
+
+            expect(res.status().json.firstCall.args).to.have.lengthOf(1);
+            expect(res.status().json.firstCall.args[0]).to.haveOwnProperty('store');
+        });
     });
 
-    it('should return the response correctly', () => {
-        expect(req.callCount).to.equal(0);
+    describe('getRun', () => {
+        let req, res, jsonSpy;
 
-        expect(res.status.callCount).to.equal(1);
-        expect(res.status().json.callCount).to.equal(1);
+        beforeEach('setup mocks and spies', () => {
+            req = {
+                params: {
+                    id: 1,
+                }
+            };
 
-        expect(res.status.firstCall.args).to.have.lengthOf(1);
-        expect(res.status.firstCall.args[0]).to.equal(200);
+            jsonSpy = sinon.spy();
 
-        expect(res.status().json.firstCall.args).to.have.lengthOf(1);
-        expect(res.status().json.firstCall.args[0]).to.haveOwnProperty('store');
+            res = {
+                status: sinon.spy(() => ({
+                    json: jsonSpy,
+                })),
+            };
+        });
+
+        it('should return the response correctly', async () => {
+            await handlers.getRun(req, res);
+
+            expect(res.status.callCount).to.equal(1);
+            expect(res.status().json.callCount).to.equal(1);
+
+            expect(res.status.firstCall.args).to.have.lengthOf(1);
+            expect(res.status.firstCall.args[0]).to.equal(200);
+
+            expect(res.status().json.firstCall.args).to.have.lengthOf(1);
+            expect(res.status().json.firstCall.args[0]).to.haveOwnProperty('run');
+        });
     });
 });

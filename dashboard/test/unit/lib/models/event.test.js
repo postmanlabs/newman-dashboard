@@ -1,7 +1,7 @@
 const expect = require('chai').expect;
 
 // unit under test
-const Event = require('../../../../store/models/event');
+const Event = require('../../../../lib/models/event');
 
 describe('Event class', () => {
     const mockEventData = {
