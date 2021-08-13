@@ -1,18 +1,18 @@
 import Header from "../components/Header";
 import RunList from "../components/RunList";
 import { useEffect, useState } from "react";
-import RunStoreService from "../services/runStore";
+import RunService from "../services/run";
 
 const Home = () => {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const execService = async () => {
-            await RunStoreService.fetchRunData();
+            await RunService.fetch();
             setIsLoading(false);
         }
         execService();
-    });
+    }, []);
 
     return (
         <>

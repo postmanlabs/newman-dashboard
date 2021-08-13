@@ -21,7 +21,7 @@ const RunDetails = observer(() => {
     useEffect(() => {
         const execService = async () => {
             if (!run) {
-                run = await RunService.fetchData(id);
+                run = await RunService.fetchOne(id);
             }
             setIsLoading(false);
         };
