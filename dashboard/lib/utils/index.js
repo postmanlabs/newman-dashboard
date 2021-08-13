@@ -13,14 +13,4 @@ module.exports = {
 
         next(new Error('Unauthorized access.'));
     },
-
-    asyncWrapper: (f) => {
-        return async function () {
-            try {
-                return await f.apply(this, arguments);
-            } catch (e) {
-                e.message && console.log(e.message);
-            }
-        };
-    },
 };
