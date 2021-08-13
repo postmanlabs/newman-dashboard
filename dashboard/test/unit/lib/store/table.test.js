@@ -29,6 +29,11 @@ describe('StoreTable', () => {
         expect(item).to.deep.equal(mockData);
     });
 
+    it('should not fetch item if not present in cache', async () => {
+        const item = await table.findOne('xyz');
+        expect(item).to.be.undefined;
+    });
+
     it('should remove item from cache', async () => {
         const removeItem = await table.remove(mockData.id);
         const item = await table.findOne(mockData.id);
