@@ -32,4 +32,4 @@ export function useStore(initialState) {
     return store;
 }
 
-export default new RunStore();
+export default RunStore;

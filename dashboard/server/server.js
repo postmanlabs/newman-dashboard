@@ -1,17 +1,28 @@
 // establish express server
 const express = require('express');
 const path = require('path');
+const cors = require('cors');
 
 // port for the dashboard
 const PORT = 5001;
+const api = require('./api/server');
 
 // initialize express server
 const init = () => {
     // initialize express app
     const app = express();
 
+    app.use(cors());
+
+    app.get('/api/run', api.getAllRuns);
+    app.get('/api/run/:id', api.getRun);
+
     // serve static files - for the frontend
-    app.use(express.static(path.join(__dirname, '../../frontend/out')));
+    app.use(
+        '/run/:id',
+        express.static(path.join(__dirname, '../../frontend/out/run/[id].html'))
+    );
+    app.use('/', express.static(path.join(__dirname, '../../frontend/out')));
 
     // create express server
     const server = app.listen(PORT, () => {

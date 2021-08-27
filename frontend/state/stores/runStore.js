@@ -1,4 +1,4 @@
-import { action, observable, makeAutoObservable } from 'mobx';
+import { action, observable, computed, makeAutoObservable } from 'mobx';
 import { socket } from '../../pages/_app';
 import Run from '../models/run';
 
@@ -13,7 +13,14 @@ class RunStore {
     hydrate(runs) {
         this.clear();
 
-        Array.isArray(runs) && runs.forEach((run) => this.add(run));
+        try {
+            Object.values(runs).forEach(run => {
+                this.add(run);
+            });
+
+        } catch(e) {
+            return;
+        }
     }
 
     @action
@@ -28,12 +35,11 @@ class RunStore {
         this.runs[run.id] = new Run(run, socket);
     }
 
-    @action
+    @computed
     find(id) {
         return this.runs[id];
     }
 
-    @action 
     getSortedRuns() {
         return Object.values(this.runs).sort((firstRun, secondRun) => {
             firstRun.endTime < secondRun.endTime;
@@ -41,4 +47,4 @@ class RunStore {
     }
 };
 
-export default RunStore;
+export default new RunStore();

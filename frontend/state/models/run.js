@@ -19,11 +19,11 @@ export default class RunModel {
     @observable command;
     @observable id;
     @observable startTime;
-    @observable status = RUN_STATUS.ACTIVE;
-    @observable events = [];
+    @observable status;
+    @observable events;
     @observable endTime;
-    @observable cpuUsage = [];
-    @observable memoryUsage = [];
+    @observable cpuUsage;
+    @observable memoryUsage;
     socket = null;
 
     constructor(data, socket) {
@@ -64,6 +64,12 @@ export default class RunModel {
         this.id = data.id;
         this.startTime = data.startTime;
         this.endTime = 0;
+
+        this.status = data.status || RUN_STATUS.ACTIVE;
+        this.cpuUsage = data.cpuUsage || [];
+        this.memoryUsage = data.memoryUsage || [];
+
+        this.events = data.events || [];
     }
 
     _emit(eventName) {

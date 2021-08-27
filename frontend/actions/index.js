@@ -4,11 +4,11 @@ import { nanoid } from 'nanoid';
 
 const frontendId = nanoid(16);
 
-let isMounted = false;
+let isMounted = false, tempSocket = null;
 
 const mountSockets = (store) => {
     if (isMounted) {
-        return;
+        return tempSocket;
     }
     
     isMounted = true;
@@ -88,6 +88,7 @@ const mountSockets = (store) => {
         run.addRunStats(data);
     });
 
+    tempSocket = socket;
     return socket;
 };
 
