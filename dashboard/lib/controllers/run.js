@@ -4,7 +4,6 @@ const Event = require("../models/event");
 const api = {
     insert: async (data) => {
         if (!data.id) throw new TypeError("Invalid run data");
-        data._id = data.id;
 
         const runDocument = Run.create(data);
         const run = await runDocument.save();
@@ -40,6 +39,7 @@ const api = {
         if (!run) throw new Error("Run not found.");
 
         run.status = "aborted";
+        run.endTime = Date.now();
         await run.save();
     },
 
@@ -50,6 +50,7 @@ const api = {
         if (!run) throw new Error("Run not found.");
 
         run.status = "finished";
+        run.endTime = Date.now();
         await run.save();
     },
 
@@ -71,6 +72,7 @@ const api = {
         if (!run) throw new Error("Run not found.");
 
         const event = Event.create(data);
+        if(!event) throw new Error('Invalid event type');
         run.events.push(event);
 
         await run.save();
@@ -84,7 +86,7 @@ const api = {
         if (!run) throw new Error("Run not found.");
 
         run.memoryUsage.push(data.memory);
-        run.memoryUsage.push(data.cpu);
+        run.cpuUsage.push(data.cpu);
 
         await run.save();
     },
