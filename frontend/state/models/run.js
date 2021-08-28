@@ -122,7 +122,7 @@ export default class RunModel {
 
     @computed
     sortEvents() {
-        return this.events.sort(
+        return this.events.slice().sort(
             (firstEvent, secondEvent) => firstEvent.time < secondEvent.time
         );
     }

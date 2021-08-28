@@ -14,7 +14,7 @@ class RunStore {
         this.clear();
 
         try {
-            Object.values(runs).forEach(run => {
+            runs.forEach(run => {
                 this.add(run);
             });
 
@@ -30,7 +30,8 @@ class RunStore {
 
     @action
     add(run) {
-        if(!run.hasOwnProperty('id')) return;
+        if (!run.hasOwnProperty('_id')) return;
+        run.id = run._id;
 
         this.runs[run.id] = new Run(run, socket);
     }
