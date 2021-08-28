@@ -1,14 +1,14 @@
-class Event {
-    constructor(data) {
-        this._init(data);
-    }
+const EmbeddedDocument = require("camo").EmbeddedDocument;
 
-    _init(data) {
-        this.type = data.type;
-        this.parentId = data.id;
-        this.time = Date.now();
-        this.args = data.args;
-        this.err = data.err;
+class Event extends EmbeddedDocument {
+    constructor() {
+        super();
+
+        this.type = String;
+        this.parentId = String;
+        this.time = Date;
+        this.args = [String];
+        this.err = String;
     }
 }
 

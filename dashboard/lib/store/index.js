@@ -1,17 +1,12 @@
-const Table = require('./table');
+const connect = require('camo').connect;
+const uri = 'nedb://../data/index.db';
 
-const cache = {};
+const init = async () => {
+  try {
+    await connect(uri);
+  } catch (e) {
+    console.log('Error in connecting to database.')
+  }
+}
 
-const api = {
-    _createTable: (tableName) => {
-        cache[tableName] = new Table({});
-        return;
-    },
-
-    getTable: async (tableName) => {
-        if (!cache.hasOwnProperty(tableName)) api._createTable(tableName);
-        return cache[tableName];
-    },
-};
-
-module.exports = api;
+module.exports = { init };
