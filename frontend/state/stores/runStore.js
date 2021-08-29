@@ -30,8 +30,9 @@ class RunStore {
 
     @action
     add(run) {
-        if (!run.hasOwnProperty('_id')) return;
-        run.id = run._id;
+        if (run.hasOwnProperty('_id')) run.id = run._id;
+
+        if (!run.hasOwnProperty('id')) return;
 
         this.runs[run.id] = new Run(run, socket);
     }
