@@ -49,6 +49,8 @@ const api = {
 
         if (!run) throw new Error("Run not found.");
 
+        if (run.status === "aborted") return;
+
         run.status = "finished";
         run.endTime = Date.now();
         await run.save();
@@ -72,7 +74,7 @@ const api = {
         if (!run) throw new Error("Run not found.");
 
         const event = Event.create(data);
-        if(!event) throw new Error('Invalid event type');
+        if (!event) throw new Error("Invalid event type");
         run.events.push(event);
 
         await run.save();
