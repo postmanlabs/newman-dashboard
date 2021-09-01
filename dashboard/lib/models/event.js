@@ -1,4 +1,4 @@
-const EmbeddedDocument = require("camo").EmbeddedDocument;
+const EmbeddedDocument = require('camo').EmbeddedDocument;
 
 class Event extends EmbeddedDocument {
     constructor() {

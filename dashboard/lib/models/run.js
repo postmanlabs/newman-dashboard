@@ -1,5 +1,5 @@
-const Document = require("camo").Document;
-const Event = require("./event");
+const Document = require('camo').Document;
+const Event = require('./event');
 
 class Run extends Document {
     constructor() {
@@ -19,7 +19,7 @@ class Run extends Document {
     }
 
     static collectionName() {
-        return "runs";
+        return 'runs';
     }
 }
 

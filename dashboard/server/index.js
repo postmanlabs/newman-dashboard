@@ -1,11 +1,11 @@
 // establish socket.io server
-const socket = require("socket.io");
-const Server = require("./server");
+const socket = require('socket.io');
+const Server = require('./server');
 
-const runHandlers = require("./api/runApi");
-const frontendHandlers = require("./api/frontendApi");
-const utils = require("../lib/utils");
-const db = require("../lib/store");
+const runHandlers = require('./api/runApi');
+const frontendHandlers = require('./api/frontendApi');
+const utils = require('../lib/utils');
+const db = require('../lib/store');
 
 const {
     START_RUN,
@@ -17,8 +17,8 @@ const {
     TEST_CONN,
     RUN_EVENT,
     RUN_STATS,
-} = require("../lib/constants/socket-events");
-const { NEWMAN_RUN, FRONTEND } = require("../lib/constants/socket-rooms");
+} = require('../lib/constants/socket-events');
+const { NEWMAN_RUN, FRONTEND } = require('../lib/constants/socket-rooms');
 
 const {
     FRONTEND_REQUEST_ABORT,
@@ -26,7 +26,7 @@ const {
     FRONTEND_REQUEST_PAUSE,
     FRONTEND_REQUEST_TEST_CONN,
     FRONTEND_REQUEST_TERMINATE,
-} = require("../lib/constants/frontend-events");
+} = require('../lib/constants/frontend-events');
 
 const init = async () => {
     // setup socket.io server
@@ -35,7 +35,7 @@ const init = async () => {
 
     const io = socket(server, {
         cors: {
-            origin: "*",
+            origin: '*',
         },
     });
 
@@ -43,7 +43,7 @@ const init = async () => {
     io.use(utils.socketAuth);
 
     // event listener for a new connection
-    io.on("connection", (socket) => {
+    io.on('connection', (socket) => {
         if (socket.meta.type === NEWMAN_RUN) {
             const api = runHandlers(socket.to(FRONTEND));
 

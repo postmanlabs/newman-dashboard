@@ -11,10 +11,10 @@ module.exports = {
             return next();
         }
 
-        next(new Error("Unauthorized access."));
+        next(new Error('Unauthorized access.'));
     },
 
     handleDBError: (err) => {
-        console.log("Error loading data files. Indicates corrupted data.");
+        console.log('Error loading data files. Indicates corrupted data.');
     },
 };
