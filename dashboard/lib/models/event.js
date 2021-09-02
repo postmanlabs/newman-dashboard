@@ -6,7 +6,7 @@ class Event extends Document {
 
         this.type = String;
         this.parentId = String;
-        this.time = Date;
+        this.time = Number;
         this.args = [String];
         this.err = String;
         this.runId = String;

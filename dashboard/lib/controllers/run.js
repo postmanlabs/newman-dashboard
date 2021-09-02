@@ -1,6 +1,7 @@
 const Run = require("../models/run");
 const Event = require("../models/event");
 const RunStat = require("../models/runStat");
+const BatchQueue = require('./batchQueue');
 
 const api = {
     insert: async (data) => {
@@ -67,22 +68,31 @@ const api = {
         await run.save();
     },
 
-    addEvent: async (data) => {
+    saveEvent: async (data) => {
         if (!data.runId) throw new TypeError("Invalid parent id");
 
         const event = Event.create(data);
         if (!event) throw new Error("Invalid event type");
-
         await event.save();
     },
 
-    addStats: async (data) => {
+    saveStats: async (data) => {
         if (!data.runId) throw new TypeError("Invalid parent id");
 
         const stat = RunStat.create(data);
         if (!stat) throw new Error("Invalid stat type");
 
         await stat.save();
+    },
+
+    addEvent: async (data) => {
+        const batch = new BatchQueue(api.saveEvent);
+        batch.add(data);
+    },
+
+    addStats: async (data) => {
+        const batch = new BatchQueue(api.saveStats);
+        batch.add(data);
     },
 };
 
