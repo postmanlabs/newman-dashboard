@@ -73,7 +73,7 @@ const mountSockets = (store) => {
     });
 
     socket.on('run-event', (data) => {
-        const run = store.find(data.id);
+        const run = store.find(data.runId);
         run.addEvent(data);
 
         if(data.err) {
@@ -83,7 +83,7 @@ const mountSockets = (store) => {
     });
 
     socket.on('run-stats', (data) => {
-        const run = store.find(data.id);
+        const run = store.find(data.runId);
         
         run.addRunStats(data);
     });

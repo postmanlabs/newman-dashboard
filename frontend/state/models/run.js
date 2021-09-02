@@ -66,8 +66,7 @@ export default class RunModel {
         this.endTime = 0;
 
         this.status = data.status || RUN_STATUS.ACTIVE;
-        this.cpuUsage = data.cpuUsage || [];
-        this.memoryUsage = data.memoryUsage || [];
+        this.stats = data.stats || [];
 
         this.events = data.events || [];
     }
@@ -116,8 +115,7 @@ export default class RunModel {
     addRunStats(data) {
         data.cpu &&
             data.memory &&
-            this.cpuUsage.push(data.cpu) &&
-            this.memoryUsage.push(data.memory);
+            this.stats.push(data);
     }
 
     @computed
@@ -131,7 +129,7 @@ export default class RunModel {
     getMemoryUsage() {
         // show live memory stats while run is active
         if (this.isActive() || this.isPaused()) {
-            let currMemory = this.memoryUsage[this.memoryUsage.length - 1] / 1e6;
+            let currMemory = this.stats[this.stats.length - 1].memory / 1e6;
             let roundedMemory = Math.round((currMemory + Number.EPSILON) * 100) / 100;
 
             return roundedMemory;
@@ -139,11 +137,11 @@ export default class RunModel {
 
         // show average memory stats if run is complete
         let totalMemory = 0;
-        this.memoryUsage.forEach((memory) => {
-            totalMemory += memory;
+        this.stats.forEach((stat) => {
+            totalMemory += stat.memory;
         });
 
-        let avgMemoryB = totalMemory / this.memoryUsage.length;
+        let avgMemoryB = totalMemory / this.stats.length;
         let avgMemoryMB = avgMemoryB / 1e6;
         let roundedMemory =
             Math.round((avgMemoryMB + Number.EPSILON) * 100) / 100;
@@ -155,7 +153,7 @@ export default class RunModel {
     getCpuUsage() {
         // show live CPU stats while run is active
         if(this.isActive() || this.isPaused()) {
-            let currCpu = this.cpuUsage[this.cpuUsage.length - 1];
+            let currCpu = this.stats[this.stats.length - 1].cpu;
             let roundedCpu = Math.round((currCpu + Number.EPSILON) * 100) / 100;
 
             return roundedCpu;
@@ -163,11 +161,11 @@ export default class RunModel {
 
         // show average CPU stats if run is complete
         let totalCpu = 0;
-        this.cpuUsage.forEach((cpu) => {
-            totalCpu += cpu;
+        this.stats.forEach((data) => {
+            totalCpu += data.cpu;
         });
 
-        let avgCpu = totalCpu / this.cpuUsage.length;
+        let avgCpu = totalCpu / this.stats.length;
         let roundedCpu =
             Math.round((avgCpu + Number.EPSILON) * 100) / 100;
 
