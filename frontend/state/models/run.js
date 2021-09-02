@@ -113,20 +113,19 @@ export default class RunModel {
 
     @action
     addRunStats(data) {
-        data.cpu &&
-            data.memory &&
-            this.stats.push(data);
+        this.stats.push(data);
     }
 
     @computed
     sortEvents() {
         return this.events.slice().sort(
-            (firstEvent, secondEvent) => firstEvent.time < secondEvent.time
+            (firstEvent, secondEvent) => Number(firstEvent.time) > Number(secondEvent.time)
         );
     }
 
     @computed
     getMemoryUsage() {
+        console.log(this.stats);
         // show live memory stats while run is active
         if (this.isActive() || this.isPaused()) {
             let currMemory = this.stats[this.stats.length - 1].memory / 1e6;

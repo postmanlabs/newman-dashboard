@@ -68,11 +68,10 @@ const RunData = observer(({ run }) => {
                 <p className="font-bold text-xl">Run Details</p>
             </div>
             <div className="run-data__events my-2 flex flex-col items-center">
-                {!!run.events.length &&
-                    run.events.map((event) => (
+                {!!run.sortEvents().length &&
+                    run.sortEvents().map((event) => (
                         <RunEvent
                             event={event}
-                            startTime={run.startTime}
                             key={event.time}
                         />
                     ))}

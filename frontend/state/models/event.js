@@ -18,7 +18,7 @@ export default class EventModel {
     _init(data) {
         this.type = data.type;
         this.parentId = data.id;
-        this.time = Date.now();
+        this.time = data.time;
         this.args = data.args;
         this.err = data.err;
     }

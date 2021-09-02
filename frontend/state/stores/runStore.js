@@ -43,9 +43,7 @@ class RunStore {
     }
 
     getSortedRuns() {
-        return Object.values(this.runs).sort((firstRun, secondRun) => {
-            firstRun.endTime < secondRun.endTime;
-        });
+        return Object.values(this.runs).sort((firstRun, secondRun) => firstRun.endTime - secondRun.endTime);
     }
 };
 
