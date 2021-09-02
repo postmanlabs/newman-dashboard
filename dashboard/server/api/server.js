@@ -1,4 +1,4 @@
-const Run = require('../../lib/models/run');
+const Run = require("../../lib/models/run");
 
 module.exports = {
     getAllRuns: async (req, res) => {
@@ -8,7 +8,7 @@ module.exports = {
 
         const runs = await Run.find(
             {},
-            { populate: true, sort: '-endTime', limit, skip }
+            { populate: true, sort: "-endTime", limit, skip }
         );
 
         return res.status(200).json({
@@ -20,6 +20,13 @@ module.exports = {
         const id = req.params.id;
         const run = await Run.findOne({ _id: id }, { populate: true });
 
+        if (!run) {
+            return res.status(404).json({
+                run: {},
+            });
+        }
+
+        await run.populate();
         return res.status(200).json({
             run,
         });

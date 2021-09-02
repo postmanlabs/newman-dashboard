@@ -1,6 +1,6 @@
-const EmbeddedDocument = require('camo').EmbeddedDocument;
+const Document = require("camo").Document;
 
-class Event extends EmbeddedDocument {
+class Event extends Document {
     constructor() {
         super();
 
@@ -9,6 +9,7 @@ class Event extends EmbeddedDocument {
         this.time = Date;
         this.args = [String];
         this.err = String;
+        this.runId = String;
     }
 }
 
