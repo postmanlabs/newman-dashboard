@@ -63,6 +63,7 @@ module.exports = (socket, id) => {
                 socket.emit("run-event", {
                     type: event,
                     runId: id,
+                    time: Date.now(),
                     args,
                     err,
                 });
