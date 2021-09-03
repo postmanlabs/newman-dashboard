@@ -1,5 +1,6 @@
 const connect = require('camo').connect;
-const uri = 'nedb://lib/data';
+const paths = require('env-paths')('newman-dashboard');
+const uri = `nedb://${paths.data}`;
 
 const init = async () => {
     try {
