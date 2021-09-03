@@ -1,17 +1,17 @@
-const utils = require("../utils");
+const utils = require('../utils');
 
 module.exports = (socket, id) => {
     return {
         handleStart: (err, args) => {
             if (err) return socket.close();
 
-            socket.emit("start", utils.generateStartData(process.argv, id));
+            socket.emit('start', utils.generateStartData(process.argv, id));
         },
 
         handleDone: (err, args) => {
             if (err) return socket.close();
 
-            socket.emit("done", {
+            socket.emit('done', {
                 id,
             });
 
@@ -22,7 +22,7 @@ module.exports = (socket, id) => {
         handlePause: (err, args) => {
             if (err) return socket.close();
 
-            socket.emit("pause", {
+            socket.emit('pause', {
                 id,
             });
         },
@@ -30,7 +30,7 @@ module.exports = (socket, id) => {
         handleResume: (err, args) => {
             if (err) return socket.close();
 
-            socket.emit("resume", {
+            socket.emit('resume', {
                 id,
             });
         },
@@ -38,20 +38,20 @@ module.exports = (socket, id) => {
         handleAbort: (err, args) => {
             if (err) return socket.close();
 
-            socket.emit("abort", {
+            socket.emit('abort', {
                 id,
             });
         },
 
         handleInterrupt: () => {
-            socket.emit("interrupt", {
+            socket.emit('interrupt', {
                 id,
             });
-            socket.hasOwnProperty("close") && socket.close();
+            socket.hasOwnProperty('close') && socket.close();
         },
 
         handleRunStats: (stats) => {
-            socket.emit("run-stats", {
+            socket.emit('run-stats', {
                 runId: id,
                 cpu: stats.cpu,
                 memory: stats.memory,
@@ -60,7 +60,7 @@ module.exports = (socket, id) => {
 
         handleRunEvent: (event) => {
             return (err, args) => {
-                socket.emit("run-event", {
+                socket.emit('run-event', {
                     type: event,
                     runId: id,
                     time: Date.now(),

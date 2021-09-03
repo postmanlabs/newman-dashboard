@@ -1,4 +1,4 @@
-const Document = require("camo").Document;
+const Document = require('camo').Document;
 
 class Event extends Document {
     constructor() {

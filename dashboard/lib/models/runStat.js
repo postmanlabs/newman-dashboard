@@ -1,4 +1,4 @@
-const Document = require("camo").Document;
+const Document = require('camo').Document;
 
 class RunStat extends Document {
     constructor() {

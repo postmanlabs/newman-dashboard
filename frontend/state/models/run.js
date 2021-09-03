@@ -125,7 +125,6 @@ export default class RunModel {
 
     @computed
     getMemoryUsage() {
-        console.log(this.stats);
         // show live memory stats while run is active
         if (this.isActive() || this.isPaused()) {
             let currMemory = this.stats[this.stats.length - 1].memory / 1e6;

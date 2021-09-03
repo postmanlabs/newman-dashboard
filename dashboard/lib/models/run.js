@@ -1,6 +1,6 @@
-const Document = require("camo").Document;
-const Event = require("./event");
-const RunStat = require("./runStat");
+const Document = require('camo').Document;
+const Event = require('./event');
+const RunStat = require('./runStat');
 
 class Run extends Document {
     constructor() {
@@ -18,11 +18,11 @@ class Run extends Document {
 
     async populate() {
         this.stats = await RunStat.find({ runId: this._id });
-        this.events = await Event.find({ runId: this._id }, { sort: "time" });
+        this.events = await Event.find({ runId: this._id }, { sort: 'time' });
     }
 
     static collectionName() {
-        return "runs";
+        return 'runs';
     }
 }
 

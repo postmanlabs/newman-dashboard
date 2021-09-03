@@ -31,7 +31,7 @@ const {
 const init = async () => {
     // setup socket.io server
     const server = Server.init();
-    await db.init();
+    const dbCleanup = await db.init();
 
     const io = socket(server, {
         cors: {
@@ -79,7 +79,14 @@ const init = async () => {
         }
     });
 
-    return { server, io };
+    // clean close the server
+    const close = () => {
+        server.close();
+        io.close();
+        dbCleanup();
+    };
+
+    return { close };
 };
 
 // Run this script if this is a direct stdin.

@@ -10,13 +10,12 @@ const Server = require('../../../../dashboard/server');
 describe('Server', () => {
     let launchedServer;
 
-    before(() => {
-        launchedServer = Server.init();
+    before(async () => {
+        launchedServer = await Server.init();
     });
 
-    after(() => {
-        launchedServer.io.close();
-        launchedServer.server.close();
+    after(async () => {
+        launchedServer.close();
     });
 
     describe('Run events', () => {

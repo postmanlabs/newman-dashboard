@@ -185,8 +185,8 @@ describe('Reporter events', () => {
             expect(socket.emit.calledOnce).to.be.true;
             expect(socket.emit.firstCall.args).to.have.lengthOf(2);
             expect(socket.emit.firstCall.args[0]).to.equal('run-event');
-            expect(socket.emit.firstCall.args[1]).to.haveOwnProperty('id');
-            expect(socket.emit.firstCall.args[1].id).to.equal('abc');
+            expect(socket.emit.firstCall.args[1]).to.haveOwnProperty('runId');
+            expect(socket.emit.firstCall.args[1].runId).to.equal('abc');
             expect(socket.emit.firstCall.args[1]).to.haveOwnProperty('type');
             expect(socket.emit.firstCall.args[1].type).to.equal('event');
         });
