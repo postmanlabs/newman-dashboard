@@ -18,7 +18,7 @@ class Run extends Document {
 
     async populate() {
         this.stats = await RunStat.find({ runId: this._id });
-        this.events = await Event.find({ runId: this._id });
+        this.events = await Event.find({ runId: this._id }, { sort: "time" });
     }
 
     static collectionName() {
