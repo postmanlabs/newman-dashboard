@@ -1,5 +1,5 @@
 class BatchQueue {
-    constructor (queueProcessor) {
+    constructor(queueProcessor) {
         this.queue = [];
         this.processing = false;
         this.queueProcessor = queueProcessor;
@@ -26,11 +26,11 @@ class BatchQueue {
             await prevPromise;
             await this.queueProcessor(item);
 
-            // at last item, mark processing as complete so that the new batch can be saved
-            if (index == currentQueue.length - 1) { 
-                this.processing = false
+            // at last, mark processing as complete so that new batch is saved
+            if (index == currentQueue.length - 1) {
+                this.processing = false;
                 this.processQueue();
-            };
+            }
         }, Promise.resolve());
     }
 }
