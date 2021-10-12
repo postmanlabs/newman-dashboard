@@ -1,5 +1,5 @@
 class BatchQueue {
-    constructor(queueProcessor) {
+    constructor (queueProcessor) {
         this.queue = [];
         this.processing = false;
         this.queueProcessor = queueProcessor;
@@ -22,12 +22,16 @@ class BatchQueue {
         const currentQueue = this.queue;
         this.queue = [];
 
-        await currentQueue.reduce(async (prevPromise, item) => {
+        await currentQueue.reduce(async (prevPromise, item, index) => {
             await prevPromise;
             await this.queueProcessor(item);
-        }, Promise.resolve());
 
-        return this.processQueue;
+            // at last item, mark processing as complete so that the new batch can be saved
+            if (index == currentQueue.length - 1) { 
+                this.processing = false
+                this.processQueue();
+            };
+        }, Promise.resolve());
     }
 }
 

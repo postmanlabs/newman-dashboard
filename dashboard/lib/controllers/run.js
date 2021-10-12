@@ -3,6 +3,9 @@ const Event = require('../models/event');
 const RunStat = require('../models/runStat');
 const BatchQueue = require('./batchQueue');
 
+// queues for batching stats and events
+let statsBatch, eventsBatch;
+
 const api = {
     insert: async (data) => {
         if (!data.id) throw new TypeError('Invalid run data');
@@ -85,14 +88,14 @@ const api = {
         await stat.save();
     },
 
-    addEvent: async (data) => {
-        const batch = new BatchQueue(api.saveEvent);
-        batch.add(data);
+    addEvent: (data) => {
+        eventsBatch = eventsBatch || new BatchQueue(api.saveEvent);
+        eventsBatch.add(data);
     },
 
-    addStats: async (data) => {
-        const batch = new BatchQueue(api.saveStats);
-        batch.add(data);
+    addStats: (data) => {
+        statsBatch = statsBatch || new BatchQueue(api.saveStats);
+        statsBatch.add(data);
     },
 };
 
