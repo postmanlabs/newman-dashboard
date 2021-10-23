@@ -39,8 +39,19 @@ C. Connect a newman run to the dashboard
 ```
 newman run collection.json -r dashboard
 ```
-
 This will connect the run to the dashboard and you would be able to view its status on the frontend.
+
+D. Run file with Newman
+
+```
+npm link
+cd /path/to/newman
+npm link newman-reporter-dashboard
+
+bin/newman.js run -r dashboard collection.json
+```
+
+
 
 ## Environment setup
 
