@@ -14,34 +14,6 @@ Newman Dashboard aims to provide a real-time WebUI dashboard which can let you c
 
 This project was built during [Google Summer of Code 2021](https://summerofcode.withgoogle.com/projects/#5547391014404096) ☀️ with [Postman](https://github.com/postmanlabs) 🚀
 
-## Usage
-
-This package is both a reporter and a standalone package. The standalone package takes care of launching the dashboard, while the reporter connects to the newman run.
-
-A. For installation:
-
-```
-npm install -g newman-dashboard
-```
-
-B. Launch the dashboard on `localhost:5001`
-
-```
-newman-dashboard
-```
-
-You can also choose to daemonize the dashboard using the `--daemonize` flag.
-
-The dashboard frontend would now be visible on `http://localhost:5001/`
-
-C. Connect a newman run to the dashboard
-
-```
-newman run collection.json -r dashboard
-```
-
-This will connect the run to the dashboard and you would be able to view its status on the frontend.
-
 ## Environment setup
 
 A. Install all dependencies
