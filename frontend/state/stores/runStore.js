@@ -14,7 +14,7 @@ class RunStore {
         this.clear();
 
         try {
-            Object.values(runs).forEach(run => {
+            runs.forEach(run => {
                 this.add(run);
             });
 
@@ -30,7 +30,9 @@ class RunStore {
 
     @action
     add(run) {
-        if(!run.hasOwnProperty('id')) return;
+        if (run.hasOwnProperty('_id')) run.id = run._id;
+
+        if (!run.hasOwnProperty('id')) return;
 
         this.runs[run.id] = new Run(run, socket);
     }
@@ -40,10 +42,9 @@ class RunStore {
         return this.runs[id];
     }
 
+    @computed
     getSortedRuns() {
-        return Object.values(this.runs).sort((firstRun, secondRun) => {
-            firstRun.endTime < secondRun.endTime;
-        });
+        return Object.values(this.runs).sort((firstRun, secondRun) => secondRun.endTime - firstRun.endTime);
     }
 };
 

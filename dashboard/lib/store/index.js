@@ -1,17 +1,16 @@
-const Table = require('./table');
+const connect = require('camo').connect;
+const paths = require('env-paths')('newman-dashboard');
+const uri = `nedb://${paths.data}`;
 
-const cache = {};
+const init = async () => {
+    try {
+        await connect(uri);
 
-const api = {
-    _createTable: (tableName) => {
-        cache[tableName] = new Table({});
-        return;
-    },
-
-    getTable: async (tableName) => {
-        if (!cache.hasOwnProperty(tableName)) api._createTable(tableName);
-        return cache[tableName];
-    },
+        // cleanup function to terminate db connection
+        return () => process.exit(0);
+    } catch (e) {
+        console.log('Error in connecting to database.');
+    }
 };
 
-module.exports = api;
+module.exports = { init };

@@ -20,7 +20,7 @@ const RunDetails = observer(() => {
 
     useEffect(() => {
         const execService = async () => {
-            if (!run) {
+            if (!run || !run.events.length) {
                 run = await RunService.fetchOne(id);
             }
             setIsLoading(false);

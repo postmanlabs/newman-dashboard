@@ -72,7 +72,6 @@ const RunData = observer(({ run }) => {
                     run.events.map((event) => (
                         <RunEvent
                             event={event}
-                            startTime={run.startTime}
                             key={event.time}
                         />
                     ))}

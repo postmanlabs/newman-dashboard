@@ -1,83 +1,101 @@
 const Run = require('../models/run');
-const db = require('../store');
+const Event = require('../models/event');
+const RunStat = require('../models/runStat');
+const BatchQueue = require('./batchQueue');
+
+// queues for batching stats and events
+let statsBatch, eventsBatch;
 
 const api = {
     insert: async (data) => {
-        const runs = await db.getTable('runs');
-        await runs.insert(data.id, new Run(data));
-    },
+        if (!data.id) throw new TypeError('Invalid run data');
 
-    findOne: async (id) => {
-        const runs = await db.getTable('runs');
+        const runDocument = Run.create(data);
+        const run = await runDocument.save();
 
-        if (!id) throw new TypeError('Invalid id');
-        return runs.findOne(id);
-    },
-
-    find: async () => {
-        const runs = await db.getTable('runs');
-        return runs.find();
-    },
-
-    clear: async () => {
-        const runs = await db.getTable('runs');
-        return runs.clear();
+        if (!run)
+            throw new Error('Unable to save run data. Incoherent schema.');
     },
 
     pause: async (id) => {
         if (!id) throw new TypeError('Invalid id');
-        const run = await api.findOne(id);
+        const run = await Run.findOne({ _id: id });
 
         if (!run) throw new Error('Run not found.');
-        run.setPaused();
+
+        run.status = 'paused';
+        await run.save();
     },
 
     resume: async (id) => {
         if (!id) throw new TypeError('Invalid id');
-        const run = await api.findOne(id);
+        const run = await Run.findOne({ _id: id });
 
         if (!run) throw new Error('Run not found.');
-        run.setActive();
+
+        run.status = 'active';
+        await run.save();
     },
 
     abort: async (id) => {
         if (!id) throw new TypeError('Invalid id');
-        const run = await api.findOne(id);
+        const run = await Run.findOne({ _id: id });
 
         if (!run) throw new Error('Run not found.');
-        run.setAborted();
+
+        run.status = 'aborted';
+        run.endTime = Date.now();
+        await run.save();
     },
 
     done: async (id) => {
         if (!id) throw new TypeError('Invalid id');
-        const run = await api.findOne(id);
+        const run = await Run.findOne({ _id: id });
 
         if (!run) throw new Error('Run not found.');
-        run.setFinished();
+
+        if (run.status === 'aborted') return;
+
+        run.status = 'finished';
+        run.endTime = Date.now();
+        await run.save();
     },
 
     interrupt: async (id) => {
         if (!id) throw new TypeError('Invalid id');
-        const run = await api.findOne(id);
+        const run = await Run.findOne({ _id: id });
 
         if (!run) throw new Error('Run not found.');
-        run.setInterrupted();
+
+        run.status = 'interrupted';
+        await run.save();
     },
 
-    addEvent: async (data) => {
-        if (!data.id) throw new TypeError('Invalid id');
-        const run = await api.findOne(data.id);
+    saveEvent: async (data) => {
+        if (!data.runId) throw new TypeError('Invalid parent id');
 
-        if (!run) throw new Error('Run not found.');
-        run.addEvent(data);
+        const event = Event.create(data);
+        if (!event) throw new Error('Invalid event type');
+        await event.save();
     },
 
-    addStats: async (data) => {
-        if (!data.id) throw new TypeError('Invalid id');
-        const run = await api.findOne(data.id);
+    saveStats: async (data) => {
+        if (!data.runId) throw new TypeError('Invalid parent id');
 
-        if (!run) throw new Error('Run not found.');
-        run.addRunStats(data);
+        const stat = RunStat.create(data);
+        if (!stat) throw new Error('Invalid stat type');
+
+        await stat.save();
+    },
+
+    addEvent: (data) => {
+        eventsBatch = eventsBatch || new BatchQueue(api.saveEvent);
+        eventsBatch.add(data);
+    },
+
+    addStats: (data) => {
+        statsBatch = statsBatch || new BatchQueue(api.saveStats);
+        statsBatch.add(data);
     },
 };
 

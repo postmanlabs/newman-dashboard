@@ -13,4 +13,8 @@ module.exports = {
 
         next(new Error('Unauthorized access.'));
     },
+
+    handleDBError: (err) => {
+        console.log('Error loading data files. Indicates corrupted data.');
+    },
 };

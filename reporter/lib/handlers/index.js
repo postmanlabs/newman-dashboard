@@ -52,7 +52,7 @@ module.exports = (socket, id) => {
 
         handleRunStats: (stats) => {
             socket.emit('run-stats', {
-                id,
+                runId: id,
                 cpu: stats.cpu,
                 memory: stats.memory,
             });
@@ -62,7 +62,8 @@ module.exports = (socket, id) => {
             return (err, args) => {
                 socket.emit('run-event', {
                     type: event,
-                    id,
+                    runId: id,
+                    time: Date.now(),
                     args,
                     err,
                 });

@@ -19,7 +19,7 @@ program
     )
     .option('-d, --daemonize', 'Run the server as a daemon.')
     .option('-t, --test', 'Run the CLI without any actions for unit tests.')
-    .action(() => {
+    .action(async () => {
         if (program.opts().test) {
             return;
         }
@@ -31,7 +31,7 @@ program
             return;
         }
 
-        Server.init();
+        await Server.init();
     });
 
 // Run this script if this is a direct stdin.

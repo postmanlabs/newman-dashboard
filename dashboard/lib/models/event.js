@@ -1,14 +1,15 @@
-class Event {
-    constructor(data) {
-        this._init(data);
-    }
+const Document = require('camo').Document;
 
-    _init(data) {
-        this.type = data.type;
-        this.parentId = data.id;
-        this.time = Date.now();
-        this.args = data.args;
-        this.err = data.err;
+class Event extends Document {
+    constructor() {
+        super();
+
+        this.type = String;
+        this.parentId = String;
+        this.time = Number;
+        this.args = [String];
+        this.err = String;
+        this.runId = String;
     }
 }
 
