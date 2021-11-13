@@ -49,7 +49,7 @@ npm link
 cd /path/to/newman
 npm link newman-reporter-dashboard
 
-bin/newman.js run -r dashboard collection.json
+newman run -r dashboard collection.json
 ```
 
 
