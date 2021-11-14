@@ -32,13 +32,11 @@ $ git push origin develop
 
 **Step 7:** Work on the changes. You can keep track of your branch and staging area using `git status`
 
-**Step 8:** Make sure you run the `black` autolinter before you add your changes to the staging area. `black` can be installed on your local system using `pip install black`, and can be run with `black .` on all the files in your current working directory.
+**Step 8:** Add all of the changes you made to the staging area before you commit with `git add .` 
 
-**Step 9:** Add all of the changes you made to the staging area before you commit with `git add .` 
+**Step 9:** Commit your changes with a meaningful commit message using `git commit -m "commit message"`
 
-**Step 10:** Commit your changes with a meaningful commit message using `git commit -m "commit message"`
-
-**Step 11:** Finally push your changes to your forked repository using `git push origin <branch>`
+**Step 10:** Finally push your changes to your forked repository using `git push origin <branch>`
 
 
 
