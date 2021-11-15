@@ -43,7 +43,8 @@ $ git push origin develop
 
 ## Usage
 
-This package is both a reporter and a standalone package. The standalone package takes care of launching the dashboard, while the reporter connects to the newman run.
+This package is mono-repo for the reporter and the dashboard package. The dashboard package takes care of launching the dashboard, while the reporter connects to Newman.
+
 
 A. For installation:
 ```
