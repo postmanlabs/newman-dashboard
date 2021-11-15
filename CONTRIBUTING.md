@@ -81,7 +81,8 @@ cd /path/to/newman
 npm link
 npm link newman-reporter-dashboard
 
-newman run -r dashboard collection.json
+bin/newman.js run -r dashboard collection.json
+
 ```
 
 ## Making your first Pull Request
