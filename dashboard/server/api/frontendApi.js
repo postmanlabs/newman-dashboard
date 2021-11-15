@@ -1,8 +1,6 @@
-const {
-    ABORT_REQUEST,
-    PAUSE_REQUEST,
-    RESUME_REQUEST,
-} = require('../../lib/constants/socket-events');
+const PAUSE_REQUEST = 'pause';
+const ABORT_REQUEST = 'abort';
+const RESUME_REQUEST = 'resume';
 
 module.exports = (socket) => ({
     handlePauseRequest: (data, callback) => {
