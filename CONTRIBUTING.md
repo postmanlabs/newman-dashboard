@@ -48,7 +48,9 @@ This package is mono-repo for the reporter and the dashboard package. The dashbo
 
 A. For installation:
 ```
-npm pack reporter
+cd reporter
+npm pack
+npm i -g newman-reporter-dashboard.<version>.tgz
 ```
 
 ```
