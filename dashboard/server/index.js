@@ -6,26 +6,24 @@ const runHandlers = require('./api/runApi');
 const frontendHandlers = require('./api/frontendApi');
 const utils = require('../lib/utils');
 
-const {
-    START_RUN,
-    PAUSE_RUN,
-    ABORT_RUN,
-    RESUME_RUN,
-    DONE_RUN,
-    INTERRUPT_RUN,
-    TEST_CONN,
-    RUN_EVENT,
-    RUN_STATS,
-} = require('../lib/constants/socket-events');
-const { NEWMAN_RUN, FRONTEND } = require('../lib/constants/socket-rooms');
+const START_RUN = 'start';
+const PAUSE_RUN = 'pause';
+const ABORT_RUN = 'abort';
+const RESUME_RUN = 'resume';
+const DONE_RUN = 'done';
+const INTERRUPT_RUN = 'interrupt';
+const RUN_EVENT = 'run-event';
+const RUN_STATS = 'run-stats';
+const TEST_CONN = 'test';
 
-const {
-    FRONTEND_REQUEST_ABORT,
-    FRONTEND_REQUEST_RESUME,
-    FRONTEND_REQUEST_PAUSE,
-    FRONTEND_REQUEST_TEST_CONN,
-    FRONTEND_REQUEST_TERMINATE,
-} = require('../lib/constants/frontend-events');
+const NEWMAN_RUN = 'newman-run';
+const FRONTEND = 'frontend';
+
+const FRONTEND_REQUEST_PAUSE = 'pause';
+const FRONTEND_REQUEST_ABORT = 'abort';
+const FRONTEND_REQUEST_RESUME = 'resume';
+const FRONTEND_REQUEST_TERMINATE = 'terminate';
+const FRONTEND_REQUEST_TEST_CONN = 'test';
 
 const init = () => {
     // setup socket.io server
