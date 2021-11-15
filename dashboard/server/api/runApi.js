@@ -1,13 +1,11 @@
-const {
-    FRONTEND_ABORT_RUN,
-    FRONTEND_NEW_RUN,
-    FRONTEND_PAUSE_RUN,
-    FRONTEND_RESUME_RUN,
-    FRONTEND_RUN_EVENT,
-    FRONTEND_DONE_RUN,
-    FRONTEND_INTERRUPT_RUN,
-    FRONTEND_RUN_STATS,
-} = require('../../lib/constants/frontend-events');
+const FRONTEND_NEW_RUN = 'start';
+const FRONTEND_PAUSE_RUN = 'pause';
+const FRONTEND_ABORT_RUN = 'abort';
+const FRONTEND_RESUME_RUN = 'resume';
+const FRONTEND_DONE_RUN = 'done';
+const FRONTEND_INTERRUPT_RUN = 'interrupt';
+const FRONTEND_RUN_EVENT = 'run-event';
+const FRONTEND_RUN_STATS = 'run-stats';
 
 const controllers = require('../../lib/controllers/run');
 
