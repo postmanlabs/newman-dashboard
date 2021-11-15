@@ -14,6 +14,11 @@ Newman Dashboard aims to provide a real-time WebUI dashboard which can let you c
 
 This project was built during [Google Summer of Code 2021](https://summerofcode.withgoogle.com/projects/#5547391014404096) ☀️ with [Postman](https://github.com/postmanlabs) 🚀
 
+
+ ## [Usage and contribution details (click here)](CONTRIBUTING.md)
+
+
+
 ## Environment setup
 
 A. Install all dependencies
