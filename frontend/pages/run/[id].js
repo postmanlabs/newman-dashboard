@@ -8,7 +8,7 @@ import runStore from "../../state/stores";
 import RunData from "../../components/RunData";
 import Header from "../../components/Header";
 import EmptyRuns from "../../components/EmptyRuns";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 const RunDetails = observer(() => {
     const [isLoading, setIsLoading] = useState(true);
@@ -16,12 +16,12 @@ const RunDetails = observer(() => {
     const router = useRouter();
     const { id } = router.query;
 
-    let run = runStore.find(id);
+    let run = useRef(runStore.find(id));
 
     useEffect(() => {
         const execService = async () => {
             if (!run) {
-                run = await RunService.fetchOne(id);
+                run.current = await RunService.fetchOne(id);
             }
             setIsLoading(false);
         };
@@ -32,8 +32,8 @@ const RunDetails = observer(() => {
         <>
             <Header />
             {!isLoading &&
-                (!!run ? (
-                    <RunData run={run} />
+                (!!run.current ? (
+                    <RunData run={run.current} />
                 ) : (
                     <div className="flex flex-col items-center">
                         <EmptyRuns message="No run found." />
