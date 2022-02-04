@@ -12,7 +12,8 @@
     "coverage": "node npm/coverage.js",
     "dev:dashboard": "nodemon ./dashboard/server/index.js",
     "dev:client": "next ./frontend",
-    "build": "node npm/build.js"
+    "build": "node npm/build.js",
+    "generate-docs": "jsdoc -c conf.json -d ./docs -r ./lib"
   },
   "keywords": [
     "newman",
@@ -39,6 +40,7 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-promise": "^5.1.0",
+    "jsdoc": "^3.6.10",
     "nodemon": "^2.0.12",
     "prettier": "^2.3.0"
   },
