@@ -13,7 +13,7 @@
     "dev:dashboard": "nodemon ./dashboard/server/index.js",
     "dev:client": "next ./frontend",
     "build": "node npm/build.js",
-    "generate-docs": "jsdoc -c jsdoc.conf.json -d ./out -r ./lib"
+    "generate-docs": "jsdoc --configure jsdoc.conf.json -d ./out"
   },
   "keywords": [
     "newman",

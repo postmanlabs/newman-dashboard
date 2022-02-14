@@ -15,7 +15,7 @@
     "coverage": "npm run coverage:unit && npm run coverage:integration",
     "coverage:unit": "npm run test:unit && codecov",
     "coverage:integration": "exit 0",
-    "generate-docs": "jsdoc -c ../jsdoc.conf.json -d ../out/reporter/docs"
+    "generate-docs": "jsdoc --configure ../jsdoc.conf.json"
   },
   "author": "elit-altum",
   "license": "Apache-2.0",
