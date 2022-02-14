@@ -13,7 +13,7 @@
     "coverage:integration": "exit 0",
     "dev": "next .",
     "build": "next build . && next export .",
-    "generate-docs": "jsdoc --configure ../jsdoc.conf.json"
+    "build-docs": "jsdoc --configure ../.jsdoc-conf.json"
   },
   "author": "elit-altum",
   "license": "Apache-2.0",

@@ -13,7 +13,7 @@
     "dev:dashboard": "nodemon ./dashboard/server/index.js",
     "dev:client": "next ./frontend",
     "build": "node npm/build.js",
-    "generate-docs": "jsdoc --configure jsdoc.conf.json -d ./out"
+    "build-docs": "node npm/build-docs.js"
   },
   "keywords": [
     "newman",
@@ -42,6 +42,7 @@
     "eslint-plugin-promise": "^5.1.0",
     "jsdoc": "^3.6.10",
     "nodemon": "^2.0.12",
+    "postman-jsdoc-theme": "^0.0.3",
     "prettier": "^2.3.0"
   },
   "dependencies": {
