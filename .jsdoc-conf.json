@@ -27,8 +27,7 @@
         "template": "./node_modules/postman-jsdoc-theme",
         "encoding": "utf8",
         "destination": "./out/docs",
-        "recurse": true,
-        "readme": "README.md"
+        "recurse": true
     },
     "markdown": {
         "parser": "gfm",
