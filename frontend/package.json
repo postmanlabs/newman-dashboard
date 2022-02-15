@@ -12,7 +12,8 @@
     "coverage:unit": "exit 0",
     "coverage:integration": "exit 0",
     "dev": "next .",
-    "build": "next build . && next export ."
+    "build": "next build . && next export .",
+    "build-docs": "jsdoc --configure ../.jsdoc-conf.json"
   },
   "author": "elit-altum",
   "license": "Apache-2.0",
@@ -46,6 +47,7 @@
     "eslint-plugin-promise": "^5.1.0",
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "jsdoc": "^3.6.10",
     "nodemon": "^2.0.7",
     "postcss": "^8.3.5",
     "prettier": "^2.3.0",
